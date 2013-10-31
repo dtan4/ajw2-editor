@@ -9,3 +9,9 @@ $ ->
 
     $('#generateBtn').click ->
         alert 'Generate!'
+
+    $('#createDbBtn').click ->
+        if $('#newDbName').val() is ''
+            alert 'Database name is empty!'
+        else
+            $('#createDbModal').modal('hide')
