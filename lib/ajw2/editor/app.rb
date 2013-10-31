@@ -16,5 +16,9 @@ module Ajw2::Editor
     get "/" do
       slim :index
     end
+
+    get "/js/app.js" do
+      coffee :app
+    end
   end
 end
