@@ -6,19 +6,20 @@ html
     link href="/css/bootstrap.min.css" rel="stylesheet"
     link href="/css/app.css" rel="stylesheet"
   body
-    nav class="navbar navbar-default"
+    nav class="navbar navbar-default" role="navigation"
       .navbar-header
         a class="navbar-brand" href="#" Ajw2 Editor
 
       div class="collapse navbar-collapse"
         ul class="nav navbar-nav"
           li : a href="#" hoge
+        ul class="nav navbar-nav navbar-right"
+          li : button type="button" class="btn btn-primary navbar-btn" Create New
 
     .col-md-2
       .well
         p sidebar
-        p : button type="button" class="btn btn-primary" Create New
-        p : button type="button" class="btn btn-danger" Generate
+        p : button type="button" class="btn btn-success btn-lg" Generate
 
     .col-md-10
       .container
