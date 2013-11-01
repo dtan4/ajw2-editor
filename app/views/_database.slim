@@ -10,8 +10,10 @@ div class="modal fade" id="createDbModal" tabindex="1" role="dialog" aria-labell
       .modal-body
         div class="alert alert-warning hide"
           p Database name is empty!
-        label for="newDbName" Database name:
-        input type="text" id="newDbName" placeholder="Database name" required="true"
+        form class="form-inline" role="form"
+          .form-group
+            label for="newDbName" Database name:
+            input type="text" id="newDbName" class="form-control" placeholder="Database name" required="true"
       .modal-footer
         button type="button" class="btn btn-default" data-dismiss="modal" Close
         button type="button" class="btn btn-primary" id="createDbBtn" Create database
