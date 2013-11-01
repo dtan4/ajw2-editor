@@ -1,16 +1,17 @@
 h3 Database
 
-.col-md-8
+form class="form-inline" role="form"
+  .form-group
+    label class="sr-only" for="newDbName" Database name
+    input type="text" id="newDbName" class="form-control" placeholder="Database name" required="true"
+  button type="button" class="btn btn-primary" id="createDbBtn" style="margin-left:10px" Create database
+
+.col-md-8 style="margin:20px"
   ul class="nav nav-tabs" id="dbTabNav"
     li class="active" id="newDbTab" : a href="#newDbTab" data-toggle="tab" +
 
-  div class="container"
-    div class="tab-content" id="dbTabContent"
+  .container
+    .tab-content id="dbTabContent"
       div class="tab-pane active" id="newDbContent" style="margin:10px"
-        form role="form"
-          .form-group
-            label for="newDbName" Database name
-            input type="text" id="newDbName" class="form-control" placeholder="Database name" required="true" style="width:50%"
-          button type="button" class="btn btn-primary" id="createDbBtn" Create database
 
 #dbPane
