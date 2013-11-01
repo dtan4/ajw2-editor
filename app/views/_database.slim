@@ -5,13 +5,12 @@ form class="form-inline" role="form"
     label class="sr-only" for="newDbName" Database name
     input type="text" id="newDbName" class="form-control" placeholder="Database name" required="true"
   button type="button" class="btn btn-primary" id="createDbBtn" style="margin-left:10px" Create database
+  button type="button" class="btn btn-danger" id="clearDbBtn" style="margin-left:10px" Delete all databases
 
 .col-md-8 style="margin:20px"
   ul class="nav nav-tabs" id="dbTabNav"
-    li class="active" id="newDbTab" : a href="#newDbTab" data-toggle="tab" +
 
   .container
     .tab-content id="dbTabContent"
-      div class="tab-pane active" id="newDbContent" style="margin:10px"
 
 #dbPane
