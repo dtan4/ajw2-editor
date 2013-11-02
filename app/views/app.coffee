@@ -10,12 +10,16 @@ $ ->
 
   $('#createDbBtn').click ->
     dbName = $('#newDbName').val()
+
     if dbName is ''
       alert 'Database name is empty!'
+      # TODO: focus
     else if dbExists(dbName)
       alert 'Database ' + dbName + ' already exists!'
+      # TODO: focus
     else
       createDatabase(dbName)
+      $('#newDbName').val('')
 
   $('#clearDbBtn').click ->
     # TODO: confirm
