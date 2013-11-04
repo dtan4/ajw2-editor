@@ -1,4 +1,6 @@
 $ ->
+  storage = localStorage
+
   $('#createBtn').click ->
     alert 'Create New!'
 
@@ -40,22 +42,22 @@ $ ->
       addToDBList(dbName)
 
   clearDatabase = ->
-    delete localStorage.dbList if localStorage.dbList
+    delete storage.dbList if storage.dbList
     $('#dbTabNav').html ''
     $('#dbTabContent').html ''
 
   addToDBList = (dbName) ->
-    if localStorage.dbList
-      dbList = JSON.parse localStorage.dbList
+    if storage.dbList
+      dbList = JSON.parse storage.dbList
     else
       dbList = []
 
     dbList.push dbName
-    localStorage.dbList = JSON.stringify dbList
+    storage.dbList = JSON.stringify dbList
 
   dbExists = (dbName) ->
-    if localStorage.dbList
-      dbList = JSON.parse localStorage.dbList
+    if storage.dbList
+      dbList = JSON.parse storage.dbList
       return dbList.indexOf(dbName) >= 0
     else
       return false
