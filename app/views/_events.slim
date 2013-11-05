@@ -1,1 +1,61 @@
 h3 Events
+
+form class="form-inline" role="form"
+  button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eventsModal" style="margin-left:10px" Create event
+  button type="button" class="btn btn-danger" id="clearEventsBtn" style="margin-left:10px" Delete all events
+
+table class="table table-striped" style="width:50%"
+  thead
+    tr
+      th Target element ID
+      th Event type
+      th
+  tbody id="eventsTableBody"
+
+
+#eventsModal class="modal fade" tabidnex="-1" role="dialog" aria-labelledby="eventsModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-hidden="true" &times;
+        h4 class="modal-title" id="eventsModalLabel" Create event
+      .modal-body
+        h4 Trigger
+        .form class="form form-inline" role="form"
+          .form-group
+            label class="sr-only" for="targetId" Element ID
+            input type="text" class="form-control" id="targetId" placeholder="Target element ID" required="true"
+          .form-group style="margin-left:10px"
+            label class="sr-only" for="eventType" Event Type
+            / TODO: combobox
+            input type="text" class="form-control" id="eventType" placeholder="Event type" required="true"
+        hr
+        h4 Condition
+        .form class="form form-inline" role="form"
+          .form-group
+            label class="sr-only" for="evaluatedId" Element ID
+            input type="text" class="form-control" id="evaluatedId" placeholder="Element ID"
+          select type="combobox" class="form-component" id="operand" style="margin-left:10px"
+            option value="eq" eq
+            option value="lt" lt
+            option value="gt" gt
+            option value="success" success
+            / option value="and" and
+            / option value="or" or
+            / option value="not" not
+          .form-group style="margin-left:10px"
+            label class="sr-only" for="conditionValue" Event Type
+            input type="text" class="form-control" id="conditionValue"
+        hr
+        h4 Action
+        .form class="form form-inline" role="form"
+          .form-group
+            label class="sr-only" for="actionDbName" Database name
+            input type="text" class="form-control" id="actionDbName" placeholder="Database name"
+          select type="combobox" class="form-component" id="dbEvent" style="margin-left:10px"
+            option value="insert" insert
+            option value="update" update
+            option value="delete" delete
+      .modal-footer
+        button class="btn btn-default" data-dismiss="modal" Close
+        button class="btn btn-primary" id="createEventBtn" Create
