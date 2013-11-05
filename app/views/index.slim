@@ -1,8 +1,16 @@
 ul.nav.nav-tabs
-  li.active : a href="#app" data-toggle="tab" Application
-  li : a href="#ui" data-toggle="tab" UI
-  li : a href="#database" data-toggle="tab" Database
-  li : a href="#events" data-toggle="tab" Events
+  li.active
+    a href="#app" data-toggle="tab"
+      span.glyphicon.glyphicon-cog  Application
+  li
+    a href="#ui" data-toggle="tab"
+      span.glyphicon.glyphicon-th  UI
+  li
+    a href="#database" data-toggle="tab"
+      span.glyphicon.glyphicon-hdd  Database
+  li
+    a href="#events" data-toggle="tab"
+      span.glyphicon.glyphicon-transfer  Events
 
 .tab-content
   .tab-pane.active#app

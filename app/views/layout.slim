@@ -11,9 +11,12 @@ html
 
       .collapse.navbar-collapse
         ul.nav.navbar-nav
-          li : a href="#" hoge
+          li
+            a href="#" hoge
         ul.nav.navbar-nav.navbar-right
-          li : button.btn.btn-primary.navbar-btn#createBtn type="button" Create New
+          li
+            button.btn.btn-primary.navbar-btn#createBtn type="button" style="margin-right:10px"
+              span.glyphicon.glyphicon-plus  New
 
     .container
       == yield
