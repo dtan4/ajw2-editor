@@ -5,15 +5,15 @@ html
     title Ajw2 Editor
     link href="/css/bootstrap.min.css" rel="stylesheet"
   body
-    nav class="navbar navbar-default" role="navigation"
+    nav.navbar.navbar-default role="navigation"
       .navbar-header
-        a class="navbar-brand" href="#" Ajw2 Editor
+        a.navbar-brand href="#" Ajw2 Editor
 
-      div class="collapse navbar-collapse"
-        ul class="nav navbar-nav"
+      .collapse.navbar-collapse
+        ul.nav.navbar-nav
           li : a href="#" hoge
-        ul class="nav navbar-nav navbar-right"
-          li : button type="button" class="btn btn-primary navbar-btn" id="createBtn" Create New
+        ul.nav.navbar-nav.navbar-right
+          li : button.btn.btn-primary.navbar-btn#createBtn type="button" Create New
 
     .container
       == yield

@@ -1,19 +1,17 @@
 h3 Database
 
-form class="form-inline" role="form"
+form.form-inline role="form"
   .form-group
-    label class="sr-only" for="newDbName" Database name
-    input type="text" id="newDbName" class="form-control" placeholder="Database name" required="true"
-  button type="button" class="btn btn-primary" id="createDbBtn" style="margin-left:10px" Create database
-  button type="button" class="btn btn-danger" id="clearDbBtn" style="margin-left:10px" Delete all databases
+    label.sr-only for="newDbName" Database name
+    input.form-control#newDbName type="text" placeholder="Database name" required="true"
+  button.btn.btn-primary#createDbBtn type="button" style="margin-left:10px" Create database
+  button.btn.btn-danger#clearDbBtn type="button" style="margin-left:10px" Delete all databases
 
 .col-md-8 style="margin:20px"
-  ul class="nav nav-tabs" id="dbTabNav"
+  ul.nav.nav-tabs#dbTabNav
+  .tab-content#dbTabContent
 
-  / .container
-  .tab-content id="dbTabContent"
-
-<script id="newTabTemplate" type="text/x-jquery-tmpl">
+script#newTabTemplate type="text/x-jquery-tmpl"
   <div class="tab-pane active" id="${dbName}Tab">
     <form class="form-inline" role="form" style="margin-top:10px">
       <div class="form-group">
@@ -37,4 +35,3 @@ form class="form-inline" role="form"
       </tbody>
     </table>
   </div>
-</script>
