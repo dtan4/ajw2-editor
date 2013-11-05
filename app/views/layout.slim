@@ -15,15 +15,8 @@ html
         ul class="nav navbar-nav navbar-right"
           li : button type="button" class="btn btn-primary navbar-btn" id="createBtn" Create New
 
-    .col-md-2
-      .well
-        p sidebar
-        p : button type="button" class="btn btn-success" id="saveBtn" Save JSON
-        p : button type="button" class="btn btn-success btn-lg" id="generateBtn" Generate
-
-    .col-md-10
-      .container
-        == yield
+    .container
+      == yield
 
     script src="/js/jquery-2.0.3.min.js"
     script src="/js/bootstrap.min.js"
