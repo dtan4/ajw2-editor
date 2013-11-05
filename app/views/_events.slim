@@ -21,14 +21,16 @@ table.table.table-striped style="width:50%"
         h4.modal-title#eventsModalLabel Create event
       .modal-body
         h4 Trigger
-        form.form-inline role="form"
+        form.form-horizontal role="form"
           .form-group
-            label.sr-only for="targetId" Element ID
-            input.form-control#targetId type="text" placeholder="Target element ID" required="true"
-          .form-group style="margin-left:10px"
-            label.sr-only for="eventType" Event Type
-            / TODO: combobox
-            input.form-control#eventType type="text" placeholder="Event type" required="true"
+            label.col-sm-3.control-label for="targetId" Element ID
+            .col-sm-9
+              input.form-control#targetId type="text" placeholder="Target element ID" required="true" style="width:50%"
+          .form-group
+            label.col-sm-3.control-label for="eventType" Event Type
+            .col-sm-9
+              / TODO: combobox
+              input.form-control#eventType type="text" placeholder="Event type" required="true" style="width:50%"
         hr
         h4 Condition
         form.form-inline role="form"
@@ -50,16 +52,16 @@ table.table.table-striped style="width:50%"
         h4 Action
         form.form-horizontal role="form"
           .form-group
-            label.col-sm-4.control-label Database
-            .col-sm-8
+            label.col-sm-3.control-label Database
+            .col-sm-9
               select.form-control#actionDbName type="combobox" style="width:50%"
           .form-group
-            label.col-sm-4.control-label Database action
-            .col-sm-8
+            label.col-sm-3.control-label Database action
+            .col-sm-9
               select.form-control#dbEvent type="combobox" style="width:50%"
-            option value="insert" insert
-            option value="update" update
-            option value="delete" delete
+                option value="insert" insert
+                option value="update" update
+                option value="delete" delete
       .modal-footer
         button.btn.btn-default data-dismiss="modal" Close
         button.btn.btn-primary#createEventBtn Create
