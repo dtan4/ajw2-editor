@@ -1,4 +1,17 @@
 $ ->
+  storage = localStorage
+
+  $('#showEventsModalBtn').click ->
+    if storage
+      $('#actionDbName').html('')
+      html = ''
+      dbList = JSON.parse storage.dbList
+
+      $.each dbList, (_, db) ->
+        html += '<option value="' + db + '">' + db + '</option>'
+
+      $('#actionDbName').html html
+
   $('#createEventBtn').click ->
     targetId = $('#targetId').val()
     eventType = $('#eventType').val()

@@ -1,7 +1,7 @@
 h3 Events
 
 form.form-inline role="form"
-  button.btn.btn-primary type="button" data-toggle="modal" data-target="#eventsModal" style="margin-left:10px" Create event
+  button.btn.btn-primary#showEventsModalBtn type="button" data-toggle="modal" data-target="#eventsModal" style="margin-left:10px" Create event
   button.btn.btn-danger#clearEventsBtn type="button" style="margin-left:10px" Delete all events
 
 table.table.table-striped style="width:50%"
@@ -21,7 +21,7 @@ table.table.table-striped style="width:50%"
         h4.modal-title#eventsModalLabel Create event
       .modal-body
         h4 Trigger
-        form.form.form-inline role="form"
+        form.form-inline role="form"
           .form-group
             label.sr-only for="targetId" Element ID
             input.form-control#targetId type="text" placeholder="Target element ID" required="true"
@@ -31,7 +31,7 @@ table.table.table-striped style="width:50%"
             input.form-control#eventType type="text" placeholder="Event type" required="true"
         hr
         h4 Condition
-        form.form.form-inline role="form"
+        form.form-inline role="form"
           .form-group
             label.sr-only for="evaluatedId" Element ID
             input.form-control#evaluatedId type="text" placeholder="Element ID"
@@ -48,11 +48,15 @@ table.table.table-striped style="width:50%"
             input.form-control#conditionValue type="text"
         hr
         h4 Action
-        form.form.form-inline role="form"
+        form.form-horizontal role="form"
           .form-group
-            label.sr-only for="actionDbName" Database name
-            input.form-control#actionDbName type="text" placeholder="Database name"
-          select.form-control#dbEvent type="combobox" style="margin-left:10px; width:20%"
+            label.col-sm-4.control-label Database
+            .col-sm-8
+              select.form-control#actionDbName type="combobox" style="width:50%"
+          .form-group
+            label.col-sm-4.control-label Database action
+            .col-sm-8
+              select.form-control#dbEvent type="combobox" style="width:50%"
             option value="insert" insert
             option value="update" update
             option value="delete" delete
