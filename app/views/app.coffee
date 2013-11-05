@@ -1,11 +1,9 @@
 $ ->
-    console.log 'hoge'
+  $('#createBtn').click ->
+    alert 'Create New!'
 
-    $('#createBtn').click ->
-        alert 'Create New!'
+  $('#saveBtn').click ->
+    alert 'Save!'
 
-    $('#saveBtn').click ->
-        alert 'Save!'
-
-    $('#generateBtn').click ->
-        alert 'Generate!'
+  $('#generateBtn').click ->
+    alert 'Generate!'
