@@ -9,6 +9,7 @@ module Ajw2::Editor
     configure do
       set :root, File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', 'app'))
       set :server, "thin"
+      Slim::Engine.default_options[:pretty] = true
     end
 
     configure :development do
