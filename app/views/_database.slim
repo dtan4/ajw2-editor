@@ -1,37 +1,34 @@
 h3 Database
 
-form.form-inline role="form"
-  .form-group
-    label.sr-only for="newDbName" Database name
-    input.form-control#newDbName type="text" placeholder="Database name" required="true"
-  button.btn.btn-primary#createDbBtn type="button" style="margin-left:10px" Create database
-  button.btn.btn-danger#clearDbBtn type="button" style="margin-left:10px" Delete all databases
+div ng-controller="DatabaseCtrl"
+  form.form-inline role="form" ng-submit="addDatabase()"
+    .form-group
+      label.sr-only Database name
+      input.form-control type="text" ng-model="dbName" placeholder="Database name" required="true"
+    button.btn.btn-primary type="submit" Create database
+    button.btn.btn-danger type="button" ng-click="clearDatabases()" style="margin-left:5px" Delete all databases
 
-.col-md-8 style="margin:20px"
-  ul.nav.nav-tabs#dbTabNav
-  .tab-content#dbTabContent
-
-script#newTabTemplate type="text/x-jquery-tmpl"
-  <div class="tab-pane active" id="${dbName}Tab">
-    <form class="form-inline" role="form" style="margin-top:10px">
-      <div class="form-group">
-        <label class="sr-only" for="${dbName}newFieldName"></label>
-        <input type="text" class="form-control" id="${dbName}newFieldName" placeholder="Field name">
-      </div>
-      <div class="form-group">
-        <label class="sr-only" for="${dbName}newFieldType"></label>
-        <input type="text" class="form-control" id="${dbName}newFieldType" placeholder="Field Type" style="margin-left:10px">
-      </div>
-      <button type="button" class="btn btn-primary" id="${dbName}newFieldBtn" style="margin-left:20px">Add field</button>
-    </form>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Field name</th>
-          <th>Field type</th>
-        </tr>
-      </thead>
-      <tbody id="${dbName}table">
-      </tbody>
-    </table>
-  </div>
+  .col-md-8 style="margin:20px"
+    ul.nav.nav-tabs
+      li ng-repeat="db in databases"
+        a href="#dbTab{{$index}}" data-toggle="tab" {{db.name}}
+    .tab-content
+      .tab-pane id="dbTab{{$index}}" ng-repeat="db in databases" ng-class="{active: $index == databases.length - 1}"
+        h4 ng-bind="db.name"
+        form.form-inline role="form" ng-submit="addField($index, fieldName, fieldType)" style="margin-top:10px"
+          .form-group
+            label.sr-only Field name
+            input.form-control id="fieldName{{$index}}" type="text" ng-model="fieldName" placeholder="Field name"
+          .form-group
+            label.sr-only Field type
+            input.form-control id="fieldType{{$index}}" type="text" ng-model="fieldType" placeholder="Field type"
+          button.btn.btn-primary type="submit" Add field
+        table.table.table-striped
+          thead
+            tr
+              th Field name
+              th Field type
+            tbody
+              tr ng-repeat="field in db.fields"
+                td ng-bind="field.name"
+                td ng-bind="field.type"
