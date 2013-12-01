@@ -3,11 +3,11 @@ ul.nav.nav-tabs
     a href="#app" data-toggle="tab"
       span.glyphicon.glyphicon-cog  Application
   li
-    a href="#ui" data-toggle="tab"
-      span.glyphicon.glyphicon-th  UI
+    a href="#interfaces" data-toggle="tab"
+      span.glyphicon.glyphicon-th  Interfaces
   li
-    a href="#database" data-toggle="tab"
-      span.glyphicon.glyphicon-hdd  Database
+    a href="#databases" data-toggle="tab"
+      span.glyphicon.glyphicon-hdd  Databases
   li
     a href="#events" data-toggle="tab"
       span.glyphicon.glyphicon-transfer  Events
@@ -15,9 +15,9 @@ ul.nav.nav-tabs
 .tab-content
   .tab-pane.active#app
     == slim :_app
-  .tab-pane#ui
-    == slim :_ui
-  .tab-pane#database
-    == slim :_database
+  .tab-pane#interfaces
+    == slim :_interfaces
+  .tab-pane#databases
+    == slim :_databases
   .tab-pane#events
     == slim :_events

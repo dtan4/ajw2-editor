@@ -25,8 +25,8 @@ module Ajw2::Editor
       coffee :app
     end
 
-    get "/js/database.js" do
-      coffee :database
+    get "/js/databases.js" do
+      coffee :databases
     end
 
     get "/js/events.js" do
