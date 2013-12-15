@@ -1,14 +1,34 @@
 h3 Interfaces
 
 div ng-controller="InterfacesCtrl"
-  form.form-inline role="form" ng-submit="addElement()"
-    .form-group
-      label.sr-only type
-      input.form-control type="text" ng-model="elemType" placeholder="type" required="true"
-    .form-group
-      label.sr-only value
-      input.form-control type="text" ng-model="elemValue" placeholder="value (optional)"
-    .form-group
-      button.btn.btn-primary type="submit" Add Element
+  ul
+    li ng-repeat="el in elements" ng-include="'element_tree.html'"
 
-  tree elements="elements" style="margin-top:10px"
+  script id="element_tree.html" type="text/ng-template"
+    .el-header ng-click="toggleForm(el)"
+      span.el-type ng-bind="el.type"
+      span.el-id ng-show="el.id != ''"
+        | \#{{el.value}}
+      span.el-class ng-show="el.elClass != ''"
+        | .{{el.elClass}}
+      span.el-value style="margin-left:5px" ng-show="el.value != ''"
+        | value: {{el.value}}
+      span.form-group
+        button.btn.btn-danger.btn-xs ng-click="el.elements = []" ng-show="el.formVisible && el.elements.length > 0"
+          span.glyphicon.glyphicon-trash
+          |  Delete Children
+    form.form-inline role="form" ng-submit="add(el, elemType, elemValue)" ng-show="el.formVisible"
+      .form-group
+        input.form-control type="text" ng-model="elemType" placeholder="type (required)" required="true"
+      .form-group
+        input.form-control type="text" ng-model="elemId" placeholder="id"
+      .form-group
+        input.form-control type="text" ng-model="elemClass" placeholder="class"
+      .form-group
+        input.form-control type="text" ng-model="elemValue" placeholder="value"
+      .form-group
+        button.btn.btn-primary type="submit"
+          span.glyphicon.glyphicon-plus
+          |  Add child
+    ul
+      li ng-repeat="el in el.elements" ng-include="'element_tree.html'"
