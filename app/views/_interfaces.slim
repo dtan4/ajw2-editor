@@ -1,1 +1,14 @@
 h3 Interfaces
+
+div ng-controller="InterfacesCtrl"
+  form.form-inline role="form" ng-submit="addElement()"
+    .form-group
+      label.sr-only type
+      input.form-control type="text" ng-model="elemType" placeholder="type" required="true"
+    .form-group
+      label.sr-only value
+      input.form-control type="text" ng-model="elemValue" placeholder="value (optional)"
+    .form-group
+      button.btn.btn-primary type="submit" Add Element
+
+  tree elements="elements" style="margin-top:10px"

@@ -1,14 +1,13 @@
 require "sinatra/base"
 require "sinatra/reloader"
 require "slim"
+require "sass"
 require "coffee-script"
-require "thin"
 
 module Ajw2::Editor
   class App < Sinatra::Base
     configure do
       set :root, File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', 'app'))
-      set :server, "thin"
       Slim::Engine.default_options[:pretty] = true
     end
 
@@ -23,6 +22,10 @@ module Ajw2::Editor
 
     get "/js/app.js" do
       coffee :app
+    end
+
+    get "/css/app.css" do
+      sass :app
     end
   end
 end
