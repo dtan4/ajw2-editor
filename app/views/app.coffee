@@ -24,10 +24,10 @@ interfacesCtrl = ($scope, $localStorage, $sessionStorage) ->
   $scope.toggleForm = (el) ->
     el.formVisible = !el.formVisible
 
-databaseCtrl = ($scope, $localStorage, $sessionStorage) ->
+databasesCtrl = ($scope, $localStorage, $sessionStorage) ->
   $scope.$storage = $sessionStorage
 
-  $scope.databases = []
+  $scope.databases = $scope.$storage.databases ? []
 
   $scope.addDatabase = ->
     $scope.databases.push({ 'name': $scope.dbName, 'fields': [] })
@@ -46,5 +46,5 @@ databaseCtrl = ($scope, $localStorage, $sessionStorage) ->
     $scope.$storage.databases = []
 
 angular.module('ajw2Editor', ['ngStorage'])
-  .controller('DatabaseCtrl', databaseCtrl)
+  .controller('DatabasesCtrl', databasesCtrl)
   .controller('InterfacesCtrl', interfacesCtrl)
