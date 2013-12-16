@@ -7,39 +7,44 @@ class Element
     @elements = elements
     @formVisible = formVisible
 
-interfacesCtrl = ($scope) ->
-  $scope.elements = [new Element('body', '', '', '', [], true)]
+interfacesCtrl = ($scope, $localStorage, $sessionStorage) ->
+  $scope.$storage = $sessionStorage
+
+  $scope.elements = $scope.$storage.elements ? [new Element('body', '', '', '', [], true)]
 
   $scope.add = (el, elemType, elemId, elemClass, elemValue) ->
     el.elements.push(new Element(elemType, elemId, elemClass, elemValue, [], true))
     el.formVisible = false
+    $scope.$storage.elements = $scope.elements
 
-  $scope.delete = (index) ->
-    console.log($scope.elements[index])
-    $scope.elements.splice(index, 1)
-
-  $scope.deleteAll = ->
-    $scope.elements = []
+  $scope.deleteChildren = (el) ->
+    el.elements = []
+    $scope.$storage.elements = $scope.elements
 
   $scope.toggleForm = (el) ->
     el.formVisible = !el.formVisible
 
-databaseCtrl = ($scope) ->
+databaseCtrl = ($scope, $localStorage, $sessionStorage) ->
+  $scope.$storage = $sessionStorage
+
   $scope.databases = []
 
   $scope.addDatabase = ->
     $scope.databases.push({ 'name': $scope.dbName, 'fields': [] })
     $scope.dbName = ''
+    $scope.$storage.databases = $scope.databases
 
   $scope.addField = (index, fieldName, fieldType) ->
     $scope.databases[index].fields.push({
       'name': fieldName,
       'type': fieldType
     })
+    $scope.$storage.databases = $scope.databases
 
   $scope.clearDatabases = ->
-    $scope.databases.length = 0
+    $scope.databases = []
+    $scope.$storage.databases = []
 
-angular.module('ajw2Editor', [])
+angular.module('ajw2Editor', ['ngStorage'])
   .controller('DatabaseCtrl', databaseCtrl)
   .controller('InterfacesCtrl', interfacesCtrl)

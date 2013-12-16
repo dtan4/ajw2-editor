@@ -14,7 +14,7 @@ div ng-controller="InterfacesCtrl"
       span.el-value style="margin-left:5px" ng-show="el.value != ''"
         | value: {{el.value}}
       span.form-group
-        button.btn.btn-danger.btn-xs ng-click="el.elements = []" ng-show="el.formVisible && el.elements.length > 0"
+        button.btn.btn-danger.btn-xs ng-click="deleteChildren(el)" ng-show="el.formVisible && el.elements.length > 0"
           span.glyphicon.glyphicon-trash
           |  Delete Children
     form.form-inline role="form" ng-submit="add(el, elemType, elemValue)" ng-show="el.formVisible"
