@@ -1,28 +1,50 @@
 h3 Databases
 
 div ng-controller="DatabasesCtrl"
+  form.form-horizontal role="form"
+    .form-group
+      label.control-label.col-sm-2 RDBMS type
+      .col-sm-10
+        / TODO: not reflected
+        .btn-group data-toggle="buttons"
+          label.btn.btn-default.active
+            input type="radio" ng-model="dbType" ng-change="$storage.dbType = dbType" value="mysql" MySQL
+          label.btn.btn-default
+            input type="radio" ng-model="dbType" ng-change="$storage.dbType = dbType" value="pg" PostgresSQL
+          label.btn.btn-default
+            input type="radio" ng-model="dbType" ng-change="$storage.dbType = dbType" value="sqlite" SQLite
+  hr
+
   form.form-inline role="form" ng-submit="addDatabase()"
     .form-group
       label.sr-only Database name
       input.form-control type="text" ng-model="dbName" placeholder="Database name" required="true"
-    button.btn.btn-primary type="submit" Create database
-    button.btn.btn-danger type="button" ng-click="clearDatabases()" style="margin-left:5px" Delete all databases
+    .form-group
+      button.btn.btn-primary type="submit"
+        span.glyphicon.glyphicon-plus
+        |  Create database
+    .form-group
+      button.btn.btn-danger.btn-sm type="button" ng-click="clearDatabases()" ng-show="databases.length > 0"
+        span.glyphicon.glyphicon-trash
+        |  Delete all databases
 
   .col-md-8 style="margin:20px"
     ul.nav.nav-tabs
-      li ng-repeat="db in databases"
+      li ng-repeat="db in databases" ng-class="{active: $index == databases.length - 1}"
         a href="#dbTab{{$index}}" data-toggle="tab" {{db.name}}
     .tab-content
       .tab-pane id="dbTab{{$index}}" ng-repeat="db in databases" ng-class="{active: $index == databases.length - 1}"
-        h4 ng-bind="db.name"
-        form.form-inline role="form" ng-submit="addField($index, fieldName, fieldType)" style="margin-top:10px"
+        form.form-inline role="form" ng-submit="addField($index, fieldName, fieldType)"
           .form-group
             label.sr-only Field name
-            input.form-control id="fieldName{{$index}}" type="text" ng-model="fieldName" placeholder="Field name"
+            input.form-control id="fieldName{{$index}}" type="text" ng-model="fieldName" placeholder="Field name" required="true"
           .form-group
             label.sr-only Field type
-            input.form-control id="fieldType{{$index}}" type="text" ng-model="fieldType" placeholder="Field type"
-          button.btn.btn-primary type="submit" Add field
+            input.form-control id="fieldType{{$index}}" type="text" ng-model="fieldType" placeholder="Field type" required="true"
+          .form-group
+            button.btn.btn-primary type="submit"
+              span.glyphicon.glyphicon-plus
+              |  Add field
         table.table.table-striped
           thead
             tr
