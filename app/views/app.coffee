@@ -1,6 +1,20 @@
 app = angular.module('ajw2Editor', ['ngStorage'])
 
-app.controller('InterfacesCtrl', ($scope, $localStorage, $sessionStorage) ->
+app.controller('EditorCtrl', ($scope) ->
+  $scope.downloadApp = ->
+    $scope.$broadcast('getModelData', {})
+    console.log "to download application archive!"
+
+  $scope.$on('sendModelData', (event, args) -> console.log args.message)
+)
+
+app.controller('ApplicationCtrl', ($scope, $sessionStorage) ->
+  $scope.$storage = $sessionStorage
+
+  $scope.appName = $scope.$storage.appName ? "Ajw2 Application"
+)
+
+app.controller('InterfacesCtrl', ($scope, $sessionStorage) ->
   class Element
     constructor: (type, id, elClass, value, elements, formVisible) ->
       @type = type
@@ -40,7 +54,7 @@ app.controller('InterfacesCtrl', ($scope, $localStorage, $sessionStorage) ->
   )
 )
 
-app.controller('DatabasesCtrl', ($scope, $localStorage, $sessionStorage) ->
+app.controller('DatabasesCtrl', ($scope, $sessionStorage) ->
   class Database
     constructor: (name) ->
       @name = name
@@ -75,4 +89,10 @@ app.controller('DatabasesCtrl', ($scope, $localStorage, $sessionStorage) ->
   $scope.clearDatabases = ->
     $scope.databases = []
     $scope.$storage.databases = []
+)
+
+app.controller('EventsCtrl', ($scope, $sessionStorage) ->
+  $scope.$storage = $sessionStorage
+
+  $scope.events = $scope.$storage.events ? []
 )
