@@ -1,13 +1,15 @@
-class Element
-  constructor: (type, id, elClass, value, elements, formVisible) ->
-    @type = type
-    @id = id
-    @elClass = elClass
-    @value = value
-    @elements = elements
-    @formVisible = formVisible
+app = angular.module('ajw2Editor', ['ngStorage'])
 
-interfacesCtrl = ($scope, $localStorage, $sessionStorage) ->
+app.controller('InterfacesCtrl', ($scope, $localStorage, $sessionStorage) ->
+  class Element
+    constructor: (type, id, elClass, value, elements, formVisible) ->
+      @type = type
+      @id = id
+      @elClass = elClass
+      @value = value
+      @elements = elements
+      @formVisible = formVisible
+
   $scope.$storage = $sessionStorage
 
   $scope.elements = $scope.$storage.elements ? [new Element('body', '', '', '', [], true)]
@@ -32,17 +34,23 @@ interfacesCtrl = ($scope, $localStorage, $sessionStorage) ->
   $scope.toggleForm = (el) ->
     el.formVisible = !el.formVisible
 
-class Database
-  constructor: (name) ->
-    @name = name
-    @fields = []
+  $scope.$on('requestModelData', (event, args) ->
+    console.log 'requestModelData!'
+    $scope.$emit('sendModelData', { interfaces: $scope.elements })
+  )
+)
 
-class Field
-  constructor: (name, type) ->
-    @name = name
-    @type = type
+app.controller('DatabasesCtrl', ($scope, $localStorage, $sessionStorage) ->
+  class Database
+    constructor: (name) ->
+      @name = name
+      @fields = []
 
-databasesCtrl = ($scope, $localStorage, $sessionStorage) ->
+  class Field
+    constructor: (name, type) ->
+      @name = name
+      @type = type
+
   $scope.$storage = $sessionStorage
 
   $scope.dbType = $scope.$storage.dbType ? 'mysql'
@@ -51,6 +59,9 @@ databasesCtrl = ($scope, $localStorage, $sessionStorage) ->
   $scope.updateDbType = (dbType) ->
     $scope.dbType = dbType
     $scope.$storage.dbType = dbType
+
+  $scope.validateDbName = (dbName) ->
+    isUnique = (db for db in $scope.databases when db.name == dbName).length == 0
 
   $scope.addDatabase = ->
     $scope.databases.push(new Database($scope.dbName))
@@ -64,7 +75,4 @@ databasesCtrl = ($scope, $localStorage, $sessionStorage) ->
   $scope.clearDatabases = ->
     $scope.databases = []
     $scope.$storage.databases = []
-
-angular.module('ajw2Editor', ['ngStorage'])
-  .controller('DatabasesCtrl', databasesCtrl)
-  .controller('InterfacesCtrl', interfacesCtrl)
+)
