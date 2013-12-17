@@ -40,6 +40,10 @@ databasesCtrl = ($scope, $localStorage, $sessionStorage) ->
   $scope.dbType = $scope.$storage.dbType ? 'mysql'
   $scope.databases = $scope.$storage.databases ? []
 
+  $scope.updateDbType = (dbType) ->
+    $scope.dbType = dbType
+    $scope.$storage.dbType = dbType
+
   $scope.addDatabase = ->
     $scope.databases.push(new Database($scope.dbName))
     $scope.dbName = ''

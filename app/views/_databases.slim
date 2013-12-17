@@ -5,20 +5,16 @@ div ng-controller="DatabasesCtrl"
     .form-group
       label.control-label.col-sm-2 RDBMS type
       .col-sm-10
-        / TODO: not reflected
-        .btn-group data-toggle="buttons"
-          label.btn.btn-default.active
-            input type="radio" ng-model="dbType" ng-change="$storage.dbType = dbType" value="mysql" MySQL
-          label.btn.btn-default
-            input type="radio" ng-model="dbType" ng-change="$storage.dbType = dbType" value="pg" PostgresSQL
-          label.btn.btn-default
-            input type="radio" ng-model="dbType" ng-change="$storage.dbType = dbType" value="sqlite" SQLite
+        .btn-group
+          a.btn.btn-default href="javascript:void(0)" ng-click="updateDbType('mysql')" ng-class="{active: dbType == 'mysql'}" MySQL
+          a.btn.btn-default href="javascript:void(0)" ng-click="updateDbType('pg')" ng-class="{active: dbType == 'pg'}" PostgresSQL
+          a.btn.btn-default href="javascript:void(0)" ng-click="updateDbType('sqlite')" ng-class="{active: dbType == 'sqlite'}" SQLite
   hr
 
   form.form-inline role="form" ng-submit="addDatabase()"
     .form-group
       label.sr-only Database name
-      input.form-control type="text" ng-model="dbName" placeholder="Database name" required="true"
+      input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="dbName" placeholder="Database name" required="true" ng-change="validateDbName(dbName)"
     .form-group
       button.btn.btn-primary type="submit"
         span.glyphicon.glyphicon-plus
@@ -37,7 +33,7 @@ div ng-controller="DatabasesCtrl"
         form.form-inline role="form" ng-submit="addField($index, fieldName, fieldType)"
           .form-group
             label.sr-only Field name
-            input.form-control id="fieldName{{$index}}" type="text" ng-model="fieldName" placeholder="Field name" required="true"
+            input.form-control id="fieldName{{$index}}" type="text" pattern="[0-9a-zA-Z]+" ng-model="fieldName" placeholder="Field name" required="true"
           .form-group
             label.sr-only Field type
             input.form-control id="fieldType{{$index}}" type="text" ng-model="fieldType" placeholder="Field type" required="true"
