@@ -1,5 +1,4 @@
 require "sinatra/base"
-require "sinatra/reloader"
 require "rack/csrf"
 require "slim"
 require "sass"
@@ -15,7 +14,7 @@ module Ajw2::Editor
     end
 
     configure :development do
-      Bundler.require :development
+      require "sinatra/reloader"
       register Sinatra::Reloader
       Slim::Engine.default_options[:pretty] = true
     end
