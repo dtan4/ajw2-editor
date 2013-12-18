@@ -1,5 +1,6 @@
 require "sinatra/base"
 require "sinatra/reloader"
+require "rack/csrf"
 require "slim"
 require "sass"
 require "coffee-script"
@@ -9,12 +10,20 @@ module Ajw2::Editor
   class App < Sinatra::Base
     configure do
       set :root, File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', 'app'))
-      Slim::Engine.default_options[:pretty] = true
+      use Rack::Session::Cookie, secret: "ajw2editor"
+      use Rack::Csrf, raise: true
     end
 
     configure :development do
       Bundler.require :development
       register Sinatra::Reloader
+      Slim::Engine.default_options[:pretty] = true
+    end
+
+    helpers do
+      def csrf_meta_tag
+        Rack::Csrf.csrf_metatag(env)
+      end
     end
 
     get "/" do
