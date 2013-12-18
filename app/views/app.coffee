@@ -1,6 +1,6 @@
 app = angular.module 'ajw2Editor', ['ngStorage']
 
-app.controller 'EditorCtrl', ($rootScope) ->
+app.controller 'EditorCtrl', ($rootScope, $http) ->
   $rootScope.appName = ''
   $rootScope.params = {}
 
@@ -14,11 +14,8 @@ app.controller 'EditorCtrl', ($rootScope) ->
   $rootScope.$on 'sendModelData', (_, message) ->
     $rootScope.params[message.model] = message.params
     return unless receivedAllModels()
-    console.log $rootScope.params.application
-    console.log $rootScope.params.interfaces
-    console.log $rootScope.params.databases
-    console.log $rootScope.params.events
-
+    $http.post('/download', $rootScope.params).success (data, status, headers, config) ->
+      console.log data
 
 app.controller 'ApplicationCtrl', ($scope, $sessionStorage) ->
   $scope.$storage = $sessionStorage

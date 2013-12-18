@@ -3,6 +3,7 @@ require "sinatra/reloader"
 require "slim"
 require "sass"
 require "coffee-script"
+require "json"
 
 module Ajw2::Editor
   class App < Sinatra::Base
@@ -26,6 +27,13 @@ module Ajw2::Editor
 
     get "/css/app.css" do
       sass :app
+    end
+
+    post "/download" do
+      content_type :json
+
+      params = JSON.parse(request.env["rack.input"].read)
+      params.to_json
     end
   end
 end
