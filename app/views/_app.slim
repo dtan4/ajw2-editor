@@ -1,16 +1,17 @@
 h3 Application Settings
 
-form.form-horizontal role="form"
-  .form-group
-    label.col-sm-2.control-label for="appName" Application name
-    .col-sm-10
-      input.form-control#appName type="input" placeholder="Application name" required="true" style="width:50%"
-  .form-group
-    label.col-sm-2.control-label Minify
-    .col-sm-10
-      .checkbox
-        label
-          input type="checkbox" value="minifyJS" JavaScript
-      .checkbox
-        label
-          input type="checkbox" value="minifyCSS" CSS
+div ng-controller="ApplicationCtrl"
+  form.form-horizontal role="form"
+    .form-group
+      label.col-sm-2.control-label for="appName" Application name
+      .col-sm-10
+        input.form-control#appName type="input" placeholder="Application name" required="true" style="width:50%"
+    .form-group
+      label.col-sm-2.control-label Minify
+      .col-sm-10
+        .checkbox
+          label
+            input type="checkbox" value="minifyJS" JavaScript
+        .checkbox
+          label
+            input type="checkbox" value="minifyCSS" CSS

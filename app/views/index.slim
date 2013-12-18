@@ -1,5 +1,9 @@
-ul.nav.nav-tabs
-  li.active
+div ng-controller="EditorCtrl"
+  h1.app-name
+    | {Application name}
+  button.btn.btn-success.btn-header ng-click="downloadApp()"
+    span.glyphicon.glyphicon-floppy-save
+    |  Download .tar.gz
     a href="#app" data-toggle="tab"
       span.glyphicon.glyphicon-cog  Application
   li
