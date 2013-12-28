@@ -11,9 +11,15 @@
             .col-sm-9
               select.form-control#actionIf type="combobox" style="width:50%"
           .form-group
-            label.col-sm-3.control-label Interface action
+            label.col-sm-3.control-label Action
             .col-sm-9
               select.form-control#ifEvent type="combobox" style="width:50%"
                 option value="setValue" set value
                 option value="setText" set text
                 option value="appendElem" append element
+
+      .modal-footer
+        button.btn.btn-default data-dismiss="modal" Close
+        button.btn.btn-primary
+          span.glyphicon.glyphicon-plus
+          |  Add action

@@ -11,9 +11,15 @@
             .col-sm-9
               select.form-control#actionDbName type="combobox" style="width:50%"
           .form-group
-            label.col-sm-3.control-label Database action
+            label.col-sm-3.control-label Action
             .col-sm-9
               select.form-control#dbEvent type="combobox" style="width:50%"
                 option value="insert" insert
                 option value="update" update
                 option value="delete" delete
+
+      .modal-footer
+        button.btn.btn-default data-dismiss="modal" Close
+        button.btn.btn-primary
+          span.glyphicon.glyphicon-plus
+          |  Add action

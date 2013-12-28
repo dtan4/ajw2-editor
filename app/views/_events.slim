@@ -2,12 +2,14 @@ h3 Events
 
 div ng-controller="EventsCtrl"
   form.form-inline role="form"
-    button.btn.btn-primary#showEventsModalBtn type="button" data-toggle="modal" data-target="#eventsModal" style="margin-left:10px"
-      span.glyphicon.glyphicon-plus
-      |  Add event
-    button.btn.btn-danger#clearEventsBtn type="button" style="margin-left:10px"
-      span.glyphicon.glyphicon-trash
-      |  Delete all events
+    .form-group
+      button.btn.btn-primary#showEventsModalBtn type="button" data-toggle="modal" data-target="#eventsModal"
+        span.glyphicon.glyphicon-plus
+        |  Add event
+    .form-group
+      button.btn.btn-danger#clearEventsBtn type="button"
+        span.glyphicon.glyphicon-trash
+        |  Delete all events
 
   table.table.table-striped style="width:50%"
     thead

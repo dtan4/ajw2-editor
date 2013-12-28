@@ -31,26 +31,26 @@
             .form-group
               label.sr-only for="evaluatedId" Element ID
               input.form-control#evaluatedId type="text" placeholder="Element ID"
-            select.form-control#operand type="combobox" style="margin-left:10px; width:20%"
-              option value="eq" eq
-              option value="lt" lt
-              option value="gt" gt
-              option value="success" success
-              / option value="and" and
-              / option value="or" or
-              / option value="not" not
-            .form-group style="margin-left:10px"
+            .form-group
+              select.form-control#operand type="combobox"
+                option value="eq" eq
+                option value="lt" lt
+                option value="gt" gt
+                option value="success" success
+            .form-group
               label.sr-only for="conditionValue" Event Type
               input.form-control#conditionValue type="text"
         hr
         h4 Action for Interface
         form.form-inline role="form"
-          button.btn.btn-primary.btn-sm#showIfModalBtn type="button" data-toggle="modal" data-target="#ifActionModal" style="margin-left:10px"
-            span.glyphicon.glyphicon-plus
-            |  Add action
-          button.btn.btn-danger.btn-sm#clearIfActionsBtn type="button" style="margin-left:10px"
-            span.glyphicon.glyphicon-trash
-            |  Delete all actions
+          .form-group
+            button.btn.btn-primary.btn-sm type="button" data-toggle="modal" data-target="#ifActionModal"
+              span.glyphicon.glyphicon-plus
+              |  Add action
+          .form-group
+            button.btn.btn-danger.btn-sm type="button"
+              span.glyphicon.glyphicon-trash
+              |  Delete all actions
         table.table.table-striped
           thead
             tr
@@ -59,10 +59,12 @@
 
         h4 Action for Database
         form.form-inline role="form"
-          button.btn.btn-primary.btn-sm#showDbModalBtn type="button" data-toggle="modal" data-target="#dbActionModal" style="margin-left:10px"
-            span.glyphicon.glyphicon-plus
-            |  Add action
-          button.btn.btn-danger.btn-sm#clearDbActionsBtn type="button" style="margin-left:10px"
+          .form-group
+            button.btn.btn-primary.btn-sm type="button" data-toggle="modal" data-target="#dbActionModal"
+              span.glyphicon.glyphicon-plus
+              |  Add action
+          .form-group
+          button.btn.btn-danger.btn-sm type="button"
             span.glyphicon.glyphicon-trash
             |  Delete all actions
         table.table.table-striped
@@ -73,6 +75,6 @@
 
       .modal-footer
         button.btn.btn-default data-dismiss="modal" Close
-        button.btn.btn-primary#createEventBtn
+        button.btn.btn-primary
           span.glyphicon.glyphicon-plus
           |  Add event
