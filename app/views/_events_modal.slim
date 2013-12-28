@@ -1,0 +1,78 @@
+.modal.fade#eventsModal tabindex="-1" role="dialog" aria-labelledby="eventsModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+        h4.modal-title#eventsModalLabel Add event
+      .modal-body
+        h4 Trigger
+        form.form-horizontal role="form"
+          .form-group
+            label.col-sm-3.control-label for="targetId" Element ID
+            .col-sm-9
+              input.form-control#targetId type="text" placeholder="Target element ID" required="true" style="width:50%"
+          .form-group
+            label.col-sm-3.control-label for="eventType" Event Type
+            .col-sm-9
+              / TODO: combobox
+              input.form-control#eventType type="text" placeholder="Event type" required="true" style="width:50%"
+        hr
+        h4 Timing to fire event
+        form.form-inline role="form"
+          .form-group
+            label.sr-only
+            input type="radio" name="fireTiming" value="always" checked="checked" Always
+          .form-group
+            label.sr-only
+            input type="radio" name="fireTiming" value="conditional" Conditional
+        #conditional
+          h4 Condition
+          form.form-inline role="form"
+            .form-group
+              label.sr-only for="evaluatedId" Element ID
+              input.form-control#evaluatedId type="text" placeholder="Element ID"
+            select.form-control#operand type="combobox" style="margin-left:10px; width:20%"
+              option value="eq" eq
+              option value="lt" lt
+              option value="gt" gt
+              option value="success" success
+              / option value="and" and
+              / option value="or" or
+              / option value="not" not
+            .form-group style="margin-left:10px"
+              label.sr-only for="conditionValue" Event Type
+              input.form-control#conditionValue type="text"
+        hr
+        h4 Action for Interface
+        form.form-inline role="form"
+          button.btn.btn-primary.btn-sm#showIfModalBtn type="button" data-toggle="modal" data-target="#eventsModal" style="margin-left:10px"
+            span.glyphicon.glyphicon-plus
+            |  Add action
+          button.btn.btn-danger.btn-sm#clearIfActionsBtn type="button" style="margin-left:10px"
+            span.glyphicon.glyphicon-trash
+            |  Delete all actions
+        table.table.table-striped
+          thead
+            tr
+              th ID
+          tbody#ifActionTblBody
+
+        h4 Action for Database
+        form.form-inline role="form"
+          button.btn.btn-primary.btn-sm#showDbModalBtn type="button" data-toggle="modal" data-target="#eventsModal" style="margin-left:10px"
+            span.glyphicon.glyphicon-plus
+            |  Add action
+          button.btn.btn-danger.btn-sm#clearDbActionsBtn type="button" style="margin-left:10px"
+            span.glyphicon.glyphicon-trash
+            |  Delete all actions
+        table.table.table-striped
+          thead
+            tr
+              th ID
+          tbody#dbActionTblBody
+
+      .modal-footer
+        button.btn.btn-default data-dismiss="modal" Close
+        button.btn.btn-primary#createEventBtn
+          span.glyphicon.glyphicon-plus
+          |  Add event
