@@ -1,0 +1,19 @@
+.modal.fade#ifActionModal tabindex="-1" role="dialog" aria-labelledby="ifActionModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+        h4.modal-title#ifActionModalLabel Add Interface action
+      .modal-body
+        form.form-horizontal role="form"
+          .form-group
+            label.col-sm-3.control-label Interface
+            .col-sm-9
+              select.form-control#actionIf type="combobox" style="width:50%"
+          .form-group
+            label.col-sm-3.control-label Interface action
+            .col-sm-9
+              select.form-control#ifEvent type="combobox" style="width:50%"
+                option value="setValue" set value
+                option value="setText" set text
+                option value="appendElem" append element
