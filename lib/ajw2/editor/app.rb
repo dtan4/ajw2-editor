@@ -29,12 +29,12 @@ module Ajw2::Editor
       slim :index
     end
 
-    get "/js/app.js" do
-      coffee :app
+    get "/js/main.js" do
+      coffee :main
     end
 
-    get "/css/app.css" do
-      sass :app
+    get "/css/main.css" do
+      sass :main
     end
 
     post "/download" do
