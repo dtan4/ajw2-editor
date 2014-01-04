@@ -7,7 +7,7 @@ div ng-controller="EditorCtrl"
 
 ul.nav.nav-tabs.main-tabs
   li.active
-    a href="#app" data-toggle="tab"
+    a href="#application" data-toggle="tab"
       span.glyphicon.glyphicon-cog  Application
   li
     a href="#interfaces" data-toggle="tab"
@@ -20,11 +20,11 @@ ul.nav.nav-tabs.main-tabs
       span.glyphicon.glyphicon-transfer  Events
 
 .tab-content
-  .tab-pane.active#app
-    == slim :_app
+  .tab-pane.active#application
+    == slim :application
   .tab-pane#interfaces
-    == slim :_interfaces
+    == slim :interfaces
   .tab-pane#databases
-    == slim :_databases
+    == slim :databases
   .tab-pane#events
-    == slim :_events
+    == slim :events
