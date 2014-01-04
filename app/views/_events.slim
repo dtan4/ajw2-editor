@@ -1,13 +1,19 @@
 h3 Events
 
 div ng-controller="EventsCtrl"
-  form.form-inline role="form"
+  form.form-inline role="form" ng-submit="addEvent()"
     .form-group
-      button.btn.btn-primary#showEventsModalBtn type="button" data-toggle="modal" data-target="#eventsModal"
+      label.sr-only Trigger element ID
+      input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="triggerId" placeholder="Trigger element ID" required="true"
+    .form-group
+      label.sr-only Trigger element type
+      input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="triggerType" placeholder="Trigger element type" required="true"
+    .form-group
+      button.btn.btn-primary type="submit"
         span.glyphicon.glyphicon-plus
         |  Add event
     .form-group
-      button.btn.btn-danger#clearEventsBtn type="button"
+      button.btn.btn-danger type="button" ng-click="clearAllEvents()" ng-show="events.length > 0"
         span.glyphicon.glyphicon-trash
         |  Delete all events
 
@@ -17,7 +23,10 @@ div ng-controller="EventsCtrl"
         th Target element ID
         th Event type
         th
-    tbody#eventsTableBody
+    tbody
+      tr ng-repeat="event in events"
+        td ng-bind="event.trigger.id"
+        td ng-bind="event.trigger.type"
 
   == slim :_events_modal
   == slim :_interfaces_action_modal
