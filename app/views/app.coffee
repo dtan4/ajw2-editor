@@ -142,5 +142,8 @@ app.controller 'EventsCtrl', ($scope, $sessionStorage) ->
     $scope.events.push new Event($scope.realtime, trigger)
     $scope.$storage.events = $scope.events
 
+  $scope.clearAllEvents = ->
+    $scope.events = []
+
   $scope.$on 'requestModelData', (_, args) ->
     $scope.$emit 'sendModelData', model: 'events', params: { events: $scope.events }

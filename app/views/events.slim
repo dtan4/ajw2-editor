@@ -11,9 +11,9 @@ div ng-controller="EventsCtrl"
     .form-group
       button.btn.btn-primary type="submit"
         span.glyphicon.glyphicon-plus
-        |  Add event
+        |  Create event
     .form-group
-      button.btn.btn-danger type="button" ng-click="clearAllEvents()" ng-show="events.length > 0"
+      button.btn.btn-danger.btn-sm type="button" ng-click="clearAllEvents()" ng-show="events.length > 0"
         span.glyphicon.glyphicon-trash
         |  Delete all events
 
