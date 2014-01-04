@@ -5,7 +5,7 @@ div ng-controller="ApplicationCtrl"
     .form-group
       label.col-sm-2.control-label for="appName" Application name
       .col-sm-10
-        input.form-control#appName type="input" placeholder="Application name" required="true" style="width:50%"
+        input.form-control#appName type="input" ng-model="appName" placeholder="Application name" required="true" style="width:50%"
     .form-group
       label.col-sm-2.control-label Minify
       .col-sm-10
