@@ -1,4 +1,12 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in ajw2-editor.gemspec
-gemspec
+gem "sinatra", require: "sinatra/base"
+gem "slim"
+gem "sass"
+gem "coffee-script"
+gem "rack_csrf", require: "rack/csrf"
+
+group :development do
+  gem "sinatra-reloader", require: "sinatra/reloader"
+  gem "guard-livereload"
+end
