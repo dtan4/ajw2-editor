@@ -1,9 +1,20 @@
 require "json"
 
 class App < Sinatra::Base
+  set :sprockets, Sprockets::Environment.new
+
   configure do
     use Rack::Session::Cookie, secret: "ajw2editor"
     use Rack::Csrf, raise: true
+
+    Sprockets::Helpers.configure do |config|
+      config.environment = sprockets
+      config.prefix = "/assets"
+      config.digest = true
+    end
+
+    sprockets.append_path "assets/javascripts"
+    sprockets.append_path "assets/stylesheets"
   end
 
   configure :development do
@@ -11,6 +22,8 @@ class App < Sinatra::Base
     register Sinatra::Reloader
     Slim::Engine.default_options[:pretty] = true
   end
+
+  helpers Sprockets::Helpers
 
   helpers do
     def csrf_meta_tag
