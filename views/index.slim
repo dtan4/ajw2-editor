@@ -1,6 +1,5 @@
 div ng-controller="EditorCtrl"
-  h1.app-name
-    |  {{appName}}
+  h1.app-name ng-bind="appName"
   button.btn.btn-success.btn-header ng-click="downloadApp()"
     span.glyphicon.glyphicon-floppy-save
     |  Download .tar.gz

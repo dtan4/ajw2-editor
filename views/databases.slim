@@ -27,16 +27,16 @@ div ng-controller="DatabasesCtrl"
   .col-md-8 style="margin:20px"
     ul.nav.nav-tabs
       li ng-repeat="db in databases" ng-class="{active: $index == databases.length - 1}"
-        a href="#dbTab{{$index}}" data-toggle="tab" {{db.name}}
+        a href="#dbTab{{$index}}" data-toggle="tab" ng-bind="db.name"
     .tab-content
       .tab-pane id="dbTab{{$index}}" ng-repeat="db in databases" ng-class="{active: $index == databases.length - 1}"
         form.form-inline role="form" ng-submit="addField($index, fieldName, fieldType)"
           .form-group
             label.sr-only Field name
-            input.form-control id="fieldName{{$index}}" type="text" pattern="[0-9a-zA-Z]+" ng-model="fieldName" placeholder="Field name" required="true"
+            input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="fieldName" placeholder="Field name" required="true"
           .form-group
             label.sr-only Field type
-            input.form-control id="fieldType{{$index}}" type="text" ng-model="fieldType" placeholder="Field type" required="true"
+            input.form-control type="text" ng-model="fieldType" placeholder="Field type" required="true"
           .form-group
             button.btn.btn-primary type="submit"
               span.glyphicon.glyphicon-plus
