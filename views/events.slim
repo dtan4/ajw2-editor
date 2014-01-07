@@ -20,6 +20,38 @@ div ng-controller="EventsCtrl"
   .col-md-8 style="margin:20px"
     ul.nav.nav-tabs
       li ng-repeat="event in events" ng-class="{active: $index == events.length - 1}"
-        a href="#eventTab{{$index}}" data-toggle="tab" {{event.id}}
+        a href="#eventTab{{$index}}" data-toggle="tab" ng-bind="event.id"
     .tab-content
       .tab-pane id="eventTab{{$index}}" ng-repeat="event in events" ng-class="{active: $index == events.length - 1}"
+        h4 Trigger
+        form.form-inline role="form"
+          .form-group
+            label.control-label Trigger element
+            p.form-control-static ng-bind="event.trigger.id"
+          .form-group
+            label.control-label Trigger function
+            p.form-control-static ng-bind="event.trigger.type"
+
+        hr
+
+        h4 Action
+        form.form-inline role="form" ng-submit="addAction($index, actionType)"
+          .form-group
+            label.sr-only Action type
+            select.form-control type="text" ng-model="actionType" ng-options="type for type in actionTypeList"
+              option value=""
+                | -- Action type --
+          .form-group
+            button.btn.btn-primary type="submit"
+              span.glyphicon.glyphicon-plus
+              |  Add action
+
+        table.table.table-striped
+          thead
+            tr
+              th Action ID
+              th Action type
+          tbody
+            tr ng-repeat="action in event.actions"
+              td ng-bind="action.id"
+              td ng-bind="action.type"

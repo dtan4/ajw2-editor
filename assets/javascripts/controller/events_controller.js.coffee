@@ -19,30 +19,30 @@ app.controller 'EventsCtrl', ($scope, $sessionStorage) ->
 
   class InterfaceAction extends Action
     constructor: (element, func, value) ->
-      super('hoge', 'fuga')
+      super('hoge', 'interface')
       @element = element
       @func = func
       @value = value
 
   class DatabaseAction extends Action
     constructor: (database, func, where, fields) ->
-      super('hoge', 'fuga')
+      super('hoge', 'database')
       @database = database
       @func = func
       @where = where
       @fields = fields
 
-  class UrlCallAction extends Action
+  class CallUrlAction extends Action
     constructor: (method, endpoint, params) ->
-      super('hoge', 'fuga')
+      super('hoge', 'callUrl')
       @callType = 'url'
       @method = method
       @endpoint = endpoint
       @params = params
 
-  class ScriptCallAction extends Action
+  class CallScriptAction extends Action
     constructor: (params, script) ->
-      super('hoge', 'fuga')
+      super('hoge', 'callScript')
       @callType = 'script'
       @params = params
       @script = script
@@ -52,6 +52,8 @@ app.controller 'EventsCtrl', ($scope, $sessionStorage) ->
 
   $scope.$storage = $sessionStorage
 
+  $scope.actionTypeList = ["interface", "database", "callUrl", "callScript"]
+
   $scope.events = $scope.$storage.events ? []
 
   $scope.addEvent = ->
@@ -59,9 +61,26 @@ app.controller 'EventsCtrl', ($scope, $sessionStorage) ->
     id = generateEventId()
     $scope.events.push new Event(id, $scope.realtime, trigger)
     $scope.$storage.events = $scope.events
+    $scope.triggerTarget = ''
+    $scope.triggerType = ''
 
   $scope.clearAllEvents = ->
     $scope.events = []
+
+  $scope.addAction = (index, actionType) ->
+    switch actionType
+      when "interface"
+        action = new InterfaceAction
+      when "database"
+        action = new DatabaseAction
+      when "callUrl"
+        action = new CallUrlAction
+      when "callScript"
+        action = new CallScriptAction
+      else
+        return null
+    $scope.events[index].actions.push action
+    $scope.$storage.events = $scope.events
 
   $scope.$on 'requestModelData', (_, args) ->
     $scope.$emit 'sendModelData', model: 'events', params: { events: $scope.events }
