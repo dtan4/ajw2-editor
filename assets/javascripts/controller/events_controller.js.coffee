@@ -1,9 +1,10 @@
 app.controller 'EventsCtrl', ($scope, $sessionStorage) ->
   class Event
-    constructor: (realtime, trigger) ->
+    constructor: (id, realtime, trigger) ->
+      @id = id
       @realtime = realtime
       @trigger = trigger
-      @action = []
+      @actions = []
 
   class Trigger
     constructor: (id, type) ->
@@ -12,16 +13,51 @@ app.controller 'EventsCtrl', ($scope, $sessionStorage) ->
       @params = []
 
   class Action
-    constructor: (type) ->
+    constructor: (id, type) ->
+      @id = id
       @type = type
+
+  class InterfaceAction extends Action
+    constructor: (element, func, value) ->
+      super('hoge', 'fuga')
+      @element = element
+      @func = func
+      @value = value
+
+  class DatabaseAction extends Action
+    constructor: (database, func, where, fields) ->
+      super('hoge', 'fuga')
+      @database = database
+      @func = func
+      @where = where
+      @fields = fields
+
+  class UrlCallAction extends Action
+    constructor: (method, endpoint, params) ->
+      super('hoge', 'fuga')
+      @callType = 'url'
+      @method = method
+      @endpoint = endpoint
+      @params = params
+
+  class ScriptCallAction extends Action
+    constructor: (params, script) ->
+      super('hoge', 'fuga')
+      @callType = 'script'
+      @params = params
+      @script = script
+
+  generateEventId = ->
+    "events_#{$scope.events.length + 1}"
 
   $scope.$storage = $sessionStorage
 
   $scope.events = $scope.$storage.events ? []
 
   $scope.addEvent = ->
-    trigger = new Trigger($scope.triggerId, $scope.triggerType)
-    $scope.events.push new Event($scope.realtime, trigger)
+    trigger = new Trigger($scope.triggerTarget, $scope.triggerType)
+    id = generateEventId()
+    $scope.events.push new Event(id, $scope.realtime, trigger)
     $scope.$storage.events = $scope.events
 
   $scope.clearAllEvents = ->

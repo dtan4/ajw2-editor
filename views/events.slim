@@ -4,7 +4,7 @@ div ng-controller="EventsCtrl"
   form.form-inline role="form" ng-submit="addEvent()"
     .form-group
       label.sr-only Trigger element ID
-      input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="triggerId" placeholder="Trigger element ID" required="true"
+      input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="triggerTarget" placeholder="Trigger element ID" required="true"
     .form-group
       label.sr-only Trigger element type
       input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="triggerType" placeholder="Trigger element type" required="true"
@@ -17,17 +17,9 @@ div ng-controller="EventsCtrl"
         span.glyphicon.glyphicon-trash
         |  Delete all events
 
-  table.table.table-striped style="width:50%"
-    thead
-      tr
-        th Target element ID
-        th Event type
-        th
-    tbody
-      tr ng-repeat="event in events"
-        td ng-bind="event.trigger.id"
-        td ng-bind="event.trigger.type"
-
-  == slim :_events_modal
-  == slim :_interfaces_action_modal
-  == slim :_databases_action_modal
+  .col-md-8 style="margin:20px"
+    ul.nav.nav-tabs
+      li ng-repeat="event in events" ng-class="{active: $index == events.length - 1}"
+        a href="#eventTab{{$index}}" data-toggle="tab" {{event.id}}
+    .tab-content
+      .tab-pane id="eventTab{{$index}}" ng-repeat="event in events" ng-class="{active: $index == events.length - 1}"
