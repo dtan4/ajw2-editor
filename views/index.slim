@@ -1,8 +1,14 @@
 div ng-controller="EditorCtrl"
-  h1.app-name ng-bind="appName"
-  button.btn.btn-success.btn-header ng-click="downloadApp()"
-    span.glyphicon.glyphicon-floppy-save
-    |  Download .tar.gz
+  .row
+    .col-md-8
+      h1.app-name ng-bind="appName"
+    .col-md-4
+      button.btn.btn-success.btn-header.btn-lg.download-btn ng-click="downloadApp()"
+        span.glyphicon.glyphicon-floppy-save
+        |  Download Application
+      button.btn.btn-success.btn-header.download-btn ng-click="downloadSource()"
+        span.glyphicon.glyphicon-floppy-save
+        |  Source Only
 
 ul.nav.nav-tabs.main-tabs
   li.active

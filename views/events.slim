@@ -17,7 +17,7 @@ div ng-controller="EventsCtrl"
         span.glyphicon.glyphicon-trash
         |  Delete all events
 
-  .col-md-8 style="margin:20px"
+  .col-md-10.inner-tabs
     ul.nav.nav-tabs
       li ng-repeat="event in events" ng-class="{active: $index == events.length - 1}"
         a href="#eventTab{{$index}}" data-toggle="tab" ng-bind="event.id"

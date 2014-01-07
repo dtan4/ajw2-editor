@@ -3,12 +3,12 @@ h3 Application Settings
 div ng-controller="ApplicationCtrl"
   form.form-horizontal role="form"
     .form-group
-      label.col-sm-2.control-label for="appName" Application name
-      .col-sm-10
-        input.form-control#appName type="input" ng-model="appName" placeholder="Application name" required="true" style="width:50%"
+      label.col-md-2.control-label for="appName" Application name
+      .col-md-10
+        input.form-control.appinput type="input" ng-model="appName" placeholder="Application name" required="true"
     .form-group
-      label.col-sm-2.control-label Minify
-      .col-sm-10
+      label.col-md-2.control-label Minify
+      .col-md-10
         .checkbox
           label
             input type="checkbox" value="minifyJS" JavaScript

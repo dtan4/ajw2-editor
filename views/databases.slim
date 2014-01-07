@@ -3,8 +3,8 @@ h3 Databases
 div ng-controller="DatabasesCtrl"
   form.form-horizontal role="form"
     .form-group
-      label.control-label.col-sm-2 RDBMS type
-      .col-sm-10
+      label.control-label.col-md-2 RDBMS type
+      .col-md-10
         .btn-group
           a.btn.btn-default href="javascript:void(0)" ng-click="updateDbType('mysql')" ng-class="{active: dbType == 'mysql'}" MySQL
           a.btn.btn-default href="javascript:void(0)" ng-click="updateDbType('pg')" ng-class="{active: dbType == 'pg'}" PostgresSQL
@@ -24,7 +24,7 @@ div ng-controller="DatabasesCtrl"
         span.glyphicon.glyphicon-trash
         |  Delete all databases
 
-  .col-md-8 style="margin:20px"
+  .col-md-10.inner-tabs
     ul.nav.nav-tabs
       li ng-repeat="db in databases" ng-class="{active: $index == databases.length - 1}"
         a href="#dbTab{{$index}}" data-toggle="tab" ng-bind="db.name"

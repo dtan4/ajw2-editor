@@ -9,6 +9,9 @@ app.controller 'EditorCtrl', ($rootScope, $http) ->
     $rootScope.params = {}
     $rootScope.$broadcast 'requestModelData', {}
 
+  $rootScope.downloadSource = ->
+    console.log 'downloadSource!'
+
   $rootScope.$on 'sendModelData', (_, message) ->
     $rootScope.params[message.model] = message.params
     return unless receivedAllModels()

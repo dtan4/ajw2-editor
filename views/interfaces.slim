@@ -11,7 +11,7 @@ div ng-controller="InterfacesCtrl"
         | \#{{el.id}}
       span.el-class ng-show="el.elClass && el.elClass != ''"
         | .{{el.elClass}}
-      span.el-value style="margin-left:5px" ng-show="el.value && el.value != ''"
+      span.el-value ng-show="el.value && el.value != ''"
         | value: {{el.value}}
       span.form-group
         button.btn.btn-danger.btn-xs ng-click="deleteChildren(el)" ng-show="el.formVisible && el.elements.length > 0"
