@@ -7,11 +7,14 @@ div ng-controller="ApplicationCtrl"
       .col-md-10
         input.form-control.appinput type="input" ng-model="appName" placeholder="Application name" required="true"
     .form-group
-      label.col-md-2.control-label Minify
+      label.col-md-2.control-label External Stylesheets
       .col-md-10
-        .checkbox
-          label
-            input type="checkbox" value="minifyJS" JavaScript
-        .checkbox
-          label
-            input type="checkbox" value="minifyCSS" CSS
+        button.btn.btn-primary
+          span.glyphicon.glyphicon-plus
+            |  Add
+    .form-group
+      label.col-md-2.control-label External JavaScripts
+      .col-md-10
+        button.btn.btn-primary
+          span.glyphicon.glyphicon-plus
+            |  Add
