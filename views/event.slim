@@ -15,7 +15,7 @@ div ng-controller="EventCtrl"
         span.glyphicon.glyphicon-plus
         |  Create event
     .form-group
-      button.btn.btn-danger.btn-sm ng-click="deleteAllEvents()" ng-show="events.length > 0"
+      button.btn.btn-danger.btn-sm type="button" ng-click="deleteAllEvents()" ng-show="events.length > 0"
         span.glyphicon.glyphicon-trash
         |  Delete all events
 
@@ -53,7 +53,7 @@ div ng-controller="EventCtrl"
               span.glyphicon.glyphicon-plus
               |  Add action
           .form-group
-            button.btn.btn-danger.btn-sm ng-click="deleteAllActions($index)" ng-show="event.actions.length > 0"
+            button.btn.btn-danger.btn-sm type="button" ng-click="deleteAllActions($index)" ng-show="event.actions.length > 0"
               span.glyphicon.glyphicon-trash
               |  Delete all actions
 
@@ -64,4 +64,3 @@ div ng-controller="EventCtrl"
                 span.action-id ng-bind="action.id"
                 span.label.pull-right ng-class="actionLabelClass(action.type)" ng-bind="action.type"
           .col-md-8
-            p Action Edit Pane
