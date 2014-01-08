@@ -69,6 +69,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
   $scope.clearAllEvents = ->
     $scope.events = []
+    $scope.$storage.events = []
 
   $scope.addAction = (index, actionType) ->
     switch actionType
