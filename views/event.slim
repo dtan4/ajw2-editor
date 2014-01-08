@@ -15,16 +15,21 @@ div ng-controller="EventCtrl"
         span.glyphicon.glyphicon-plus
         |  Create event
     .form-group
-      button.btn.btn-danger.btn-sm type="button" ng-click="clearAllEvents()" ng-show="events.length > 0"
+      button.btn.btn-danger.btn-sm ng-click="clearAllEvents()" ng-show="events.length > 0"
         span.glyphicon.glyphicon-trash
         |  Delete all events
 
   .col-md-10.inner-tabs
     ul.nav.nav-tabs
-      li ng-repeat="event in events" ng-class="{active: $index == events.length - 1}"
-        a href="#eventTab{{$index}}" data-toggle="tab" ng-bind="event.id"
+      li ng-repeat="event in events" ng-class="{active: $index == selectedIndex}"
+        a href="#eventTab{{$index}}" data-toggle="tab" ng-bind="event.id" ng-click="tabClick($index)"
     .tab-content
-      .tab-pane id="eventTab{{$index}}" ng-repeat="event in events" ng-class="{active: $index == events.length - 1}"
+      .tab-pane id="eventTab{{$index}}" ng-repeat="event in events" ng-class="{active: $index == selectedIndex}"
+        .form-group
+          button.btn.btn-danger.btn-sm.pull-right ng-click="deleteEvent($index)"
+            span.glyphicon.glyphicon-trash
+            |  Delete this event
+
         h4 Trigger
         form.form-inline role="form"
           .form-group
@@ -42,7 +47,7 @@ div ng-controller="EventCtrl"
             label.sr-only Action type
             select.form-control type="text" ng-model="actionType" ng-options="type for type in actionTypeList"
               option value=""
-                | -- Action type --
+              | -- Action type --
           .form-group
             button.btn.btn-primary type="submit"
               span.glyphicon.glyphicon-plus

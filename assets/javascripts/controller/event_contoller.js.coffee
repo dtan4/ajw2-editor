@@ -56,6 +56,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
   $scope.actionTypeList = ["interface", "database", "callUrl", "callScript"]
 
   $scope.events = $scope.$storage.events ? []
+  $scope.selectedIndex = 0
 
   $scope.addEvent = ->
     return null unless $scope.triggerType in $scope.triggerTypeList
@@ -63,13 +64,26 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     trigger = new Trigger($scope.triggerTarget, $scope.triggerType)
     id = generateEventId()
     $scope.events.push new Event(id, $scope.realtime, trigger)
-    $scope.$storage.events = $scope.events
     $scope.triggerTarget = ''
     $scope.triggerType = ''
+    $scope.$storage.events = $scope.events
+    $scope.selectedIndex = $scope.events.length - 1
 
   $scope.clearAllEvents = ->
     $scope.events = []
     $scope.$storage.events = []
+
+  $scope.deleteEvent = (index) ->
+    $scope.events.splice(index, 1)
+    $scope.$storage.events = $scope.events
+
+    if index == $scope.events.length
+      $scope.selectedIndex = index - 1
+    else
+      $scope.selectedIndex = index
+
+  $scope.tabClick = (index) ->
+    $scope.selectedIndex = index
 
   $scope.addAction = (index, actionType) ->
     switch actionType
