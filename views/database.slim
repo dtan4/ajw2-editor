@@ -6,9 +6,9 @@ div ng-controller="DatabaseCtrl"
       label.control-label.col-md-2 RDBMS type
       .col-md-10
         .btn-group
-          a.btn.btn-default href="javascript:void(0)" ng-click="updateDbType('mysql')" ng-class="{active: dbType == 'mysql'}" MySQL
-          a.btn.btn-default href="javascript:void(0)" ng-click="updateDbType('pg')" ng-class="{active: dbType == 'pg'}" PostgresSQL
-          a.btn.btn-default href="javascript:void(0)" ng-click="updateDbType('sqlite')" ng-class="{active: dbType == 'sqlite'}" SQLite
+          a.btn.btn-default href="javascript:void(0)" ng-click="updateDbType('mysql')" ng-class="{active: $storage.dbType == 'mysql'}" MySQL
+          a.btn.btn-default href="javascript:void(0)" ng-click="updateDbType('pg')" ng-class="{active: $storage.dbType == 'pg'}" PostgresSQL
+          a.btn.btn-default href="javascript:void(0)" ng-click="updateDbType('sqlite')" ng-class="{active: $storage.dbType == 'sqlite'}" SQLite
   hr
 
   form.form-inline role="form" ng-submit="addDatabase()"
@@ -20,16 +20,16 @@ div ng-controller="DatabaseCtrl"
         span.glyphicon.glyphicon-plus
         |  Create database
     .form-group
-      button.btn.btn-danger.btn-sm type="button" ng-click="deleteAllDatabases()" ng-show="databases.length > 0"
+      button.btn.btn-danger.btn-sm type="button" ng-click="deleteAllDatabases()" ng-show="$storage.databases.length > 0"
         span.glyphicon.glyphicon-trash
         |  Delete all databases
 
   .col-md-10.inner-tabs
     ul.nav.nav-tabs
-      li ng-repeat="db in databases" ng-class="{active: $index == selectedIndex}"
+      li ng-repeat="db in $storage.databases" ng-class="{active: $index == selectedIndex}"
         a href="#dbTab{{$index}}" data-toggle="tab" ng-bind="db.name" ng-click="tabClick($index)"
     .tab-content
-      .tab-pane id="dbTab{{$index}}" ng-repeat="db in databases" ng-class="{active: $index == selectedIndex}"
+      .tab-pane id="dbTab{{$index}}" ng-repeat="db in $storage.databases" ng-class="{active: $index == selectedIndex}"
         .form-group
           button.btn.btn-danger.btn-sm.pull-right ng-click="deleteDatabase($index)"
             span.glyphicon.glyphicon-trash

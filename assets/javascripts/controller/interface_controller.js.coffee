@@ -8,29 +8,27 @@ app.controller 'InterfaceCtrl', ($scope, $sessionStorage) ->
       @elements = elements
       @formVisible = formVisible
 
-  generateElemId = (elemType) ->
-    $scope.elemIds[elemType] = 0 unless $scope.elemIds[elemType]
-    $scope.elemIds[elemType]++
-    $scope.$storage.elemIds = $scope.elemIds
-    return "#{elemType}_#{$scope.elemIds[elemType]}"
-
   $scope.$storage = $sessionStorage
 
-  $scope.elements = $scope.$storage.elements ? [new Element('body', '', '', '', [], true)]
-  $scope.elemIds = $scope.$storage.elemIds ? {}
+  $scope.$storage.elements = [new Element('body', '', '', '', [], true)] unless $scope.$storage.elements
+  $scope.$storage.elemIds = {} unless $scope.$storage.elemIds
+
+  generateElemId = (elemType) ->
+    $scope.$storage.elemIds[elemType] = 0 unless $scope.$storage.elemIds[elemType]
+    $scope.$storage.elemIds[elemType]++
+    return "#{elemType}_#{$scope.$storage.elemIds[elemType]}"
 
   $scope.add = (el, elemType, elemId, elemClass, elemValue) ->
     elemId = generateElemId(elemType) unless elemId
     el.elements.push new Element(elemType, elemId, elemClass, elemValue, [], true)
     el.formVisible = false
-    $scope.$storage.elements = $scope.elements
 
   $scope.deleteChildren = (el) ->
     el.elements = []
-    $scope.$storage.elements = $scope.elements
+    el.formVisible = true
 
   $scope.toggleForm = (el) ->
     el.formVisible = !el.formVisible
 
   $scope.$on 'requestModelData', (_, args) ->
-    $scope.$emit 'sendModelData', model: 'interface', params: { interfaces: $scope.elements[0].elements }
+    $scope.$emit 'sendModelData', model: 'interface', params: { interfaces: $scope.$storage.elements[0].elements }

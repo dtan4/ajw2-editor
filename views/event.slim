@@ -15,16 +15,16 @@ div ng-controller="EventCtrl"
         span.glyphicon.glyphicon-plus
         |  Create event
     .form-group
-      button.btn.btn-danger.btn-sm type="button" ng-click="deleteAllEvents()" ng-show="events.length > 0"
+      button.btn.btn-danger.btn-sm type="button" ng-click="deleteAllEvents()" ng-show="$storage.events.length > 0"
         span.glyphicon.glyphicon-trash
         |  Delete all events
 
   .col-md-10.inner-tabs
     ul.nav.nav-tabs
-      li ng-repeat="event in events" ng-class="{active: $index == selectedIndex}"
+      li ng-repeat="event in $storage.events" ng-class="{active: $index == selectedIndex}"
         a href="#eventTab{{$index}}" data-toggle="tab" ng-bind="event.id" ng-click="tabClick($index)"
     .tab-content
-      .tab-pane id="eventTab{{$index}}" ng-repeat="event in events" ng-class="{active: $index == selectedIndex}"
+      .tab-pane id="eventTab{{$index}}" ng-repeat="event in $storage.events" ng-class="{active: $index == selectedIndex}"
         .form-group
           button.btn.btn-danger.btn-sm.pull-right ng-click="deleteEvent($index)"
             span.glyphicon.glyphicon-trash

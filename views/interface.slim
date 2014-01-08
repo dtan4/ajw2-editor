@@ -2,7 +2,7 @@ h3 Interface
 
 div ng-controller="InterfaceCtrl"
   ul
-    li ng-repeat="el in elements" ng-include="'element_tree.html'"
+    li ng-repeat="el in $storage.elements" ng-include="'element_tree.html'"
 
   script id="element_tree.html" type="text/ng-template"
     .el-header ng-click="toggleForm(el)"

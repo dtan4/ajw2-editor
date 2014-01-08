@@ -47,23 +47,23 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       @params = params
       @script = script
 
+  $scope.$storage = $sessionStorage
+
+  $scope.$storage.events = [] unless $scope.$storage.events
+  $scope.$storage.actionIds = [] unless $scope.$storage.actionIds
+
   generateEventId = ->
-    "events_#{$scope.events.length + 1}"
+    "events_#{$scope.$storage.events.length + 1}"
 
   generateActionId = (index, actionType) ->
-    $scope.actionIds[index] = {} unless $scope.actionIds[index]
-    $scope.actionIds[index][actionType] = 0 unless $scope.actionIds[index][actionType]
-    $scope.actionIds[index][actionType]++
-    $scope.$storage.actionIds = $scope.actionIds
-    return "#{actionType}_#{$scope.actionIds[index][actionType]}"
-
-  $scope.$storage = $sessionStorage
+    $scope.$storage.actionIds[index] = {} unless $scope.$storage.actionIds[index]
+    $scope.$storage.actionIds[index][actionType] = 0 unless $scope.$storage.actionIds[index][actionType]
+    $scope.$storage.actionIds[index][actionType]++
+    return "#{actionType}_#{$scope.$storage.actionIds[index][actionType]}"
 
   $scope.triggerTypeList = ["onClick", "onChange", "onFocus", "onFocusOut"]
   $scope.actionTypeList = ["interface", "database", "callUrl", "callScript"]
 
-  $scope.events = $scope.$storage.events ? []
-  $scope.actionIds = $scope.$storage.actionIds ? []
   $scope.selectedIndex = 0
 
   $scope.addEvent = ->
@@ -71,25 +71,19 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
     trigger = new Trigger($scope.triggerTarget, $scope.triggerType)
     id = generateEventId()
-    $scope.events.push new Event(id, $scope.realtime, trigger)
+    $scope.$storage.events.push new Event(id, $scope.realtime, trigger)
     $scope.triggerTarget = ''
     $scope.triggerType = ''
-    $scope.$storage.events = $scope.events
-    $scope.selectedIndex = $scope.events.length - 1
+    $scope.selectedIndex = $scope.$storage.events.length - 1
 
   $scope.deleteAllEvents = ->
-    $scope.events = []
     $scope.$storage.events = []
-    $scope.actionIds = []
-    $scope.$storage.actionIds = $scope.actionIds
 
   $scope.deleteEvent = (index) ->
-    $scope.events.splice(index, 1)
-    $scope.$storage.events = $scope.events
-    $scope.actionIds.splice(index, 1)
-    $scope.$storage.actionIds = $scope.actionIds
+    $scope.$storage.events.splice(index, 1)
+    $scope.$storage.actionIds.splice(index, 1)
 
-    if index == $scope.events.length
+    if index == $scope.$storage.events.length
       $scope.selectedIndex = index - 1
     else
       $scope.selectedIndex = index
@@ -109,14 +103,11 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
         action = new CallScriptAction(index)
       else
         return null
-    $scope.events[index].actions.push action
-    $scope.$storage.events = $scope.events
+    $scope.$storage.events[index].actions.push action
 
   $scope.deleteAllActions = (index) ->
-    $scope.events[index].actions = []
-    $scope.$storage.events = $scope.events
-    $scope.actionIds[index] = {}
-    $scope.$storage.actionIds = $scope.actionIds
+    $scope.$storage.events[index].actions = []
+    $scope.$storage.actionIds[index] = {}
 
   $scope.actionLabelClass = (actionType) ->
     switch actionType
@@ -130,4 +121,4 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
         "label-warning"
 
   $scope.$on 'requestModelData', (_, args) ->
-    $scope.$emit 'sendModelData', model: 'events', params: { events: $scope.events }
+    $scope.$emit 'sendModelData', model: 'events', params: { events: $scope.$storage.events }
