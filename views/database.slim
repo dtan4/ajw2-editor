@@ -41,7 +41,9 @@ div ng-controller="DatabaseCtrl"
             input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="fieldName" placeholder="Field name" required="true"
           .form-group
             label.sr-only Field type
-            input.form-control type="text" ng-model="fieldType" placeholder="Field type" required="true"
+            select.form-control type="text" ng-model="fieldType" ng-options="type for type in fieldTypeList"
+              option value=""
+                | -- Field type --
           .form-group
             button.btn.btn-primary type="submit"
               span.glyphicon.glyphicon-plus

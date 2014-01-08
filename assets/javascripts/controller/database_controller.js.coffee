@@ -15,6 +15,9 @@ app.controller 'DatabaseCtrl', ($scope, $sessionStorage) ->
   $scope.$storage.databases = [] unless $scope.$storage.databases
   $scope.selectedIndex = 0
 
+  $scope.fieldTypeList =
+    ['string', 'text', 'integer', 'float', 'decimal', 'datatime', 'timestamp', 'time', 'date', 'binary', 'boolean']
+
   $scope.updateDbType = (dbType) ->
     $scope.$storage.dbType = dbType
 
