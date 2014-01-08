@@ -75,13 +75,13 @@ div ng-controller="EventCtrl"
           .col-md-8
             .tab-content
               .tab-pane ng-repeat="action in event.actions" ng-class="{active: $index == selectedActionIndex}"
-                form.form-inline role="form"
-                  .form-group
-                    label.control-label Action ID
-                    span.trigger-value ng-bind="action.id"
-                  .form-group
-                    label.control-label Action type
-                    span.trigger-value ng-bind="action.type"
+                .form-group
+                  button.btn.btn-danger.btn-sm.pull-right ng-click="deleteAction($parent.$index, $index)"
+                    span.glyphicon.glyphicon-trash
+                    |  Delete this action
+                .form-group
+                  label.control-label Action ID
+                  span.trigger-value ng-bind="action.id"
                 .tab-content
                   .tab-pane ng-class="{active: action.type == 'interface'}"
                     h1 Interface

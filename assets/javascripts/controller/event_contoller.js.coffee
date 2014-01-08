@@ -76,7 +76,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     $scope.triggerTarget = ''
     $scope.triggerType = ''
     $scope.realtime = false
-    $scope.selectedIndex = $scope.$storage.events.length - 1
+    $scope.selectedEventIndex = $scope.$storage.events.length - 1
 
   $scope.deleteAllEvents = ->
     $scope.$storage.events = []
@@ -86,9 +86,9 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     $scope.$storage.actionIds.splice(index, 1)
 
     if index == $scope.$storage.events.length
-      $scope.selectedIndex = index - 1
+      $scope.selectedEventIndex = index - 1
     else
-      $scope.selectedIndex = index
+      $scope.selectedEventIndex = index
 
   $scope.eventCommunicationType = (realtime) ->
     return if realtime then 'Realtime (WebSocket)' else 'Ajax'
@@ -115,6 +115,14 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
   $scope.deleteAllActions = (index) ->
     $scope.$storage.events[index].actions = []
     $scope.$storage.actionIds[index] = {}
+
+  $scope.deleteAction = (eventIndex, actionIndex) ->
+    $scope.$storage.events[eventIndex].actions.splice(actionIndex, 1)
+
+    if actionIndex == $scope.$storage.events[eventIndex].actions.length
+      $scope.selectedActionIndex = actionIndex - 1
+    else
+      $scope.selectedActionIndex = actionIndex
 
   $scope.actionClick = (index) ->
     $scope.selectedActionIndex = index
