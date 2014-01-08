@@ -1,0 +1,87 @@
+.tab-content
+  .tab-pane ng-repeat="action in event.actions" ng-class="{active: $index == selectedActionIndex}"
+    .form-group
+      button.btn.btn-danger.btn-sm.pull-right ng-click="deleteAction($parent.$index, $index)"
+        span.glyphicon.glyphicon-trash
+        |  Delete this action
+    .form-group
+      label.control-label Action ID
+      span.trigger-value ng-bind="action.id"
+    .tab-content
+      .tab-pane ng-class="{active: action.type == 'interface'}"
+        form.form-horizontal role="form"
+          .form-group
+            label.col-md-3.control-label Element
+            .col-md-8
+              input.form-control type="input"
+          .form-group
+            label.col-md-3.control-label Function
+            .col-md-8
+              select.form-control type="text" ng-model="ifFunc" ng-options="func for func in interfaceFunctionList"
+                option value=""
+                  | -- Function --
+          .form-group
+            label.col-md-3.control-label Value type
+            .col-md-8
+              input.form-control type="text"
+          .form-group
+            label.col-md-3.control-label Value id
+            .col-md-8
+              input.form-control type="text"
+
+      .tab-pane ng-class="{active: action.type == 'database'}"
+        form.form-horizontal role="form"
+          .form-group
+            label.col-md-3.control-label Database
+            .col-md-8
+              input.form-control type="input"
+          .form-group
+            label.col-md-3.control-label Function
+            .col-md-8
+              select.form-control type="text" ng-model="dbFunc" ng-options="func for func in databaseFunctionList"
+                option value=""
+                  | -- Function --
+          .form-group
+            label.col-md-3.control-label Where
+            .col-md-8
+              button.btn.btn-primary
+                span.glyphicon.glyphicon-plus
+                |  Add where
+          .form-group
+            label.col-md-3.control-label Field
+            .col-md-8
+              button.btn.btn-primary
+                span.glyphicon.glyphicon-plus
+                |  Add field
+
+      .tab-pane ng-class="{active: action.type == 'callUrl'}"
+        form.form-horizontal role="form"
+              .form-group
+                label.col-md-3.control-label Method
+                .col-md-8
+                  select.form-control type="text" ng-model="callMethod" ng-options="method for method in methodList"
+                    option value=""
+                      | -- Method --
+              .form-group
+                label.col-md-3.control-label Endpoint
+                .col-md-8
+                  input.form-control type="input"
+              .form-group
+                label.col-md-3.control-label Params
+                .col-md-8
+                  button.btn.btn-primary
+                    span.glyphicon.glyphicon-plus
+                    |  Add param
+
+      .tab-pane ng-class="{active: action.type == 'callScript'}"
+        form.form-horizontal role="form"
+          .form-group
+            label.col-md-3.control-label Params
+            .col-md-8
+              button.btn.btn-primary
+                span.glyphicon.glyphicon-plus
+                |  Add param
+          .form-group
+            label.col-md-3.control-label Script
+            .col-md-8
+              textarea.form-control rows="8"

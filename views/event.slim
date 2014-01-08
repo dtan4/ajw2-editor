@@ -73,21 +73,4 @@ div ng-controller="EventCtrl"
                 span.action-id ng-bind="action.id"
                 span.label.pull-right ng-class="actionLabelClass(action.type)" ng-bind="action.type"
           .col-md-8
-            .tab-content
-              .tab-pane ng-repeat="action in event.actions" ng-class="{active: $index == selectedActionIndex}"
-                .form-group
-                  button.btn.btn-danger.btn-sm.pull-right ng-click="deleteAction($parent.$index, $index)"
-                    span.glyphicon.glyphicon-trash
-                    |  Delete this action
-                .form-group
-                  label.control-label Action ID
-                  span.trigger-value ng-bind="action.id"
-                .tab-content
-                  .tab-pane ng-class="{active: action.type == 'interface'}"
-                    h1 Interface
-                  .tab-pane ng-class="{active: action.type == 'database'}"
-                    h1 Database
-                  .tab-pane ng-class="{active: action.type == 'callUrl'}"
-                    h1 Call URL
-                  .tab-pane ng-class="{active: action.type == 'callScript'}"
-                    h1 Call Script
+            == slim :action_detail

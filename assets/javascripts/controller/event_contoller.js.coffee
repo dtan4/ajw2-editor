@@ -63,6 +63,9 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
   $scope.triggerTypeList = ['onClick', 'onChange', 'onFocus', 'onFocusOut']
   $scope.actionTypeList = ['interface', 'database', 'callUrl', 'callScript']
+  $scope.interfaceFunctionList = ['setValue', 'setText', 'show', 'hide', 'toggle', 'appendElements']
+  $scope.databaseFunctionList = ['create', 'read', 'update', 'delete']
+  $scope.methodList = ['GET', 'POST']
 
   $scope.selectedEventIndex = 0
   $scope.selectedActionIndex = 0
