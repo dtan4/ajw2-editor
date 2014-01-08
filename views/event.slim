@@ -10,6 +10,9 @@ div ng-controller="EventCtrl"
       select.form-control type="text" ng-model="triggerType" ng-options="type for type in triggerTypeList"
         option value=""
           | -- Trigger type --
+    .form-group.checkbox
+      label
+        input type="checkbox" ng-model="realtime"  Realtime
     .form-group
       button.btn.btn-primary type="submit"
         span.glyphicon.glyphicon-plus
@@ -30,15 +33,21 @@ div ng-controller="EventCtrl"
             span.glyphicon.glyphicon-trash
             |  Delete this event
 
-        h4 Trigger
-        form.form-inline role="form"
-          .form-group
-            label.control-label Element ID
-            span.trigger-value ng-bind="event.trigger.id"
-          .form-group
-            label.control-label Type
-            span.trigger-value ng-bind="event.trigger.type"
-
+        .row
+          .col-md-6
+            h4 Trigger
+            form.form-inline role="form"
+              .form-group
+                label.control-label Element ID
+                span.trigger-value ng-bind="event.trigger.id"
+              .form-group
+                label.control-label Type
+                span.trigger-value ng-bind="event.trigger.type"
+          .col-md-4
+            h4 Connection
+            form.form-inline role="form"
+              .form-group
+                span.trigger-value ng-bind="eventCommunicationType(event.realtime)"
         hr
 
         h4 Action

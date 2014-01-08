@@ -74,6 +74,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     $scope.$storage.events.push new Event(id, $scope.realtime, trigger)
     $scope.triggerTarget = ''
     $scope.triggerType = ''
+    $scope.realtime = false
     $scope.selectedIndex = $scope.$storage.events.length - 1
 
   $scope.deleteAllEvents = ->
@@ -87,6 +88,9 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       $scope.selectedIndex = index - 1
     else
       $scope.selectedIndex = index
+
+  $scope.eventCommunicationType = (realtime) ->
+    return if realtime then 'Realtime (WebSocket)' else 'Ajax'
 
   $scope.tabClick = (index) ->
     $scope.selectedIndex = index
