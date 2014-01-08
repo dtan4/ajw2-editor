@@ -33,11 +33,11 @@ div ng-controller="EventCtrl"
         h4 Trigger
         form.form-inline role="form"
           .form-group
-            label.control-label Trigger element
-            p.form-control-static ng-bind="event.trigger.id"
+            label.control-label Element ID
+            span.trigger-value ng-bind="event.trigger.id"
           .form-group
-            label.control-label Trigger function
-            p.form-control-static ng-bind="event.trigger.type"
+            label.control-label Type
+            span.trigger-value ng-bind="event.trigger.type"
 
         hr
 
