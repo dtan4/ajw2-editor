@@ -3,7 +3,7 @@ app.controller 'EditorCtrl', ($rootScope, $http) ->
   $rootScope.params = {}
 
   receivedAllModels = ->
-    (model for model in ['application', 'interface', 'database', 'events'] when $rootScope.params[model] is undefined).length == 0
+    (model for model in ['application', 'interface', 'database', 'event'] when $rootScope.params[model] is undefined).length == 0
 
   $rootScope.downloadApp = ->
     $rootScope.params = {}

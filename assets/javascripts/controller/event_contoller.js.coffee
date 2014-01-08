@@ -121,4 +121,4 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
         "label-warning"
 
   $scope.$on 'requestModelData', (_, args) ->
-    $scope.$emit 'sendModelData', model: 'events', params: { events: $scope.$storage.events }
+    $scope.$emit 'sendModelData', model: 'event', params: { events: $scope.$storage.events }
