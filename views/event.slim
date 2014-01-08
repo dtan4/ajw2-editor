@@ -7,7 +7,9 @@ div ng-controller="EventCtrl"
       input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="triggerTarget" placeholder="Trigger element ID" required="true"
     .form-group
       label.sr-only Trigger element type
-      input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="triggerType" placeholder="Trigger element type" required="true"
+      select.form-control type="text" ng-model="triggerType" ng-options="type for type in triggerTypeList"
+        option value=""
+          | -- Trigger type --
     .form-group
       button.btn.btn-primary type="submit"
         span.glyphicon.glyphicon-plus

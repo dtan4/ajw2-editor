@@ -52,11 +52,14 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
   $scope.$storage = $sessionStorage
 
+  $scope.triggerTypeList = ["onClick", "onChange", "onFocus", "onFocusOut"]
   $scope.actionTypeList = ["interface", "database", "callUrl", "callScript"]
 
   $scope.events = $scope.$storage.events ? []
 
   $scope.addEvent = ->
+    return null unless $scope.triggerType in $scope.triggerTypeList
+
     trigger = new Trigger($scope.triggerTarget, $scope.triggerType)
     id = generateEventId()
     $scope.events.push new Event(id, $scope.realtime, trigger)
