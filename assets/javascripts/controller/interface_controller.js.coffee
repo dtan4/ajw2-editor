@@ -9,10 +9,10 @@ app.controller 'InterfaceCtrl', ($scope, $sessionStorage) ->
       @formVisible = formVisible
 
   generateElemId = (elemType) ->
-    $scope.elemIds.elemType = 0 unless $scope.elemIds.elemType
-    $scope.elemIds.elemType++
+    $scope.elemIds[elemType] = 0 unless $scope.elemIds[elemType]
+    $scope.elemIds[elemType]++
     $scope.$storage.elemIds = $scope.elemIds
-    return "#{elemType}_#{$scope.elemIds.elemType}"
+    return "#{elemType}_#{$scope.elemIds[elemType]}"
 
   $scope.$storage = $sessionStorage
 
