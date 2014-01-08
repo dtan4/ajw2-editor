@@ -26,10 +26,15 @@ div ng-controller="DatabaseCtrl"
 
   .col-md-10.inner-tabs
     ul.nav.nav-tabs
-      li ng-repeat="db in databases" ng-class="{active: $index == databases.length - 1}"
-        a href="#dbTab{{$index}}" data-toggle="tab" ng-bind="db.name"
+      li ng-repeat="db in databases" ng-class="{active: $index == selectedIndex}"
+        a href="#dbTab{{$index}}" data-toggle="tab" ng-bind="db.name" ng-click="tabClick($index)"
     .tab-content
-      .tab-pane id="dbTab{{$index}}" ng-repeat="db in databases" ng-class="{active: $index == databases.length - 1}"
+      .tab-pane id="dbTab{{$index}}" ng-repeat="db in databases" ng-class="{active: $index == selectedIndex}"
+        .form-group
+          button.btn.btn-danger.btn-sm.pull-right ng-click="deleteDatabase($index)"
+            span.glyphicon.glyphicon-trash
+            |  Delete this database
+
         form.form-inline role="form" ng-submit="addField($index, fieldName, fieldType)"
           .form-group
             label.sr-only Field name

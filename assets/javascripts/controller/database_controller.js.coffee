@@ -13,6 +13,7 @@ app.controller 'DatabaseCtrl', ($scope, $sessionStorage) ->
 
   $scope.dbType = $scope.$storage.dbType ? 'mysql'
   $scope.databases = $scope.$storage.databases ? []
+  $scope.selectedIndex = 0
 
   $scope.updateDbType = (dbType) ->
     $scope.dbType = dbType
@@ -25,14 +26,27 @@ app.controller 'DatabaseCtrl', ($scope, $sessionStorage) ->
     $scope.databases.push new Database($scope.dbName)
     $scope.dbName = ''
     $scope.$storage.databases = $scope.databases
-
-  $scope.addField = (index, fieldName, fieldType) ->
-    $scope.databases[index].fields.push new Field(fieldName, fieldType)
-    $scope.$storage.databases = $scope.databases
+    $scope.selectedIndex = $scope.databases.length - 1
 
   $scope.clearDatabases = ->
     $scope.databases = []
     $scope.$storage.databases = []
+
+  $scope.deleteDatabase = (index) ->
+    $scope.databases.splice(index, 1)
+    $scope.$storage.databases = $scope.databases
+
+    if index == $scope.databases.length
+      $scope.selectedIndex = index - 1
+    else
+      $scope.selectedIndex = index
+
+  $scope.tabClick = (index) ->
+    $scope.selectedIndex = index
+
+  $scope.addField = (index, fieldName, fieldType) ->
+    $scope.databases[index].fields.push new Field(fieldName, fieldType)
+    $scope.$storage.databases = $scope.databases
 
   $scope.$on 'requestModelData', (_, args) ->
     $scope.$emit 'sendModelData', model: 'database', params: { dbType: $scope.dbType, databases: $scope.databases }
