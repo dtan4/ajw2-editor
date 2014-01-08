@@ -100,5 +100,16 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     $scope.events[index].actions.push action
     $scope.$storage.events = $scope.events
 
+  $scope.actionLabelClass = (actionType) ->
+    switch actionType
+      when "interface"
+        "label-primary"
+      when "database"
+        "label-success"
+      when "callUrl"
+        "label-info"
+      else
+        "label-warning"
+
   $scope.$on 'requestModelData', (_, args) ->
     $scope.$emit 'sendModelData', model: 'events', params: { events: $scope.events }

@@ -47,18 +47,17 @@ div ng-controller="EventCtrl"
             label.sr-only Action type
             select.form-control type="text" ng-model="actionType" ng-options="type for type in actionTypeList"
               option value=""
-              | -- Action type --
+                | -- Action type --
           .form-group
             button.btn.btn-primary type="submit"
               span.glyphicon.glyphicon-plus
               |  Add action
 
-        table.table.table-striped
-          thead
-            tr
-              th Action ID
-              th Action type
-          tbody
-            tr ng-repeat="action in event.actions"
-              td ng-bind="action.id"
-              td ng-bind="action.type"
+        .row.action-row
+          .col-md-4
+            ul.list-group
+              li.list-group-item ng-repeat="action in event.actions"
+                span.action-id ng-bind="action.id"
+                span.label.pull-right ng-class="actionLabelClass(action.type)" ng-bind="action.type"
+          .col-md-8
+            p Action Edit Pane
