@@ -46,6 +46,11 @@ div ng-controller="DatabaseCtrl"
             button.btn.btn-primary type="submit"
               span.glyphicon.glyphicon-plus
               |  Add field
+          .form-group
+            button.btn.btn-danger.btn-sm type="button" ng-click="deleteAllFields($index)" ng-show="db.fields.length > 0"
+              span.glyphicon.glyphicon-trash
+              |  Delete all fields
+
         table.table.table-striped
           thead
             tr

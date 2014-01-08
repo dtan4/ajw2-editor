@@ -43,5 +43,8 @@ app.controller 'DatabaseCtrl', ($scope, $sessionStorage) ->
   $scope.addField = (index, fieldName, fieldType) ->
     $scope.$storage.databases[index].fields.push new Field(fieldName, fieldType)
 
+  $scope.deleteAllFields = (index) ->
+    $scope.$storage.databases[index].fields = []
+
   $scope.$on 'requestModelData', (_, args) ->
     $scope.$emit 'sendModelData', model: 'database', params: { dbType: $scope.$storage.dbType, databases: $scope.$storage.databases }
