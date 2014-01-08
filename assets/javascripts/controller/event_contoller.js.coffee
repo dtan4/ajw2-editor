@@ -19,14 +19,14 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
   class InterfaceAction extends Action
     constructor: (element, func, value) ->
-      super('hoge', 'interface')
+      super(generateActionId('if'), 'interface')
       @element = element
       @func = func
       @value = value
 
   class DatabaseAction extends Action
     constructor: (database, func, where, fields) ->
-      super('hoge', 'database')
+      super(generateActionId('db'), 'database')
       @database = database
       @func = func
       @where = where
@@ -34,7 +34,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
   class CallUrlAction extends Action
     constructor: (method, endpoint, params) ->
-      super('hoge', 'callUrl')
+      super(generateActionId('call'), 'callUrl')
       @callType = 'url'
       @method = method
       @endpoint = endpoint
@@ -42,7 +42,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
   class CallScriptAction extends Action
     constructor: (params, script) ->
-      super('hoge', 'callScript')
+      super(generateActionId('call'), 'callScript')
       @callType = 'script'
       @params = params
       @script = script
@@ -50,12 +50,19 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
   generateEventId = ->
     "events_#{$scope.events.length + 1}"
 
+  generateActionId = (actionType) ->
+    $scope.actionIds[actionType] = 0 unless $scope.actionIds[actionType]
+    $scope.actionIds[actionType]++
+    $scope.$storage.actionIds = $scope.actionIds
+    return "#{actionType}_#{$scope.actionIds[actionType]}"
+
   $scope.$storage = $sessionStorage
 
   $scope.triggerTypeList = ["onClick", "onChange", "onFocus", "onFocusOut"]
   $scope.actionTypeList = ["interface", "database", "callUrl", "callScript"]
 
   $scope.events = $scope.$storage.events ? []
+  $scope.actionIds = $scope.$storage.actionIds ? {}
   $scope.selectedIndex = 0
 
   $scope.addEvent = ->
