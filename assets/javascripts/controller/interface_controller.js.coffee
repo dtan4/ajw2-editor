@@ -1,4 +1,4 @@
-app.controller 'InterfacesCtrl', ($scope, $sessionStorage) ->
+app.controller 'InterfaceCtrl', ($scope, $sessionStorage) ->
   class Element
     constructor: (type, id, elClass, value, elements, formVisible) ->
       @type = type
@@ -33,4 +33,4 @@ app.controller 'InterfacesCtrl', ($scope, $sessionStorage) ->
     el.formVisible = !el.formVisible
 
   $scope.$on 'requestModelData', (_, args) ->
-    $scope.$emit 'sendModelData', model: 'interfaces', params: { interfaces: $scope.elements[0].elements }
+    $scope.$emit 'sendModelData', model: 'interface', params: { interfaces: $scope.elements[0].elements }

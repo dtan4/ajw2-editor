@@ -1,4 +1,4 @@
-app.controller 'EventsCtrl', ($scope, $sessionStorage) ->
+app.controller 'EventCtrl', ($scope, $sessionStorage) ->
   class Event
     constructor: (id, realtime, trigger) ->
       @id = id

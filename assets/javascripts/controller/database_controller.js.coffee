@@ -1,4 +1,4 @@
-app.controller 'DatabasesCtrl', ($scope, $sessionStorage) ->
+app.controller 'DatabaseCtrl', ($scope, $sessionStorage) ->
   class Database
     constructor: (name) ->
       @name = name
@@ -35,4 +35,4 @@ app.controller 'DatabasesCtrl', ($scope, $sessionStorage) ->
     $scope.$storage.databases = []
 
   $scope.$on 'requestModelData', (_, args) ->
-    $scope.$emit 'sendModelData', model: 'databases', params: { dbType: $scope.dbType, databases: $scope.databases }
+    $scope.$emit 'sendModelData', model: 'database', params: { dbType: $scope.dbType, databases: $scope.databases }

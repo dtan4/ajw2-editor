@@ -11,25 +11,25 @@ div ng-controller="EditorCtrl"
         |  Source Only
 
 ul.nav.nav-tabs.main-tabs
-  li.active
+  li
     a href="#application" data-toggle="tab"
       span.glyphicon.glyphicon-cog  Application
   li
-    a href="#interfaces" data-toggle="tab"
-      span.glyphicon.glyphicon-th  Interfaces
+    a href="#interface" data-toggle="tab"
+      span.glyphicon.glyphicon-th  Interface
   li
-    a href="#databases" data-toggle="tab"
-      span.glyphicon.glyphicon-hdd  Databases
-  li
-    a href="#events" data-toggle="tab"
-      span.glyphicon.glyphicon-transfer  Events
+    a href="#database" data-toggle="tab"
+      span.glyphicon.glyphicon-hdd  Database
+  li.active
+    a href="#event" data-toggle="tab"
+      span.glyphicon.glyphicon-transfer  Event
 
 .tab-content
-  .tab-pane.active#application
+  .tab-pane#application
     == slim :application
-  .tab-pane#interfaces
-    == slim :interfaces
-  .tab-pane#databases
-    == slim :databases
-  .tab-pane#events
-    == slim :events
+  .tab-pane#interface
+    == slim :interface
+  .tab-pane#database
+    == slim :database
+  .tab-pane.active#event
+    == slim :event
