@@ -64,7 +64,8 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
   $scope.triggerTypeList = ['onClick', 'onChange', 'onFocus', 'onFocusOut']
   $scope.actionTypeList = ['interface', 'database', 'callUrl', 'callScript']
 
-  $scope.selectedIndex = 0
+  $scope.selectedEventIndex = 0
+  $scope.selectedActionIndex = 0
 
   $scope.addEvent = ->
     return null unless $scope.triggerType in $scope.triggerTypeList
@@ -107,11 +108,16 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
         action = new CallScriptAction(index)
       else
         return null
+
     $scope.$storage.events[index].actions.push action
+    $scope.selectedActionIndex = $scope.$storage.events[index].actions.length - 1
 
   $scope.deleteAllActions = (index) ->
     $scope.$storage.events[index].actions = []
     $scope.$storage.actionIds[index] = {}
+
+  $scope.actionClick = (index) ->
+    $scope.selectedActionIndex = index
 
   $scope.actionLabelClass = (actionType) ->
     switch actionType
