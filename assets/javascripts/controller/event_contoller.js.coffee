@@ -34,7 +34,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
   class CallUrlAction extends Action
     constructor: (index, method, endpoint, params) ->
-      super(generateActionId(index, 'call'), 'callUrl')
+      super(generateActionId(index, 'callurl'), 'callUrl')
       @callType = 'url'
       @method = method
       @endpoint = endpoint
@@ -42,7 +42,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
   class CallScriptAction extends Action
     constructor: (index, params, script) ->
-      super(generateActionId(index, 'call'), 'callScript')
+      super(generateActionId(index, 'callsc'), 'callScript')
       @callType = 'script'
       @params = params
       @script = script
