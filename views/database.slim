@@ -31,7 +31,7 @@ div ng-controller="DatabaseCtrl"
             span.glyphicon.glyphicon-trash
             |  Delete this database
 
-        form.form-inline role="form" ng-submit="addField($index, fieldName, fieldType)"
+        form.form-inline role="form" ng-submit="addField($index, fieldName, fieldType, nullable)"
           .form-group
             label.sr-only Field name
             input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="fieldName" placeholder="Field name" required="true"
@@ -40,6 +40,8 @@ div ng-controller="DatabaseCtrl"
             select.form-control type="text" ng-model="fieldType" ng-options="type for type in fieldTypeList"
               option value=""
                 | -- Field type --
+          .form-group.checkbox
+            input type="checkbox" ng-model="nullable"  Nullable
           .form-group
             button.btn.btn-primary type="submit"
               span.glyphicon.glyphicon-plus
@@ -50,7 +52,14 @@ div ng-controller="DatabaseCtrl"
             tr
               th Field name
               th Field type
+              th
+              th
             tbody
               tr ng-repeat="field in db.fields"
-                td ng-bind="field.name"
+                td.field-name ng-bind="field.name"
                 td ng-bind="field.type"
+                td
+                  span.label.label-danger ng-hide="field.null" NOT NULL
+                td
+                  button.btn.btn-danger.btn-sm.pull-right ng-click="deleteField($parent.$index, $index)"
+                    span.glyphicon.glyphicon-trash
