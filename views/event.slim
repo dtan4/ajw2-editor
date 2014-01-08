@@ -52,6 +52,10 @@ div ng-controller="EventCtrl"
             button.btn.btn-primary type="submit"
               span.glyphicon.glyphicon-plus
               |  Add action
+          .form-group
+            button.btn.btn-danger.btn-sm ng-click="deleteAllActions($index)" ng-show="event.actions.length > 0"
+              span.glyphicon.glyphicon-trash
+              |  Delete all actions
 
         .row.action-row
           .col-md-4

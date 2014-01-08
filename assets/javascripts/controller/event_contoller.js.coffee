@@ -107,6 +107,10 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     $scope.events[index].actions.push action
     $scope.$storage.events = $scope.events
 
+  $scope.deleteAllActions = (index) ->
+    $scope.events[index].actions = []
+    $scope.$storage.events = $scope.events
+
   $scope.actionLabelClass = (actionType) ->
     switch actionType
       when "interface"
