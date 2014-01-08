@@ -28,7 +28,7 @@ app.controller 'DatabaseCtrl', ($scope, $sessionStorage) ->
     $scope.$storage.databases = $scope.databases
     $scope.selectedIndex = $scope.databases.length - 1
 
-  $scope.clearDatabases = ->
+  $scope.deleteAllDatabases = ->
     $scope.databases = []
     $scope.$storage.databases = []
 

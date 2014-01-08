@@ -20,7 +20,7 @@ div ng-controller="DatabaseCtrl"
         span.glyphicon.glyphicon-plus
         |  Create database
     .form-group
-      button.btn.btn-danger.btn-sm type="button" ng-click="clearDatabases()" ng-show="databases.length > 0"
+      button.btn.btn-danger.btn-sm type="button" ng-click="deleteAllDatabases()" ng-show="databases.length > 0"
         span.glyphicon.glyphicon-trash
         |  Delete all databases
 

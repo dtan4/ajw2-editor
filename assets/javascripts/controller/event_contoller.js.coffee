@@ -76,7 +76,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     $scope.$storage.events = $scope.events
     $scope.selectedIndex = $scope.events.length - 1
 
-  $scope.clearAllEvents = ->
+  $scope.deleteAllEvents = ->
     $scope.events = []
     $scope.$storage.events = []
 
