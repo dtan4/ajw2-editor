@@ -61,8 +61,8 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     $scope.$storage.actionIds[index][actionType]++
     return "#{actionType}_#{$scope.$storage.actionIds[index][actionType]}"
 
-  $scope.triggerTypeList = ["onClick", "onChange", "onFocus", "onFocusOut"]
-  $scope.actionTypeList = ["interface", "database", "callUrl", "callScript"]
+  $scope.triggerTypeList = ['onClick', 'onChange', 'onFocus', 'onFocusOut']
+  $scope.actionTypeList = ['interface', 'database', 'callUrl', 'callScript']
 
   $scope.selectedIndex = 0
 
@@ -97,13 +97,13 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
   $scope.addAction = (index, actionType) ->
     switch actionType
-      when "interface"
+      when 'interface'
         action = new InterfaceAction(index)
-      when "database"
+      when 'database'
         action = new DatabaseAction(index)
-      when "callUrl"
+      when 'callUrl'
         action = new CallUrlAction(index)
-      when "callScript"
+      when 'callScript'
         action = new CallScriptAction(index)
       else
         return null
@@ -115,14 +115,14 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
   $scope.actionLabelClass = (actionType) ->
     switch actionType
-      when "interface"
-        "label-primary"
-      when "database"
-        "label-success"
-      when "callUrl"
-        "label-info"
+      when 'interface'
+        'label-primary'
+      when 'database'
+        'label-success'
+      when 'callUrl'
+        'label-info'
       else
-        "label-warning"
+        'label-warning'
 
   $scope.$on 'requestModelData', (_, args) ->
     $scope.$emit 'sendModelData', model: 'event', params: { events: $scope.$storage.events }
