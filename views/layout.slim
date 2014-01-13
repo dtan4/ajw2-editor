@@ -7,21 +7,7 @@ html ng-app="ajw2Editor"
     link href="/css/bootstrap.min.css" rel="stylesheet"
     link href=stylesheet_path("main") rel="stylesheet"
   body
-    nav.navbar.navbar-default role="navigation"
-      .navbar-header
-        a.navbar-brand href="#" Ajw2 Editor
-
-      .collapse.navbar-collapse ng-controller="NavbarCtrl"
-        ul.nav.navbar-nav
-          li
-            button.btn.btn-default.navbar-btn type="button" ng-click="createNew()"
-              span.glyphicon.glyphicon-plus
-          li
-            button.btn.btn-default.navbar-btn type="button" ng-click="openSource()"
-              span.glyphicon.glyphicon-folder-open
-
-    .container
-      == yield
+    == yield
 
     script src="/js/jquery-2.0.3.min.js"
     script src="/js/jquery.tmpl.js"

@@ -1,36 +1,39 @@
-div ng-controller="EditorCtrl"
-  .well.well-sm
-    .row
-      .col-md-8.text-center
-        h1.app-name ng-bind="appName"
-      .col-md-4
-        button.btn.btn-success.btn-header.btn-lg.download-btn ng-click="downloadApp()"
-          span.glyphicon.glyphicon-floppy-save
-          |  Application
-        button.btn.btn-success.btn-header.btn-lg.download-btn ng-click="downloadSource()"
-          span.glyphicon.glyphicon-floppy-save
-          |  Source Only
+== slim :navbar
 
-ul.nav.nav-tabs.main-tabs
-  li
-    a href="#application" data-toggle="tab"
-      span.glyphicon.glyphicon-cog  Application
-  li
-    a href="#interface" data-toggle="tab"
-      span.glyphicon.glyphicon-th  Interface
-  li
-    a href="#database" data-toggle="tab"
-      span.glyphicon.glyphicon-hdd  Database
-  li.active
-    a href="#event" data-toggle="tab"
-      span.glyphicon.glyphicon-transfer  Event
+.container
+  div ng-controller="EditorCtrl"
+    .well.well-sm
+      .row
+        .col-md-8.text-center
+          h1.app-name ng-bind="appName"
+        .col-md-4
+          button.btn.btn-success.btn-header.btn-lg.download-btn ng-click="downloadApp()"
+            span.glyphicon.glyphicon-floppy-save
+            |  Application
+          button.btn.btn-success.btn-header.btn-lg.download-btn ng-click="downloadSource()"
+            span.glyphicon.glyphicon-floppy-save
+            |  Source Only
 
-.tab-content
-  .tab-pane#application
-    == slim :application
-  .tab-pane#interface
-    == slim :interface
-  .tab-pane#database
-    == slim :database
-  .tab-pane.active#event
-    == slim :event
+  ul.nav.nav-tabs.main-tabs
+    li
+      a href="#application" data-toggle="tab"
+        span.glyphicon.glyphicon-cog  Application
+    li
+      a href="#interface" data-toggle="tab"
+        span.glyphicon.glyphicon-th  Interface
+    li
+      a href="#database" data-toggle="tab"
+        span.glyphicon.glyphicon-hdd  Database
+    li.active
+      a href="#event" data-toggle="tab"
+        span.glyphicon.glyphicon-transfer  Event
+
+  .tab-content
+    .tab-pane#application
+      == slim :application
+    .tab-pane#interface
+      == slim :interface
+    .tab-pane#database
+      == slim :database
+    .tab-pane.active#event
+      == slim :event

@@ -1,0 +1,12 @@
+nav.navbar.navbar-default role="navigation"
+  .navbar-header
+    a.navbar-brand href="#" Ajw2 Editor
+
+  .collapse.navbar-collapse ng-controller="NavbarCtrl"
+    ul.nav.navbar-nav
+      li
+        button.btn.btn-default.navbar-btn type="button" ng-click="createNew()"
+          span.glyphicon.glyphicon-plus
+      li
+        button.btn.btn-default.navbar-btn type="button" ng-click="openSource()"
+          span.glyphicon.glyphicon-folder-open
