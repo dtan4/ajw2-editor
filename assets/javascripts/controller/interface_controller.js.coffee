@@ -46,3 +46,7 @@ app.controller 'InterfaceCtrl', ($scope, $sessionStorage) ->
 
   $scope.$on 'requestModelData', (_, args) ->
     $scope.$emit 'sendModelData', model: 'interface', params: { interfaces: $scope.$storage.elements[0].elements }
+
+  $scope.$on 'cleanup', (_, args) ->
+    $scope.$storage.elements = [new Element('body', '', '', '', [], true)]
+    $scope.$storage.elemIds = {}

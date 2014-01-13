@@ -71,3 +71,8 @@ app.controller 'DatabaseCtrl', ($scope, $sessionStorage) ->
 
   $scope.$on 'requestModelData', (_, args) ->
     $scope.$emit 'sendModelData', model: 'database', params: { dbType: $scope.$storage.dbType, databases: $scope.$storage.databases }
+
+  $scope.$on 'cleanup', (_, args) ->
+    $scope.$storage.dbType = 'mysql'
+    $scope.$storage.databases = []
+    $scope.selectedIndex = 0

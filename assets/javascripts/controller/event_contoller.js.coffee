@@ -169,3 +169,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
   $scope.$on 'sendAllDatabaseNames', (_, args) ->
     $scope.databaseNameList = args.name
+
+  $scope.$on 'cleanup', (_, args) ->
+    $scope.$storage.events = []
+    $scope.$storage.actionIds = []

@@ -11,12 +11,14 @@ html ng-app="ajw2Editor"
       .navbar-header
         a.navbar-brand href="#" Ajw2 Editor
 
-      .collapse.navbar-collapse
-        ul.nav.navbar-nav.navbar-right
+      .collapse.navbar-collapse ng-controller="NavbarCtrl"
+        ul.nav.navbar-nav
           li
-            button.btn.btn-primary.navbar-btn#newBtn type="button"
+            button.btn.btn-default.navbar-btn type="button" ng-click="createNew()"
               span.glyphicon.glyphicon-plus
-              |  New
+          li
+            button.btn.btn-default.navbar-btn type="button" ng-click="openSource()"
+              span.glyphicon.glyphicon-folder-open
 
     .container
       == yield
