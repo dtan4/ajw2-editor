@@ -62,6 +62,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     return "#{actionType}_#{$scope.$storage.actionIds[index][actionType]}"
 
   $scope.interfaceIdList = []
+  $scope.databaseNameList = []
   $scope.triggerTypeList = ['onClick', 'onChange', 'onFocus', 'onFocusOut']
   $scope.actionTypeList = ['interface', 'database', 'callUrl', 'callScript']
   $scope.interfaceFunctionList = ['setValue', 'setText', 'show', 'hide', 'toggle', 'appendElements']
@@ -74,6 +75,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
   $scope.init = ->
     $scope.$emit 'getAllElementIds'
+    $scope.$emit 'getAllDatabaseNames'
 
   $scope.addEvent = ->
     return null unless $scope.triggerType in $scope.triggerTypeList
@@ -163,3 +165,6 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
   $scope.$on 'sendAllElementIds', (_, args) ->
     $scope.interfaceIdList = args.id
+
+  $scope.$on 'sendAllDatabaseNames', (_, args) ->
+    $scope.databaseNameList = args.name

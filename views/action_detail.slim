@@ -43,7 +43,9 @@
           .form-group
             label.col-md-3.control-label Database
             .col-md-8
-              input.form-control type="input"
+              select.form-control type="text" ng-model="dbName" ng-options="name for name in databaseNameList"
+                option value=""
+                  | -- Database --
           .form-group
             label.col-md-3.control-label Function
             .col-md-8

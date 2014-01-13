@@ -29,9 +29,11 @@ app.controller 'DatabaseCtrl', ($scope, $sessionStorage) ->
     $scope.$storage.databases.push new Database($scope.dbName)
     $scope.dbName = ''
     $scope.selectedIndex = $scope.$storage.databases.length - 1
+    $scope.$emit 'responseAllDatabaseNames', name: $scope.getDatabaseNames()
 
   $scope.deleteAllDatabases = ->
     $scope.$storage.databases = []
+    $scope.$emit 'responseAllDatabaseNames', name: $scope.getDatabaseNames()
 
   $scope.deleteDatabase = (index) ->
     $scope.$storage.databases.splice(index, 1)
@@ -40,6 +42,8 @@ app.controller 'DatabaseCtrl', ($scope, $sessionStorage) ->
       $scope.selectedIndex = index - 1
     else
       $scope.selectedIndex = index
+
+    $scope.$emit 'responseAllDatabaseNames', name: $scope.getDatabaseNames()
 
   $scope.tabClick = (index) ->
     $scope.selectedIndex = index
@@ -55,6 +59,15 @@ app.controller 'DatabaseCtrl', ($scope, $sessionStorage) ->
 
   $scope.nullableText = (nullable) ->
     if nullable then "" else "NOT NULL"
+
+  $scope.getDatabaseNames = ->
+    result = []
+    result.push db.name for db in $scope.$storage.databases
+
+    return [].concat.apply [], result
+
+  $scope.$on 'requestAllDatabaseNames', (_, args) ->
+    $scope.$emit 'responseAllDatabaseNames', name: $scope.getDatabaseNames()
 
   $scope.$on 'requestModelData', (_, args) ->
     $scope.$emit 'sendModelData', model: 'database', params: { dbType: $scope.$storage.dbType, databases: $scope.$storage.databases }
