@@ -4,6 +4,11 @@
       button.btn.btn-danger.btn-sm.pull-right ng-click="deleteAction($parent.$index, $index)"
         span.glyphicon.glyphicon-trash
         |  Delete this action
+    .btn-group.pull-right
+      button.btn.btn-default ng-disabled="$index == 0" ng-click="backwardAction($parent.$index, $index)"
+        span.glyphicon.glyphicon-arrow-up
+      button.btn.btn-default ng-disabled="$index == event.actions.length - 1" ng-click="forwardAction($parent.$index, $index)"
+        span.glyphicon.glyphicon-arrow-down
     .form-group
       label.control-label Action ID
       span.trigger-value ng-bind="action.id"

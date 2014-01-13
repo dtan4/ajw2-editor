@@ -142,5 +142,17 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       else
         'label-warning'
 
+  $scope.forwardAction = (eventIndex, actionIndex) ->
+    $scope.swapAction(eventIndex, actionIndex, actionIndex + 1)
+
+  $scope.backwardAction = (eventIndex, actionIndex) ->
+    $scope.swapAction(eventIndex, actionIndex, actionIndex - 1)
+
+  $scope.swapAction = (eventIndex, oldIndex, newIndex) ->
+    tmp = $scope.$storage.events[eventIndex].actions[oldIndex]
+    $scope.$storage.events[eventIndex].actions[oldIndex] = $scope.$storage.events[eventIndex].actions[newIndex]
+    $scope.$storage.events[eventIndex].actions[newIndex] = tmp
+    $scope.selectedActionIndex = newIndex
+
   $scope.$on 'requestModelData', (_, args) ->
     $scope.$emit 'sendModelData', model: 'event', params: { events: $scope.$storage.events }
