@@ -78,6 +78,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     $scope.$emit 'getAllDatabaseNames'
 
   $scope.addEvent = ->
+    return null unless $scope.triggerTarget in $scope.interfaceIdList
     return null unless $scope.triggerType in $scope.triggerTypeList
 
     trigger = new Trigger($scope.triggerTarget, $scope.triggerType)
