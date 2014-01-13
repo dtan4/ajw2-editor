@@ -1,10 +1,12 @@
 h3 Event
 
-div ng-controller="EventCtrl"
+div ng-controller="EventCtrl" ng-init="init()"
   form.form-inline role="form" ng-submit="addEvent()"
     .form-group
       label.sr-only Trigger element ID
-      input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="triggerTarget" placeholder="Trigger element ID" required="true"
+      select.form-control type="text" ng-model="triggerTarget" ng-options="id for id in interfaceIdList"
+        option value=""
+          | -- Trigger target --
     .form-group
       label.sr-only Trigger element type
       select.form-control type="text" ng-model="triggerType" ng-options="type for type in triggerTypeList"

@@ -22,13 +22,27 @@ app.controller 'InterfaceCtrl', ($scope, $sessionStorage) ->
     elemId = generateElemId(elemType) unless elemId
     el.elements.push new Element(elemType, elemId, elemClass, elemValue, [], true)
     el.formVisible = false
+    $scope.$emit 'responseAllElementIds', id: $scope.getElementIds($scope.$storage.elements[0].elements)
 
   $scope.deleteChildren = (el) ->
     el.elements = []
     el.formVisible = true
+    $scope.$emit 'responseAllElementIds', id: $scope.getElementIds($scope.$storage.elements[0].elements)
 
   $scope.toggleForm = (el) ->
     el.formVisible = !el.formVisible
+
+  $scope.getElementIds = (elements) ->
+    result = []
+
+    for el in elements
+      result.push el.id
+      result.push $scope.getElementIds(el.elements) if el.elements.length > 0
+
+    return [].concat.apply [], result
+
+  $scope.$on 'requestAllElementIds', (_, args) ->
+    $scope.$emit 'responseAllElementIds', id: $scope.getElementIds($scope.$storage.elements[0].elements)
 
   $scope.$on 'requestModelData', (_, args) ->
     $scope.$emit 'sendModelData', model: 'interface', params: { interfaces: $scope.$storage.elements[0].elements }

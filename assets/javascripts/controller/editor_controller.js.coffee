@@ -12,11 +12,17 @@ app.controller 'EditorCtrl', ($rootScope, $http) ->
   $rootScope.downloadSource = ->
     console.log 'downloadSource!'
 
+  $rootScope.$on 'getAllElementIds', (_, message) ->
+    $rootScope.$broadcast 'requestAllElementIds', {}
+
   $rootScope.$on 'sendModelData', (_, message) ->
     $rootScope.params[message.model] = message.params
     return unless receivedAllModels()
     $http.post('/download', $rootScope.params).success (data, status, headers, config) ->
       console.log data
+
+  $rootScope.$on 'responseAllElementIds', (_, message) ->
+    $rootScope.$broadcast 'sendAllElementIds', message
 
   $rootScope.$on 'sendAppName', (_, message) ->
     $rootScope.appName = message.appName
