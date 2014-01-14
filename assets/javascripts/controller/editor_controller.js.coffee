@@ -42,4 +42,4 @@ app.controller 'EditorCtrl', ($rootScope, $http, $window) ->
     $rootScope.$broadcast 'sendAllDatabaseNames', message
 
   $rootScope.$on 'sendAppName', (_, message) ->
-    $rootScope.appName = message.appName
+    $rootScope.name = message.name

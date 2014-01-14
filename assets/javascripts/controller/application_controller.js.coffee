@@ -1,13 +1,16 @@
 app.controller 'ApplicationCtrl', ($scope, $sessionStorage) ->
   $scope.$storage = $sessionStorage
 
-  $scope.$storage.appName = "Ajw2 Application" unless $scope.$storage.appName
+  $scope.$storage.name = "Ajw2 Application" unless $scope.$storage.name
 
-  $scope.$watch '$storage.appName', (newValue, oldValue) ->
-    $scope.$emit 'sendAppName', appName: newValue
+  $scope.$watch '$storage.name', (newValue, oldValue) ->
+    $scope.$emit 'sendAppName', name: newValue
 
   $scope.$on 'requestModelData', (_, args) ->
-    $scope.$emit 'sendModelData', model: 'application', params: { appName: $scope.$storage.appName }
+    $scope.$emit 'sendModelData', model: 'application', params: { name: $scope.$storage.name }
 
   $scope.$on 'cleanup', (_, args) ->
-    $scope.$storage.appName = 'Ajw2 Application'
+    $scope.$storage.name = 'Ajw2 Application'
+
+  $scope.$on 'loadSource', (_, source) ->
+    $scope.$storage.name = source.application.name

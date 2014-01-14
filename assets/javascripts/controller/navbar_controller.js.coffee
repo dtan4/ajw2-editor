@@ -20,5 +20,6 @@ app.controller 'NavbarCtrl', ($rootScope, $scope) ->
     reader.onload = (file) ->
       source = JSON.parse file.target.result
       console.log source
+      $rootScope.$broadcast 'loadSource', source
 
     reader.readAsText(sourceFile)
