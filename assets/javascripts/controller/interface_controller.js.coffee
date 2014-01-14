@@ -18,6 +18,18 @@ app.controller 'InterfaceCtrl', ($scope, $sessionStorage) ->
     $scope.$storage.elemIds[elemType]++
     return "#{elemType}_#{$scope.$storage.elemIds[elemType]}"
 
+  loadElements = (elements) ->
+    result = []
+
+    for elem in elements
+      elClass = elem['class'] || ''
+      value = elem['value'] || ''
+      children = if elem['children'] then loadElements(elem['children']) else []
+      el = new Element(elem.type, elem.id, elClass, value, children, false)
+      result.push el
+
+    return result
+
   $scope.add = (el, elemType, elemId, elemClass, elemValue) ->
     elemId = generateElemId(elemType) unless elemId
     el.elements.push new Element(elemType, elemId, elemClass, elemValue, [], true)
@@ -49,4 +61,8 @@ app.controller 'InterfaceCtrl', ($scope, $sessionStorage) ->
 
   $scope.$on 'cleanup', (_, args) ->
     $scope.$storage.elements = [new Element('body', '', '', '', [], true)]
+    $scope.$storage.elemIds = {}
+
+  $scope.$on 'loadSource', (_, source) ->
+    $scope.$storage.elements = [new Element('body', '', '', '', loadElements(source.interface.elements), true)]
     $scope.$storage.elemIds = {}
