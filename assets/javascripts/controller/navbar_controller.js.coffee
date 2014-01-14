@@ -15,6 +15,7 @@ app.controller 'NavbarCtrl', ($rootScope, $scope) ->
 
     unless sourceFile.type == 'application/json'
       console.error 'invalid file'
+      return null
 
     reader = new FileReader()
     reader.onload = (file) ->
