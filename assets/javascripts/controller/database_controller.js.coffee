@@ -19,6 +19,20 @@ app.controller 'DatabaseCtrl', ($scope, $sessionStorage) ->
   $scope.fieldTypeList =
     ['string', 'text', 'integer', 'float', 'decimal', 'datatime', 'timestamp', 'time', 'date', 'binary', 'boolean']
 
+  loadDatabases = (databases) ->
+    result = []
+
+    for database in databases
+      db = new Database(database.tablename)
+
+      for field in database.property
+        fl = new Field(field.name, field.type, field['null'])
+        db.fields.push fl
+
+      result.push db
+
+    return result
+
   $scope.updateDbType = (dbType) ->
     $scope.$storage.dbType = dbType
 
@@ -76,3 +90,7 @@ app.controller 'DatabaseCtrl', ($scope, $sessionStorage) ->
     $scope.$storage.dbType = 'mysql'
     $scope.$storage.databases = []
     $scope.selectedIndex = 0
+
+  $scope.$on 'loadSource', (_, source) ->
+    $scope.$storage.dbType = source.database.dbType
+    $scope.$storage.databases = loadDatabases source.database.databases
