@@ -1,10 +1,10 @@
 app.controller 'EventCtrl', ($scope, $sessionStorage) ->
   class Event
-    constructor: (id, realtime, trigger) ->
+    constructor: (id, realtime, trigger, actions) ->
       @id = id
       @realtime = realtime
       @trigger = trigger
-      @actions = []
+      @actions = actions
 
   class Trigger
     constructor: (id, type) ->
@@ -18,31 +18,31 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       @type = type
 
   class InterfaceAction extends Action
-    constructor: (index, element, func, value) ->
-      super(generateActionId(index, 'if'), 'interface')
+    constructor: (id, element, func, value) ->
+      super(id, 'interface')
       @element = element
       @func = func
       @value = value
 
   class DatabaseAction extends Action
-    constructor: (index, database, func, where, fields) ->
-      super(generateActionId(index, 'db'), 'database')
+    constructor: (id, database, func, where, fields) ->
+      super(id, 'database')
       @database = database
       @func = func
       @where = where
       @fields = fields
 
   class CallUrlAction extends Action
-    constructor: (index, method, endpoint, params) ->
-      super(generateActionId(index, 'callurl'), 'callUrl')
+    constructor: (id, method, endpoint, params) ->
+      super(id, 'callUrl')
       @callType = 'url'
       @method = method
       @endpoint = endpoint
       @params = params
 
   class CallScriptAction extends Action
-    constructor: (index, params, script) ->
-      super(generateActionId(index, 'callsc'), 'callScript')
+    constructor: (id, params, script) ->
+      super(id, 'callScript')
       @callType = 'script'
       @params = params
       @script = script
@@ -51,6 +51,47 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
   $scope.$storage.events = [] unless $scope.$storage.events
   $scope.$storage.actionIds = [] unless $scope.$storage.actionIds
+
+  loadTrigger = (trigger) ->
+    tr = new Trigger(trigger.target, trigger.type)
+    # TODO: load trigger.params
+    return tr
+
+  loadActions = (actions) ->
+    result = []
+
+    for action in actions
+      switch action.type
+        when 'interface'
+          # TODO: load action.params
+          act = new InterfaceAction(action.id, action.element, action.func, [])
+        when 'database'
+          # TODO: load action.where, action.fields
+          act = new DatabaseAction(action.id, action.database, action.func, [], [])
+        when 'call'
+          if action.callType == "url"
+            # TODO: load action.params
+            act = new CallUrlAction(action.id, action.method, action.endpoint, [])
+          else
+            # TODO: load action.params
+            act = new CallScriptAction(action.id, [], action.script)
+        else
+          act = null
+
+      result.push act
+
+    return result
+
+
+  loadEvents = (events) ->
+    result = []
+
+    for event in events
+      trigger = loadTrigger(event.trigger)
+      actions = loadActions(event.action.actions)
+      result.push new Event(event.id, event.realtime, trigger, actions)
+
+    return result
 
   generateEventId = ->
     "events_#{$scope.$storage.events.length + 1}"
@@ -83,7 +124,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
     trigger = new Trigger($scope.triggerTarget, $scope.triggerType)
     id = generateEventId()
-    $scope.$storage.events.push new Event(id, $scope.realtime, trigger)
+    $scope.$storage.events.push new Event(id, $scope.realtime, trigger, [])
     $scope.triggerTarget = ''
     $scope.triggerType = ''
     $scope.realtime = false
@@ -110,13 +151,17 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
   $scope.addAction = (index, actionType) ->
     switch actionType
       when 'interface'
-        action = new InterfaceAction(index)
+        id = generateActionId(index, 'if')
+        action = new InterfaceAction(id)
       when 'database'
-        action = new DatabaseAction(index)
+        id = generateActionId(index, 'db')
+        action = new DatabaseAction(id)
       when 'callUrl'
-        action = new CallUrlAction(index)
+        id = generateActionId(index, 'callUrl')
+        action = new CallUrlAction(id)
       when 'callScript'
-        action = new CallScriptAction(index)
+        id = generateActionId(index, 'callSc')
+        action = new CallScriptAction(id)
       else
         return null
 
@@ -173,3 +218,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
   $scope.$on 'cleanup', (_, args) ->
     $scope.$storage.events = []
     $scope.$storage.actionIds = []
+
+  $scope.$on 'loadSource', (_, source) ->
+    $scope.$storage.events = loadEvents(source.event.events)
+    $scope.$storage.actionids = []
