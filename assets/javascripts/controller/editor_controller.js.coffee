@@ -1,28 +1,28 @@
-app.controller 'EditorCtrl', ($rootScope, $http, $window) ->
-  $rootScope.appName = ''
-  $rootScope.params = {}
+app.controller 'EditorCtrl', ($rootScope, $scope, $http, $window) ->
+  $scope.appName = ''
+  $scope.params = {}
 
   receivedAllModels = ->
-    (model for model in ['application', 'interface', 'database', 'event'] when $rootScope.params[model] is undefined).length == 0
+    (model for model in ['application', 'interface', 'database', 'event'] when $scope.params[model] is undefined).length == 0
 
-  $rootScope.downloadApp = ->
-    $rootScope.params = {}
+  $scope.downloadApp = ->
+    $scope.params = {}
     $rootScope.$broadcast 'requestModelData', {}
 
     while not receivedAllModels()
       continue
 
-    $http.post('/download', $rootScope.params).success (data, status, headers, config) ->
+    $http.post('/download', $scope.params).success (data, status, headers, config) ->
       console.log data
 
-  $rootScope.downloadSource = ->
-    $rootScope.params = {}
+  $scope.downloadSource = ->
+    $scope.params = {}
     $rootScope.$broadcast 'requestModelData', {}
 
     while not receivedAllModels()
       continue
 
-    blob = new Blob [JSON.stringify $rootScope.params]
+    blob = new Blob [JSON.stringify $scope.params]
     $window.open $window.URL.createObjectURL(blob)
     return
 
@@ -42,4 +42,4 @@ app.controller 'EditorCtrl', ($rootScope, $http, $window) ->
     $rootScope.$broadcast 'sendAllDatabaseNames', message
 
   $rootScope.$on 'sendAppName', (_, message) ->
-    $rootScope.name = message.name
+    $scope.name = message.name
