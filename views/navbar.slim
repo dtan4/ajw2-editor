@@ -8,5 +8,17 @@ nav.navbar.navbar-default role="navigation"
         button.btn.btn-default.navbar-btn type="button" ng-click="createNew()"
           span.glyphicon.glyphicon-plus
       li
-        button.btn.btn-default.navbar-btn type="button" ng-click="openSource()"
+        button.btn.btn-default.navbar-btn type="button" data-toggle="modal" data-target="#openSourceModal"
           span.glyphicon.glyphicon-folder-open
+
+.modal.fade#openSourceModal tabindex="-1" role="dialog" aria-labelledby="openSourceModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content ng-controller="NavbarCtrl"
+      .modal-header
+        button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+        h4.modal-title#openSourceModalLabel Open source file
+      .modal-body
+        input type="file" file-on-change="openSourceFile"
+      .modal-footer
+        button.btn.btn-default type="button" data-dismiss="modal" Close
+        button.btn.btn-primary type="button" data-dismiss="modal" Open
