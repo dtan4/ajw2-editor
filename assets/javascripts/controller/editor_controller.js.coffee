@@ -1,4 +1,4 @@
-app.controller 'EditorCtrl', ($rootScope, $http) ->
+app.controller 'EditorCtrl', ($rootScope, $http, $window) ->
   $rootScope.appName = ''
   $rootScope.params = {}
 
@@ -9,8 +9,22 @@ app.controller 'EditorCtrl', ($rootScope, $http) ->
     $rootScope.params = {}
     $rootScope.$broadcast 'requestModelData', {}
 
+    while not receivedAllModels()
+      continue
+
+    $http.post('/download', $rootScope.params).success (data, status, headers, config) ->
+      console.log data
+
   $rootScope.downloadSource = ->
-    console.log 'downloadSource!'
+    $rootScope.params = {}
+    $rootScope.$broadcast 'requestModelData', {}
+
+    while not receivedAllModels()
+      continue
+
+    blob = new Blob [JSON.stringify $rootScope.params]
+    $window.open $window.URL.createObjectURL(blob)
+    return
 
   $rootScope.$on 'getAllElementIds', (_, message) ->
     $rootScope.$broadcast 'requestAllElementIds', {}
@@ -20,9 +34,6 @@ app.controller 'EditorCtrl', ($rootScope, $http) ->
 
   $rootScope.$on 'sendModelData', (_, message) ->
     $rootScope.params[message.model] = message.params
-    return unless receivedAllModels()
-    $http.post('/download', $rootScope.params).success (data, status, headers, config) ->
-      console.log data
 
   $rootScope.$on 'responseAllElementIds', (_, message) ->
     $rootScope.$broadcast 'sendAllElementIds', message
