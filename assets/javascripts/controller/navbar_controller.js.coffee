@@ -45,7 +45,7 @@ app.controller 'NavbarCtrl', ($rootScope, $scope, $http, $window) ->
     setTimeout ->
       return unless receivedAllModels()
 
-      blob = new Blob [JSON.stringify $scope.params], type: 'application/json'
+      blob = new Blob [angular.toJson($scope.params, true)], type: 'application/json'
       $scope.disableButton = false
       url = $window.URL.createObjectURL(blob)
       $('#downloadLink').attr('href', url)
