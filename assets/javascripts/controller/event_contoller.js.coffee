@@ -58,6 +58,18 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
   $scope.$storage.events = [] unless $scope.$storage.events
   $scope.$storage.actionIds = [] unless $scope.$storage.actionIds
 
+  $scope.interfaceIdList = []
+  $scope.tableNameList = []
+  $scope.triggerTypeList = ['onClick', 'onChange', 'onFocus', 'onFocusOut']
+  $scope.actionTypeList = ['interface', 'database', 'callUrl', 'callScript']
+  $scope.interfaceFunctionList = ['setValue', 'setText', 'show', 'hide', 'toggle', 'appendElements']
+  $scope.databaseFunctionList = ['create', 'read', 'update', 'delete']
+  $scope.methodList = ['GET', 'POST']
+  $scope.paramTypeList = ['param', 'interface', 'database', 'call']
+
+  $scope.selectedEventIndex = 0
+  $scope.selectedActionIndex = 0
+
   loadParams = (params) ->
     result = []
 
@@ -116,18 +128,6 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     $scope.$storage.actionIds[index][actionType] = 0 unless $scope.$storage.actionIds[index][actionType]
     $scope.$storage.actionIds[index][actionType]++
     return "#{actionType}_#{$scope.$storage.actionIds[index][actionType]}"
-
-  $scope.interfaceIdList = []
-  $scope.tableNameList = []
-  $scope.triggerTypeList = ['onClick', 'onChange', 'onFocus', 'onFocusOut']
-  $scope.actionTypeList = ['interface', 'database', 'callUrl', 'callScript']
-  $scope.interfaceFunctionList = ['setValue', 'setText', 'show', 'hide', 'toggle', 'appendElements']
-  $scope.databaseFunctionList = ['create', 'read', 'update', 'delete']
-  $scope.methodList = ['GET', 'POST']
-  $scope.paramTypeList = ['param', 'interface', 'database', 'call']
-
-  $scope.selectedEventIndex = 0
-  $scope.selectedActionIndex = 0
 
   $scope.init = ->
     $scope.$emit 'getAllElementIds'
