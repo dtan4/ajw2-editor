@@ -12,6 +12,12 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       @type = type
       @params = params
 
+  class Parameter
+    constructor: (id, type, value) ->
+      @id = id
+      @type = type
+      @value = value
+
   class Action
     constructor: (id, type) ->
       @id = id
@@ -52,9 +58,19 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
   $scope.$storage.events = [] unless $scope.$storage.events
   $scope.$storage.actionIds = [] unless $scope.$storage.actionIds
 
+  loadParams = (params) ->
+    result = []
+
+    for param in params
+      pm = new Parameter(param.id, param.type, param.value)
+      result.push pm
+
+    return result
+
   loadTrigger = (trigger) ->
-    tr = new Trigger(trigger.target, trigger.type, [])
-    # TODO: load trigger.params
+    params = loadParams(trigger.params)
+    tr = new Trigger(trigger.target, trigger.type, params)
+
     return tr
 
   loadActions = (actions) ->
@@ -81,7 +97,6 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       result.push act
 
     return result
-
 
   loadEvents = (events) ->
     result = []
@@ -144,6 +159,12 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
   $scope.eventConnectionType = (realtime) ->
     return if realtime then 'Realtime (WebSocket)' else 'Ajax'
+
+  $scope.addTriggerParam = (index, id, type, value) ->
+    $scope.$storage.events[index].trigger.params.push new Parameter(id, type, value)
+
+  $scope.deleteTriggerParam = (eventIndex, paramIndex) ->
+    $scope.$storage.events[eventIndex].trigger.params.splice(paramIndex, 1)
 
   $scope.tabClick = (index) ->
     $scope.selectedIndex = index

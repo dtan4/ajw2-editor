@@ -56,7 +56,7 @@ div ng-controller="DatabaseCtrl"
               th
           tbody
             tr ng-repeat="field in tb.fields"
-              td.field-name ng-bind="field.name"
+              td.key-column ng-bind="field.name"
               td ng-bind="field.type"
               td
                 span.label.label-danger ng-hide="field.nullable" NOT NULL

@@ -41,11 +41,42 @@ div ng-controller="EventCtrl" ng-init="init()"
               .form-group
                 label.control-label Type
                 span.trigger-value ng-bind="event.trigger.type"
-          .col-md-4
             h4 Connection
             form.form-inline role="form"
               .form-group
                 span.trigger-value ng-bind="eventConnectionType(event.realtime)"
+
+          .col-md-6
+            h4 Parameters
+            form.form-inline role="form" ng-submit="addTriggerParam($index, paramId, paramType, paramValue)"
+              .form-group
+                label.sr-only ID
+                input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="paramId" placeholder="ID" required="true"
+              .form-group
+                label.sr-only Type
+                input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="paramType" placeholder="Type" required="true"
+              .form-group
+                label.sr-only Value
+                input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="paramValue" placeholder="Value" required="true"
+              .form-group
+                button.btn.btn-primary type="submit"
+                  span.glyphicon.glyphicon-plus
+
+            table.table.table-striped
+              thead
+                tr
+                  th ID
+                  th Type
+                  th Value
+                  th
+              tbody
+                tr ng-repeat="param in event.trigger.params"
+                  td.key-column ng-bind="param.id"
+                  td ng-bind="param.type"
+                  td ng-bind="param.value"
+                  td
+                    button.btn.btn-danger.btn-sm.pull-right ng-click="deleteTriggerParam($parent.$index, $index)"
+                      span.glyphicon.glyphicon-trash
         hr
 
         h4 Action
