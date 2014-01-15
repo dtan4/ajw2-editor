@@ -11,25 +11,25 @@ div ng-controller="DatabaseCtrl"
           a.btn.btn-default href="javascript:void(0)" ng-click="updateDbType('sqlite')" ng-class="{active: $storage.dbType == 'sqlite'}" SQLite
   hr
 
-  form.form-inline role="form" ng-submit="addDatabase()"
+  form.form-inline role="form" ng-submit="addTable()"
     .form-group
-      label.sr-only Database name
-      input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="dbName" placeholder="Database name" required="true" ng-change="validateDbName(dbName)"
+      label.sr-only Table name
+      input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="dbName" placeholder="Table name" required="true" ng-change="validateTableName(tableName)"
     .form-group
       button.btn.btn-primary type="submit"
         span.glyphicon.glyphicon-plus
-        |  Create database
+        |  Create table
 
   .col-md-10.inner-tabs
     ul.nav.nav-tabs
-      li ng-repeat="db in $storage.databases" ng-class="{active: $index == selectedIndex}"
-        a href="#dbTab{{$index}}" data-toggle="tab" ng-bind="db.name" ng-click="tabClick($index)"
+      li ng-repeat="tb in $storage.tables" ng-class="{active: $index == selectedIndex}"
+        a href="#tbTab{{$index}}" data-toggle="tab" ng-bind="tb.name" ng-click="tabClick($index)"
     .tab-content
-      .tab-pane id="dbTab{{$index}}" ng-repeat="db in $storage.databases" ng-class="{active: $index == selectedIndex}"
+      .tab-pane id="tbTab{{$index}}" ng-repeat="tb in $storage.tables" ng-class="{active: $index == selectedIndex}"
         .form-group
-          button.btn.btn-danger.btn-sm.pull-right ng-click="deleteDatabase($index)"
+          button.btn.btn-danger.btn-sm.pull-right ng-click="deleteTable($index)"
             span.glyphicon.glyphicon-trash
-            |  Delete this database
+            |  Delete this table
 
         form.form-inline role="form" ng-submit="addField($index, fieldName, fieldType, nullable)"
           .form-group
@@ -55,11 +55,11 @@ div ng-controller="DatabaseCtrl"
               th
               th
             tbody
-              tr ng-repeat="field in db.fields"
+              tr ng-repeat="field in tb.fields"
                 td.field-name ng-bind="field.name"
                 td ng-bind="field.type"
                 td
-                  span.label.label-danger ng-hide="field.null" NOT NULL
+                  span.label.label-danger ng-hide="field.nullable" NOT NULL
                 td
                   button.btn.btn-danger.btn-sm.pull-right ng-click="deleteField($parent.$index, $index)"
                     span.glyphicon.glyphicon-trash
