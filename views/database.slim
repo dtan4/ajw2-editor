@@ -14,7 +14,7 @@ div ng-controller="DatabaseCtrl"
   form.form-inline role="form" ng-submit="addTable()"
     .form-group
       label.sr-only Table name
-      input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="dbName" placeholder="Table name" required="true" ng-change="validateTableName(tableName)"
+      input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="tableName" placeholder="Table name" required="true" ng-change="validateTableName(tableName)"
     .form-group
       button.btn.btn-primary type="submit"
         span.glyphicon.glyphicon-plus
