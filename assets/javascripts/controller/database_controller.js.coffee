@@ -45,10 +45,6 @@ app.controller 'DatabaseCtrl', ($scope, $sessionStorage) ->
     $scope.selectedIndex = $scope.$storage.tables.length - 1
     $scope.$emit 'responseAllTableNames', name: $scope.getTableNames()
 
-  $scope.deleteAllTables = ->
-    $scope.$storage.tables = []
-    $scope.$emit 'responseAllTableNames', name: $scope.getTableNames()
-
   $scope.deleteTable = (index) ->
     $scope.$storage.tables.splice(index, 1)
 
@@ -64,9 +60,6 @@ app.controller 'DatabaseCtrl', ($scope, $sessionStorage) ->
 
   $scope.addField = (index, fieldName, fieldType, nullable) ->
     $scope.$storage.tables[index].fields.push new Field(fieldName, fieldType, nullable)
-
-  $scope.deleteAllFields = (index) ->
-    $scope.$storage.tables[index].fields = []
 
   $scope.deleteField = (tableIndex, fieldIndex) ->
     $scope.$storage.tables[tableIndex].fields.splice(fieldIndex, 1)

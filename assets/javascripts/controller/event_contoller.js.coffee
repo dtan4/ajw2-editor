@@ -145,9 +145,6 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     $scope.realtime = false
     $scope.selectedEventIndex = $scope.$storage.events.length - 1
 
-  $scope.deleteAllEvents = ->
-    $scope.$storage.events = []
-
   $scope.deleteEvent = (index) ->
     $scope.$storage.events.splice(index, 1)
     $scope.$storage.actionIds.splice(index, 1)
@@ -188,10 +185,6 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
     $scope.$storage.events[index].actions.push action
     $scope.selectedActionIndex = $scope.$storage.events[index].actions.length - 1
-
-  $scope.deleteAllActions = (index) ->
-    $scope.$storage.events[index].actions = []
-    $scope.$storage.actionIds[index] = {}
 
   $scope.deleteAction = (eventIndex, actionIndex) ->
     $scope.$storage.events[eventIndex].actions.splice(actionIndex, 1)
