@@ -1,0 +1,168 @@
+h4 Action
+.btn-group
+  button.btn.btn-primary data-toggle="modal" data-target="#ifActionModal"
+    span.glyphicon.glyphicon-plus
+    |  Interface
+  button.btn.btn-primary data-toggle="modal" data-target="#dbActionModal"
+    span.glyphicon.glyphicon-plus
+    |  Database
+  button.btn.btn-primary data-toggle="modal" data-target="#callAPIActionModal"
+    span.glyphicon.glyphicon-plus
+    |  Call API
+  button.btn.btn-primary data-toggle="modal" data-target="#callScriptActionModal"
+    span.glyphicon.glyphicon-plus
+    |  Call JavaScript
+
+.modal.fade#ifActionModal tabindex="-1" role="dialog" aria-labelledby="ifActionModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+        h4.modal-title#ifActionModalLabel Add Interface action
+      .modal-body
+        form.form-horizontal role="form"
+          .form-group
+            label.col-md-3.control-label Element
+            .col-md-8
+              select.form-control type="text" ng-model="ifActionElement" ng-options="id for id in interfaceIdList"
+                option value=""
+                  | -- Element --
+          .form-group
+            label.col-md-3.control-label Function
+            .col-md-8
+              select.form-control type="text" ng-model="ifFunc" ng-options="func for func in interfaceFunctionList"
+                option value=""
+                  | -- Function --
+          .form-group
+            label.col-md-3.control-label Value type
+            .col-md-8
+              select.form-control ng-model="ifValutType" ng-options="type for type in paramTypeList"
+                option value=""
+                  | -- Param type --
+          .form-group
+            label.col-md-3.control-label Value id
+            .col-md-8
+              input.form-control type="text"
+      .modal-footer
+        button.btn.btn-default type="button" data-dismiss="modal" Close
+        button.btn.btn-primary type="button" data-dismiss="modal"
+          span.glyphicon.glyphicon-plus
+          |  Add
+
+.modal.fade#dbActionModal tabindex="-1" role="dialog" aria-labelledby="dbActionModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+        h4.modal-title#dbActionModalLabel Add Database action
+      .modal-body
+        form.form-horizontal role="form"
+          .form-group
+            label.col-md-3.control-label Database
+            .col-md-8
+              select.form-control type="text" ng-model="tableName" ng-options="name for name in tableNameList"
+                option value=""
+                  | -- Table --
+          .form-group
+            label.col-md-3.control-label Function
+            .col-md-8
+              select.form-control type="text" ng-model="dbFunc" ng-options="func for func in databaseFunctionList"
+                option value=""
+                  | -- Function --
+          .form-group
+            label.col-md-3.control-label Where
+            .col-md-4
+              select.form-control ng-model="dbWhereType" ng-options="type for type in paramTypeList"
+                option value=""
+                  | -- Param type --
+            .col-md-4
+              button.btn.btn-primary
+                span.glyphicon.glyphicon-plus
+                |  Add where
+          .form-group
+            label.col-md-3.control-label Field
+            .col-md-4
+              select.form-control ng-model="dbFieldType" ng-options="type for type in paramTypeList"
+                option value=""
+                  | -- Param type --
+            .col-md-4
+              button.btn.btn-primary
+                span.glyphicon.glyphicon-plus
+                |  Add field
+      .modal-footer
+        button.btn.btn-default type="button" data-dismiss="modal" Close
+        button.btn.btn-primary type="button" data-dismiss="modal"
+          span.glyphicon.glyphicon-plus
+          |  Add
+
+
+.modal.fade#callAPIActionModal tabindex="-1" role="dialog" aria-labelledby="callAPIActionModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+        h4.modal-title#callAPIActionModalLabel Add Interface action
+      .modal-body
+        form.form-horizontal role="form"
+          .form-group
+            label.col-md-3.control-label Method
+            .col-md-8
+              select.form-control type="text" ng-model="callMethod" ng-options="method for method in methodList"
+                option value=""
+                  | -- Method --
+          .form-group
+            label.col-md-3.control-label Endpoint
+            .col-md-8
+              input.form-control type="input"
+          .form-group
+            label.col-md-3.control-label Params
+            .col-md-4
+              select.form-control ng-model="callUrlParamType" ng-options="type for type in paramTypeList"
+                option value=""
+                  | -- Param type --
+            .col-md-4
+              button.btn.btn-primary
+                span.glyphicon.glyphicon-plus
+                |  Add param
+      .modal-footer
+        button.btn.btn-default type="button" data-dismiss="modal" Close
+        button.btn.btn-primary type="button" data-dismiss="modal"
+          span.glyphicon.glyphicon-plus
+          |  Add
+
+.modal.fade#callScriptActionModal tabindex="-1" role="dialog" aria-labelledby="callScriptActionModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+        h4.modal-title#callScriptActionModalLabel Add Call Script action
+      .modal-body
+        form.form-horizontal role="form"
+          .form-group
+            label.col-md-3.control-label Params
+            .col-md-4
+              select.form-control ng-model="callScriptParamType" ng-options="type for type in paramTypeList"
+                option value=""
+                  | -- Param type --
+            .col-md-4
+              button.btn.btn-primary
+                span.glyphicon.glyphicon-plus
+                |  Add param
+          .form-group
+            label.col-md-3.control-label Script
+            .col-md-8
+              textarea.form-control rows="8"
+      .modal-footer
+        button.btn.btn-default type="button" data-dismiss="modal" Close
+        button.btn.btn-primary type="button" data-dismiss="modal"
+          span.glyphicon.glyphicon-plus
+          |  Add
+
+.row.action-row
+  .col-md-4
+    .list-group
+      a.list-group-item href="#" ng-repeat="action in event.actions" ng-click="actionClick($index)" ng-class="{active : $index == selectedActionIndex}"
+        span.action-id ng-bind="action.id"
+        span.label.pull-right ng-class="actionLabelClass(action.type)" ng-bind="action.type"
+  .col-md-8
+    == slim :action_detail

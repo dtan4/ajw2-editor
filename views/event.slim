@@ -141,23 +141,4 @@ div ng-controller="EventCtrl" ng-init="init()"
 
         hr
 
-        h4 Action
-        form.form-inline role="form" ng-submit="addAction($index, actionType)"
-          .form-group
-            label.sr-only Action type
-            select.form-control type="text" ng-model="actionType" ng-options="type for type in actionTypeList"
-              option value=""
-                | -- Action type --
-          .form-group
-            button.btn.btn-primary type="submit"
-              span.glyphicon.glyphicon-plus
-              |  Add action
-
-        .row.action-row
-          .col-md-4
-            .list-group
-              a.list-group-item href="#" ng-repeat="action in event.actions" ng-click="actionClick($index)" ng-class="{active : $index == selectedActionIndex}"
-                span.action-id ng-bind="action.id"
-                span.label.pull-right ng-class="actionLabelClass(action.type)" ng-bind="action.type"
-          .col-md-8
-            == slim :action_detail
+        == slim :event_action
