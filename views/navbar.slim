@@ -10,6 +10,9 @@ nav.navbar.navbar-default role="navigation"
       li
         button.btn.btn-default.navbar-btn type="button" data-toggle="modal" data-target="#openSourceModal"
           span.glyphicon.glyphicon-folder-open
+      li
+        button.btn.btn-default.navbar-btn type="button" data-toggle="modal" data-target="#saveModal" ng-click="createSourceUrl()"
+          span.glyphicon.glyphicon-floppy-save
 
 .modal.fade#openSourceModal tabindex="-1" role="dialog" aria-labelledby="openSourceModalLabel" aria-hidden="true"
   .modal-dialog
@@ -22,3 +25,20 @@ nav.navbar.navbar-default role="navigation"
       .modal-footer
         button.btn.btn-default type="button" data-dismiss="modal" Close
         button.btn.btn-primary type="button" data-dismiss="modal" Open
+
+.modal.fade#saveModal tabindex="-1" role="dialog" aria-labelledby="saveModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content ng-controller="NavbarCtrl"
+      .modal-header
+        button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+        h4.modal-title#saveModal Save application
+      .modal-body
+        button.btn.btn-success.btn-header.btn-lg ng-click="downloadApp()" disabled="disabled"
+          span.glyphicon.glyphicon-floppy-save
+          |  Application Package
+        a#downloadLink href="" download="source.json"
+          button.btn.btn-success.btn-header.btn-lg ng-disabled="{{disableButton}}"
+            span.glyphicon.glyphicon-floppy-save
+            |  Source Only
+      .modal-footer
+        button.btn.btn-default type="button" data-dismiss="modal" Close
