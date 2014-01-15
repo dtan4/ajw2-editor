@@ -2,12 +2,18 @@ app.controller 'ApplicationCtrl', ($scope, $sessionStorage) ->
   $scope.$storage = $sessionStorage
 
   $scope.$storage.name = "Ajw2 Application" unless $scope.$storage.name
+  $scope.$storage.css = []
+  $scope.$storage.js = []
 
   $scope.$watch '$storage.name', (newValue, oldValue) ->
     $scope.$emit 'sendAppName', name: newValue
 
   $scope.$on 'requestModelData', (_, args) ->
-    $scope.$emit 'sendModelData', model: 'application', params: { name: $scope.$storage.name }
+    $scope.$emit 'sendModelData', model: 'application', params: {
+      name: $scope.$storage.name,
+      css: $scope.$storage.css,
+      js: $scope.$storage.js
+    }
 
   $scope.$on 'cleanup', (_, args) ->
     $scope.$storage.name = 'Ajw2 Application'
