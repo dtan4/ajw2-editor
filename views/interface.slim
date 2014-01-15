@@ -9,12 +9,12 @@ div ng-controller="InterfaceCtrl"
       span.el-type ng-bind="el.type"
       span.el-id ng-show="el.id && el.id != ''"
         | \#{{el.id}}
-      span.el-class ng-show="el.elClass && el.elClass != ''"
-        | .{{el.elClass}}
+      span.el-class ng-show="el['class'] && el['class'] != ''"
+        | .{{el['class']}}
       span.el-value ng-show="el.value && el.value != ''"
         | value: {{el.value}}
       span.form-group
-        button.btn.btn-danger.btn-xs ng-click="deleteChildren(el)" ng-show="el.formVisible && el.elements.length > 0"
+        button.btn.btn-danger.btn-xs ng-click="deleteChildren(el)" ng-show="el.formVisible && el.children.length > 0"
           span.glyphicon.glyphicon-trash
           |  Delete Children
     form.form-inline role="form" ng-submit="add(el, elemType, elemId, elemClass, elemValue)" ng-show="el.formVisible"
@@ -31,4 +31,4 @@ div ng-controller="InterfaceCtrl"
           span.glyphicon.glyphicon-plus
           |  Add child
     ul
-      li ng-repeat="el in el.elements" ng-include="'element_tree.html'"
+      li ng-repeat="el in el.children" ng-include="'element_tree.html'"
