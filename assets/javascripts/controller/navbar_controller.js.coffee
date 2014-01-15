@@ -56,6 +56,18 @@ app.controller 'NavbarCtrl', ($rootScope, $scope, $http, $window) ->
       $('#downloadLink').attr('href', url)
     , 500
 
+  $rootScope.$on 'getAllElementIds', (_, message) ->
+    $rootScope.$broadcast 'requestAllElementIds', {}
+
+  $rootScope.$on 'getAllTableNames', (_, message) ->
+    $rootScope.$broadcast 'requestAllTableNames', {}
+
+  $rootScope.$on 'responseAllElementIds', (_, res) ->
+    $rootScope.$broadcast 'sendAllElementIds', res
+
+  $rootScope.$on 'responseAllTableNames', (_, res) ->
+    $rootScope.$broadcast 'sendAllTableNames', res
+
   $rootScope.$on 'sendModelData', (_, message) ->
     $scope.params[message.model] = message.params
 
