@@ -4,15 +4,29 @@
   div ng-controller="EditorCtrl"
     .well.well-sm
       .row
-        .col-md-8.text-center
+        .col-md-10.text-center
           h1.app-name ng-bind="name"
-        .col-md-4
-          button.btn.btn-success.btn-header.btn-lg.download-btn ng-click="downloadApp()"
+        .col-md-2
+          button.btn.btn-success.btn-header.btn-lg data-toggle="modal" data-target="#saveModal" ng-click="createSourceUrl()"
             span.glyphicon.glyphicon-floppy-save
-            |  Application
-          button.btn.btn-success.btn-header.btn-lg.download-btn ng-click="downloadSource()"
-            span.glyphicon.glyphicon-floppy-save
-            |  Source Only
+            |  Save
+
+    .modal.fade#saveModal tabindex="-1" role="dialog" aria-labelledby="saveModalLabel" aria-hidden="true"
+      .modal-dialog
+        .modal-content
+          .modal-header
+            button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+            h4.modal-title#saveModal Save application
+          .modal-body
+            button.btn.btn-success.btn-header.btn-lg ng-click="downloadApp()"
+              span.glyphicon.glyphicon-floppy-save
+              |  Application
+            a#downloadLink href="" download="source.json"
+              button.btn.btn-success.btn-header.btn-lg ng-disabled="{{disableButton}}"
+                span.glyphicon.glyphicon-floppy-save
+                |  Source Only
+          .modal-footer
+            button.btn.btn-default type="button" data-dismiss="modal" Close
 
   ul.nav.nav-tabs.main-tabs
     li

@@ -1,6 +1,7 @@
 app.controller 'EditorCtrl', ($rootScope, $scope, $http, $window) ->
   $scope.appName = ''
   $scope.params = {}
+  $scope.disableButton = false
 
   receivedAllModels = ->
     (model for model in ['application', 'interface', 'database', 'event'] when $scope.params[model] is undefined).length == 0
@@ -15,15 +16,19 @@ app.controller 'EditorCtrl', ($rootScope, $scope, $http, $window) ->
         console.log data
     , 1000
 
-  $scope.downloadSource = ->
+  $scope.createSourceUrl = ->
     $scope.params = {}
     $rootScope.$broadcast 'requestModelData', {}
+    $scope.disableButton = true
 
     setTimeout ->
       return unless receivedAllModels()
-      blob = new Blob [JSON.stringify $scope.params]
-      $window.open $window.URL.createObjectURL(blob)
-    , 1000
+
+      blob = new Blob [JSON.stringify $scope.params], type: 'application/json'
+      $scope.disableButton = false
+      $scope.sourceUrl = $window.URL.createObjectURL(blob)
+      $('#downloadLink').attr('href', $scope.sourceUrl)
+    , 500
 
   $rootScope.$on 'getAllElementIds', (_, message) ->
     $rootScope.$broadcast 'requestAllElementIds', {}
