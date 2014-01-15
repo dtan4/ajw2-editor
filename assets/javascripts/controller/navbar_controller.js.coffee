@@ -28,7 +28,6 @@ app.controller 'NavbarCtrl', ($rootScope, $scope, $http, $window) ->
     reader = new FileReader()
     reader.onload = (file) ->
       source = JSON.parse file.target.result
-      console.log source
       $rootScope.$broadcast 'loadSource', source
 
     reader.readAsText(sourceFile)
@@ -55,7 +54,6 @@ app.controller 'NavbarCtrl', ($rootScope, $scope, $http, $window) ->
       $scope.disableButton = false
       url = $window.URL.createObjectURL(blob)
       $('#downloadLink').attr('href', url)
-      console.log url
     , 500
 
   $rootScope.$on 'sendModelData', (_, message) ->
