@@ -7,8 +7,8 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       @actions = actions
 
   class Trigger
-    constructor: (id, type) ->
-      @id = id
+    constructor: (target, type) ->
+      @target = target
       @type = type
       @params = []
 
