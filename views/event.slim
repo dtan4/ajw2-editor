@@ -61,6 +61,7 @@ div ng-controller="EventCtrl" ng-init="init()"
                   th ID
                   th Type
                   th
+                  th Value
                   th
               tbody
                 tr ng-repeat="param in event.trigger.params"
@@ -68,6 +69,7 @@ div ng-controller="EventCtrl" ng-init="init()"
                   td ng-bind="param.type"
                   td
                     span.label ng-bind="param.value.type" ng-class="paramValueLabelClass(param.value.type)"
+                  td ng-bind="paramValueStr(param.value)"
                   td
                     button.btn.btn-danger.btn-sm.pull-right ng-click="deleteTriggerParam($parent.$index, $index)"
                       span.glyphicon.glyphicon-trash

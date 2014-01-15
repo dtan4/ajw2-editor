@@ -189,13 +189,28 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     param = new Parameter(id, type, value)
     $scope.$storage.events[index].trigger.params.push param
 
-  $scope.paramValueLabelClass = (type) ->
-    if type == 'element' then 'label-success' else 'label-warning'
-
   $scope.addLiteralValueParam = (index, id, type, value) ->
     value = new LiteralValue(value)
     param = new Parameter(id, type, value)
     $scope.$storage.events[index].trigger.params.push param
+
+  $scope.paramValueLabelClass = (type) ->
+    switch type
+      when 'element'
+        return 'label-success'
+      when 'literal'
+        return 'label-warning'
+      else
+        return ''
+
+  $scope.paramValueStr = (value) ->
+    switch value.type
+      when 'element'
+        return "#{value.element}: #{value.func}()"
+      when 'literal'
+        return "#{value.value}"
+      else
+        return ''
 
   $scope.deleteTriggerParam = (eventIndex, paramIndex) ->
     $scope.$storage.events[eventIndex].trigger.params.splice(paramIndex, 1)
