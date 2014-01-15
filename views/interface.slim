@@ -7,12 +7,14 @@ div ng-controller="InterfaceCtrl"
   script id="element_tree.html" type="text/ng-template"
     .el-header ng-click="toggleForm(el)"
       span.el-type ng-bind="el.type"
-      span.el-id ng-show="el.id && el.id != ''"
-        | \#{{el.id}}
       span.el-class ng-show="el['class'] && el['class'] != ''"
         | .{{el['class']}}
+      span.el-id ng-show="el.id && el.id != ''"
+        | \#{{el.id}}
+      span.el-value-label ng-show="el.value && el.value != ''"
+        |   value:
       span.el-value ng-show="el.value && el.value != ''"
-        | value: {{el.value}}
+        | {{el.value}}
       span.form-group
         button.btn.btn-danger.btn-xs ng-click="deleteChildren(el)" ng-show="el.formVisible && el.children.length > 0"
           span.glyphicon.glyphicon-trash
