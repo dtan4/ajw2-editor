@@ -54,12 +54,12 @@ div ng-controller="DatabaseCtrl"
               th Field type
               th
               th
-            tbody
-              tr ng-repeat="field in tb.fields"
-                td.field-name ng-bind="field.name"
-                td ng-bind="field.type"
-                td
-                  span.label.label-danger ng-hide="field.nullable" NOT NULL
-                td
-                  button.btn.btn-danger.btn-sm.pull-right ng-click="deleteField($parent.$index, $index)"
-                    span.glyphicon.glyphicon-trash
+          tbody
+            tr ng-repeat="field in tb.fields"
+              td.field-name ng-bind="field.name"
+              td ng-bind="field.type"
+              td
+                span.label.label-danger ng-hide="field.nullable" NOT NULL
+              td
+                button.btn.btn-danger.btn-sm.pull-right ng-click="deleteField($parent.$index, $index)"
+                  span.glyphicon.glyphicon-trash
