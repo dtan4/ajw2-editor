@@ -236,3 +236,6 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
   $scope.$on 'loadSource', (_, source) ->
     $scope.$storage.events = loadEvents(source.event.events)
     $scope.$storage.actionids = []
+
+  $scope.$on 'refreshTab', (_, args) ->
+    $scope.$storage.events = $scope.$storage.events

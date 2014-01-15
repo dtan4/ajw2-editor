@@ -67,3 +67,7 @@ app.controller 'ApplicationCtrl', ($scope, $sessionStorage) ->
     $scope.$storage.name = source.application.name
     $scope.$storage.css = loadResources(source.application.css)
     $scope.$storage.js = loadResources(source.application.js)
+
+  $scope.$on 'refreshTab', (_, args) ->
+    $scope.$storage.name = $scope.$storage.name
+    $scope.refreshTab()

@@ -89,3 +89,7 @@ app.controller 'DatabaseCtrl', ($scope, $sessionStorage) ->
   $scope.$on 'loadSource', (_, source) ->
     $scope.$storage.dbType = source.database.dbType
     $scope.$storage.tables = loadTables source.database.tables
+
+  $scope.$on 'refreshTab', (_, args) ->
+    $scope.$storage.dbType = $scope.$storage.dbType
+    $scope.$storage.tables = $scope.$storage.tables

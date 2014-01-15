@@ -24,6 +24,9 @@ app.controller 'NavbarCtrl', ($rootScope, $scope, $http, $window) ->
 
     reader.readAsText(sourceFile)
 
+  $scope.refreshTabs = ->
+    $rootScope.$broadcase 'refreshTab', {}
+
   $scope.downloadApp = ->
     $scope.params = {}
     $rootScope.$broadcast 'requestModelData', {}

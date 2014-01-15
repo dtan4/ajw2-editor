@@ -66,3 +66,6 @@ app.controller 'InterfaceCtrl', ($scope, $sessionStorage) ->
   $scope.$on 'loadSource', (_, source) ->
     $scope.$storage.elements = [new Element('body', '', '', '', loadElements(source.interface.elements), true)]
     $scope.$storage.elemIds = {}
+
+  $scope.$on 'refreshTab', (_, args) ->
+    $scope.$storage.elements = $scope.$storage.elements

@@ -26,7 +26,7 @@ nav.navbar.navbar-default role="navigation"
         input type="file" file-on-change="openSourceFile"
       .modal-footer
         button.btn.btn-default type="button" data-dismiss="modal" Close
-        button.btn.btn-primary type="button" data-dismiss="modal" Open
+        button.btn.btn-primary type="button" data-dismiss="modal" ng-click="refreshTabs" Open
 
 .modal.fade#saveModal tabindex="-1" role="dialog" aria-labelledby="saveModalLabel" aria-hidden="true"
   .modal-dialog
