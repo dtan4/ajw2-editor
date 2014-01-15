@@ -11,10 +11,43 @@ div ng-controller="ApplicationCtrl"
       .col-md-10
         button.btn.btn-primary
           span.glyphicon.glyphicon-plus
-          |  Add stylesheet
+          |  Local file
+        button.btn.btn-primary
+          span.glyphicon.glyphicon-plus
+          |  URL
+
+        .row
+          .col-md-8
+            table.table.table-striped
+              thead
+                tr
+                  th
+                  th
+              tbody
+                tr ng-repeat="css in $storage.css"
+                  td
+                    span.label ng-class="resourceLabelClass(css.remote)" ng-bind="resourceType(css.remote)"
+                  td.key-column ng-bind="css.src"
+
     .form-group
       label.col-md-2.control-label External JavaScripts
       .col-md-10
         button.btn.btn-primary
           span.glyphicon.glyphicon-plus
-          |  Add JavaScript
+          |  Local file
+        button.btn.btn-primary
+          span.glyphicon.glyphicon-plus
+          |  URL
+
+        .row
+          .col-md-8
+            table.table.table-striped
+              thead
+                tr
+                  th
+                  th
+              tbody
+                tr ng-repeat="js in $storage.js"
+                  td
+                    span.label ng-class="resourceLabelClass(js.remote)" ng-bind="resourceType(js.remote)"
+                  td.key-column ng-bind="js.src"
