@@ -18,14 +18,22 @@ app.controller 'ApplicationCtrl', ($scope, $sessionStorage) ->
 
     return result
 
-  $scope.addLocalStylesheet = (src) ->
-    $scope.$storage.css.push new Resource(true, src)
+  $scope.refreshTab = ->
+    $scope.$storage.css = $scope.$storage.css
+    $scope.$storage.js = $scope.$storage.js
+
+  $scope.addLocalStylesheet = (evt) ->
+    cssFile = evt.target.files[0]
+    resource = new Resource(false, cssFile.name)
+    $scope.$storage.css.push resource
 
   $scope.addRemoteStylesheet = (src) ->
-    $scope.$storage.css.push new Resource(false, src)
+    $scope.$storage.css.push new Resource(true, src)
 
-  $scope.addLocalJavaScript = (src) ->
-    $scope.$storage.js.push new Resource(false, src)
+  $scope.addLocalJavaScript = (evt) ->
+    jsFile = evt.target.files[0]
+    resource = new Resource(false, jsFile.name)
+    $scope.$storage.js.push resource
 
   $scope.addRemoteJavaScript = (src) ->
     $scope.$storage.js.push new Resource(true, src)

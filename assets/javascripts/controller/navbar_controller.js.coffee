@@ -1,11 +1,3 @@
-app.directive 'fileOnChange', ->
-  {
-    restrict: 'A',
-    link: (scope, element, attrs) ->
-      onChangeFunc = element.scope()[attrs.fileOnChange]
-      element.bind 'change', onChangeFunc
-  }
-
 app.controller 'NavbarCtrl', ($rootScope, $scope, $http, $window) ->
   $scope.params = {}
   $scope.appName = ""

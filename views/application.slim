@@ -74,10 +74,10 @@ div ng-controller="ApplicationCtrl"
           button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
           h4.modal-title#localCSSModalLabel Add local stylesheet
         .modal-body
-          input type="file"
+          input type="file" file-on-change="addLocalStylesheet"
         .modal-footer
           button.btn.btn-default type="button" data-dismiss="modal" Close
-          button.btn.btn-primary type="button" data-dismiss="modal" ng-click="addLocalStylesheet(localStylesheetSrc)"
+          button.btn.btn-primary type="button" data-dismiss="modal" ng-click="refreshTab()"
             span.glyphicon.glyphicon-plus
             |  Add
 
@@ -106,10 +106,10 @@ div ng-controller="ApplicationCtrl"
           button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
           h4.modal-title#localJSModalLabel Add local stylesheet
         .modal-body
-          input type="file"
+          input type="file" file-on-change="addLocalJavaScript"
         .modal-footer
           button.btn.btn-default type="button" data-dismiss="modal" Close
-          button.btn.btn-primary type="button" data-dismiss="modal" ng-click="addLocalJavaScript(localJavaScriptSrc)"
+          button.btn.btn-primary type="button" data-dismiss="modal" ng-click="refreshTab()"
             span.glyphicon.glyphicon-plus
             |  Add
 
