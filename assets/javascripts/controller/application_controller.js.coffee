@@ -18,23 +18,29 @@ app.controller 'ApplicationCtrl', ($scope, $sessionStorage) ->
 
     return result
 
-  $scope.addLocalStylesheet = ->
-    console.log 'Add local stylesheet'
+  $scope.addLocalStylesheet = (src) ->
+    $scope.$storage.css.push new Resource(true, src)
 
-  $scope.addRemoteStylesheet = ->
-    console.log 'Add remote stylesheet'
+  $scope.addRemoteStylesheet = (src) ->
+    $scope.$storage.css.push new Resource(false, src)
 
-  $scope.addLocalJavaScript = ->
-    console.log 'Add local JavaScript'
+  $scope.addLocalJavaScript = (src) ->
+    $scope.$storage.js.push new Resource(false, src)
 
-  $scope.addRemoteJavaScript = ->
-    console.log 'Add remote JavaScript'
+  $scope.addRemoteJavaScript = (src) ->
+    $scope.$storage.js.push new Resource(true, src)
+
+  $scope.deleteStylesheet = (index) ->
+    $scope.$storage.css.splice(index, 1)
+
+  $scope.deleteJavaScript = (index) ->
+    $scope.$storage.js.splice(index, 1)
 
   $scope.resourceType = (remote) ->
     if remote then 'remote' else 'local'
 
   $scope.resourceLabelClass = (remote) ->
-    if remote then 'labal-primary' else 'label-warning'
+    if remote then 'label-success' else 'label-warning'
 
   $scope.$watch '$storage.name', (newValue, oldValue) ->
     $scope.$emit 'sendAppName', name: newValue

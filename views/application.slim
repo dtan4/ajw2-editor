@@ -9,10 +9,10 @@ div ng-controller="ApplicationCtrl"
     .form-group
       label.col-md-2.control-label External Stylesheets
       .col-md-10
-        button.btn.btn-primary
+        button.btn.btn-primary data-toggle="modal" data-target="#localCSSModal"
           span.glyphicon.glyphicon-plus
           |  Local file
-        button.btn.btn-primary
+        button.btn.btn-primary data-toggle="modal" data-target="#remoteCSSModal"
           span.glyphicon.glyphicon-plus
           |  URL
 
@@ -21,6 +21,7 @@ div ng-controller="ApplicationCtrl"
             table.table.table-striped
               thead
                 tr
+                  th
                   th
                   th
               tbody
@@ -28,14 +29,17 @@ div ng-controller="ApplicationCtrl"
                   td
                     span.label ng-class="resourceLabelClass(css.remote)" ng-bind="resourceType(css.remote)"
                   td.key-column ng-bind="css.src"
+                  td
+                    button.btn.btn-danger.btn-sm.pull-right ng-click="deleteStylesheet($index)"
+                      span.glyphicon.glyphicon-trash
 
     .form-group
       label.col-md-2.control-label External JavaScripts
       .col-md-10
-        button.btn.btn-primary
+        button.btn.btn-primary data-toggle="modal" data-target="#localJSModal"
           span.glyphicon.glyphicon-plus
           |  Local file
-        button.btn.btn-primary
+        button.btn.btn-primary data-toggle="modal" data-target="#remoteJSModal"
           span.glyphicon.glyphicon-plus
           |  URL
 
@@ -46,8 +50,76 @@ div ng-controller="ApplicationCtrl"
                 tr
                   th
                   th
+                  th
               tbody
                 tr ng-repeat="js in $storage.js"
                   td
                     span.label ng-class="resourceLabelClass(js.remote)" ng-bind="resourceType(js.remote)"
                   td.key-column ng-bind="js.src"
+                  td
+                    button.btn.btn-danger.btn-sm.pull-right ng-click="deleteJavaScript($index)"
+                      span.glyphicon.glyphicon-trash
+
+  .modal.fade#localCSSModal tabindex="-1" role="dialog" aria-labelledby="localCSSModalLabel" aria-hidden="true"
+    .modal-dialog
+      .modal-content ng-controller="NavbarCtrl"
+        .modal-header
+          button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+          h4.modal-title#localCSSModalLabel Add local stylesheet
+        .modal-body
+          input type="file"
+        .modal-footer
+          button.btn.btn-default type="button" data-dismiss="modal" Close
+          button.btn.btn-primary type="button" data-dismiss="modal" ng-click="addLocalStylesheet(localStylesheetSrc)"
+            span.glyphicon.glyphicon-plus
+            |  Add
+
+  .modal.fade#remoteCSSModal tabindex="-1" role="dialog" aria-labelledby="remoteCSSModalLabel" aria-hidden="true"
+    .modal-dialog
+      .modal-content ng-controller="NavbarCtrl"
+        .modal-header
+          button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+          h4.modal-title#remoteCSSModalLabel Add local stylesheet
+        .modal-body
+          form.form-horizontal role="form"
+            .form-group
+              label.col-md-2.control-label for="src" URL
+              .col-md-10
+                input.form-control type="text" ng-model="remoteStylesheetSrc"
+        .modal-footer
+          button.btn.btn-default type="button" data-dismiss="modal" Close
+          button.btn.btn-primary type="button" data-dismiss="modal" ng-click="addRemoteStylesheet(remoteStylesheetSrc)"
+            span.glyphicon.glyphicon-plus
+            |  Add
+
+  .modal.fade#localJSModal tabindex="-1" role="dialog" aria-labelledby="localJSModalLabel" aria-hidden="true"
+    .modal-dialog
+      .modal-content ng-controller="NavbarCtrl"
+        .modal-header
+          button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+          h4.modal-title#localJSModalLabel Add local stylesheet
+        .modal-body
+          input type="file"
+        .modal-footer
+          button.btn.btn-default type="button" data-dismiss="modal" Close
+          button.btn.btn-primary type="button" data-dismiss="modal" ng-click="addLocalJavaScript(localJavaScriptSrc)"
+            span.glyphicon.glyphicon-plus
+            |  Add
+
+  .modal.fade#remoteJSModal tabindex="-1" role="dialog" aria-labelledby="remoteJSModalLabel" aria-hidden="true"
+    .modal-dialog
+      .modal-content ng-controller="NavbarCtrl"
+        .modal-header
+          button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+          h4.modal-title#remoteJSModalLabel Add local stylesheet
+        .modal-body
+          form.form-horizontal role="form"
+            .form-group
+              label.col-md-2.control-label for="src" URL
+              .col-md-10
+                input.form-control type="text" ng-model="remoteJavaScriptSrc"
+        .modal-footer
+          button.btn.btn-default type="button" data-dismiss="modal" Close
+          button.btn.btn-primary type="button" data-dismiss="modal" ng-click="addRemoteJavaScript(remoteJavaScriptSrc)"
+            span.glyphicon.glyphicon-plus
+            |  Add
