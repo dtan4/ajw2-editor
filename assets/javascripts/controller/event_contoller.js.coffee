@@ -18,6 +18,21 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       @type = type
       @value = value
 
+  class Value
+    constructor: (type) ->
+      @type = type
+
+  class ElementValue extends Value
+    constructor: (element, func) ->
+      super('element')
+      @element = element
+      @func = func
+
+  class LiteralValue extends Value
+    constructor: (value) ->
+      super('literal')
+      @value = value
+
   class Action
     constructor: (id, type) ->
       @id = id
@@ -61,6 +76,8 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
   $scope.interfaceIdList = []
   $scope.tableNameList = []
   $scope.triggerTypeList = ['onClick', 'onChange', 'onFocus', 'onFocusOut']
+  $scope.triggerParamTypeList = ['integer', 'decimal', 'string', 'datetime', 'boolean']
+  $scope.valueFuncList = ['getValue']
   $scope.actionTypeList = ['interface', 'database', 'callUrl', 'callScript']
   $scope.interfaceFunctionList = ['setValue', 'setText', 'show', 'hide', 'toggle', 'appendElements']
   $scope.databaseFunctionList = ['create', 'read', 'update', 'delete']
@@ -70,11 +87,21 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
   $scope.selectedEventIndex = 0
   $scope.selectedActionIndex = 0
 
+  loadValue = (value) ->
+    switch value.type
+      when 'element'
+        return new ElementValue(value.element, value.func)
+      when 'literal'
+        return new LiteralValue(value.value)
+      else
+        return null
+
   loadParams = (params) ->
     result = []
 
     for param in params
-      pm = new Parameter(param.id, param.type, param.value)
+      value = loadValue(param.value)
+      pm = new Parameter(param.id, param.type, value)
       result.push pm
 
     return result
@@ -157,8 +184,18 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
   $scope.eventConnectionType = (realtime) ->
     return if realtime then 'Realtime (WebSocket)' else 'Ajax'
 
-  $scope.addTriggerParam = (index, id, type, value) ->
-    $scope.$storage.events[index].trigger.params.push new Parameter(id, type, value)
+  $scope.addElementValueParam = (index, id, type, valueElem, valueFunc) ->
+    value = new ElementValue(valueElem, valueFunc)
+    param = new Parameter(id, type, value)
+    $scope.$storage.events[index].trigger.params.push param
+
+  $scope.paramValueLabelClass = (type) ->
+    if type == 'element' then 'label-success' else 'label-warning'
+
+  $scope.addLiteralValueParam = (index, id, type, value) ->
+    value = new LiteralValue(value)
+    param = new Parameter(id, type, value)
+    $scope.$storage.events[index].trigger.params.push param
 
   $scope.deleteTriggerParam = (eventIndex, paramIndex) ->
     $scope.$storage.events[eventIndex].trigger.params.splice(paramIndex, 1)

@@ -48,35 +48,94 @@ div ng-controller="EventCtrl" ng-init="init()"
 
           .col-md-8
             h4 Parameters
-            form.form-inline role="form" ng-submit="addTriggerParam($index, paramId, paramType, paramValue)"
-              .form-group
-                label.sr-only ID
-                input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="paramId" placeholder="ID" required="true"
-              .form-group
-                label.sr-only Type
-                input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="paramType" placeholder="Type" required="true"
-              .form-group
-                label.sr-only Value
-                input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="paramValue" placeholder="Value" required="true"
-              .form-group
-                button.btn.btn-primary type="submit"
-                  span.glyphicon.glyphicon-plus
-
+            .form-group
+              button.btn.btn-primary data-toggle="modal" data-target="#elemValueModal"
+                span.glyphicon.glyphicon-plus
+                |  Element value
+              button.btn.btn-primary data-toggle="modal" data-target="#literalValueModal"
+                span.glyphicon.glyphicon-plus
+                |  Literal value
             table.table.table-striped
               thead
                 tr
                   th ID
                   th Type
-                  th Value
+                  th
                   th
               tbody
                 tr ng-repeat="param in event.trigger.params"
                   td.key-column ng-bind="param.id"
                   td ng-bind="param.type"
-                  td ng-bind="param.value"
+                  td
+                    span.label ng-bind="param.value.type" ng-class="paramValueLabelClass(param.value.type)"
                   td
                     button.btn.btn-danger.btn-sm.pull-right ng-click="deleteTriggerParam($parent.$index, $index)"
                       span.glyphicon.glyphicon-trash
+
+            .modal.fade#elemValueModal tabindex="-1" role="dialog" aria-labelledby="elemValueModalLabel" aria-hidden="true"
+              .modal-dialog
+                .modal-content
+                  .modal-header
+                    button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+                    h4.modal-title#elemValueModalLabel Add element value
+                  .modal-body
+                    form.form-horizontal role="form"
+                      .form-group
+                        label.col-md-2.control-label for="src" ID
+                        .col-md-10
+                          input.form-control type="text" ng-model="paramId" placeholder="ID"
+                      .form-group
+                        label.col-md-2.control-label for="src" Type
+                        .col-md-10
+                          select.form-control type="text" ng-model="paramType" ng-options="type for type in triggerParamTypeList"
+                            option value=""
+                              | -- Type --
+                      .form-group
+                        label.col-md-2.control-label for="src" Element
+                        .col-md-10
+                          select.form-control type="text" ng-model="valueElem" ng-options="el for el in interfaceIdList"
+                            option value=""
+                              | -- Element --
+                      .form-group
+                        label.col-md-2.control-label for="src" Function
+                        .col-md-10
+                          select.form-control type="text" ng-model="valueFunc" ng-options="func for func in valueFuncList"
+                            option value=""
+                              | -- Function --
+                  .modal-footer
+                    button.btn.btn-default type="button" data-dismiss="modal" Close
+                    button.btn.btn-primary type="button" data-dismiss="modal" ng-click="addElementValueParam($index, paramId, paramType, valueElem, valueFunc)"
+                      span.glyphicon.glyphicon-plus
+                      |  Add
+
+            .modal.fade#literalValueModal tabindex="-1" role="dialog" aria-labelledby="literalValueModalLabel" aria-hidden="true"
+              .modal-dialog
+                .modal-content
+                  .modal-header
+                    button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+                    h4.modal-title#literalValueModalLabel Add literal value
+                  .modal-body
+                    form.form-horizontal role="form"
+                      .form-group
+                        label.col-md-2.control-label for="src" ID
+                        .col-md-10
+                          input.form-control type="text" ng-model="paramId" placeholder="ID"
+                      .form-group
+                        label.col-md-2.control-label for="src" Type
+                        .col-md-10
+                          select.form-control type="text" ng-model="paramType" ng-options="type for type in triggerParamTypeList"
+                            option value=""
+                              | -- Type --
+                      .form-group
+                        label.col-md-2.control-label for="src" Value
+                        .col-md-10
+                          input.form-control type="text" ng-model="value" placeholder="Value"
+                  .modal-footer
+                    button.btn.btn-default type="button" data-dismiss="modal" Close
+                    button.btn.btn-primary type="button" data-dismiss="modal" ng-click="addLiteralValueParam($index, paramId, paramType, value)"
+                      span.glyphicon.glyphicon-plus
+                      |  Add
+
         hr
 
         h4 Action
