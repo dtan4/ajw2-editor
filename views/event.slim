@@ -20,7 +20,7 @@ div ng-controller="EventCtrl" ng-init="init()"
         span.glyphicon.glyphicon-plus
         |  Create event
 
-  .col-md-10.inner-tabs
+  .col-md-11.inner-tabs
     ul.nav.nav-tabs
       li ng-repeat="event in $storage.events" ng-class="{active: $index == selectedEventIndex}"
         a href="#eventTab{{$index}}" data-toggle="tab" ng-bind="event.id" ng-click="tabClick($index)"
@@ -32,7 +32,7 @@ div ng-controller="EventCtrl" ng-init="init()"
             |  Delete this event
 
         .row
-          .col-md-6
+          .col-md-4
             h4 Trigger
             form.form-inline role="form"
               .form-group
@@ -46,7 +46,7 @@ div ng-controller="EventCtrl" ng-init="init()"
               .form-group
                 span.trigger-value ng-bind="eventConnectionType(event.realtime)"
 
-          .col-md-6
+          .col-md-8
             h4 Parameters
             form.form-inline role="form" ng-submit="addTriggerParam($index, paramId, paramType, paramValue)"
               .form-group

@@ -20,7 +20,7 @@ div ng-controller="DatabaseCtrl"
         span.glyphicon.glyphicon-plus
         |  Create table
 
-  .col-md-10.inner-tabs
+  .col-md-11.inner-tabs
     ul.nav.nav-tabs
       li ng-repeat="tb in $storage.tables" ng-class="{active: $index == selectedIndex}"
         a href="#tbTab{{$index}}" data-toggle="tab" ng-bind="tb.name" ng-click="tabClick($index)"
@@ -31,35 +31,52 @@ div ng-controller="DatabaseCtrl"
             span.glyphicon.glyphicon-trash
             |  Delete this table
 
-        form.form-inline role="form" ng-submit="addField($index, fieldName, fieldType, nullable)"
-          .form-group
-            label.sr-only Field name
-            input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="fieldName" placeholder="Field name" required="true"
-          .form-group
-            label.sr-only Field type
-            select.form-control type="text" ng-model="fieldType" ng-options="type for type in fieldTypeList"
-              option value=""
-                | -- Field type --
-          .form-group.checkbox
-            input type="checkbox" ng-model="nullable"  Nullable
-          .form-group
-            button.btn.btn-primary type="submit"
-              span.glyphicon.glyphicon-plus
-              |  Add field
+        .row
+          .col-md-4
+            .alert.alert-warning
+              p The following fields are created automatically.
+              ul
+                li
+                  span.key-column id
+                  |  (integer, primary key)
+                li
+                  span.key-column created_at
+                  |  (datetime)
+                li
+                  span.key-column modified_at
+                  |  (datetime)
 
-        table.table.table-striped
-          thead
-            tr
-              th Field name
-              th Field type
-              th
-              th
-          tbody
-            tr ng-repeat="field in tb.fields"
-              td.key-column ng-bind="field.name"
-              td ng-bind="field.type"
-              td
-                span.label.label-danger ng-hide="field.nullable" NOT NULL
-              td
-                button.btn.btn-danger.btn-sm.pull-right ng-click="deleteField($parent.$index, $index)"
-                  span.glyphicon.glyphicon-trash
+          .col-md-8
+            h4 Fields
+            form.form-inline role="form" ng-submit="addField($index, fieldName, fieldType, nullable)"
+              .form-group
+                label.sr-only Name
+                input.form-control type="text" pattern="[0-9a-zA-Z]+" ng-model="fieldName" placeholder="Name" required="true"
+              .form-group
+                label.sr-only Type
+                select.form-control type="text" ng-model="fieldType" ng-options="type for type in fieldTypeList"
+                  option value=""
+                    | -- Type --
+              .form-group.checkbox
+                input type="checkbox" ng-model="nullable"  Nullable
+              .form-group
+                button.btn.btn-primary type="submit"
+                  span.glyphicon.glyphicon-plus
+                  |  Add field
+
+            table.table.table-striped
+              thead
+                tr
+                  th Name
+                  th Type
+                  th
+                  th
+              tbody
+                tr ng-repeat="field in tb.fields"
+                  td.key-column ng-bind="field.name"
+                  td ng-bind="field.type"
+                  td
+                    span.label.label-danger ng-hide="field.nullable" NOT NULL
+                  td
+                    button.btn.btn-danger.btn-sm.pull-right ng-click="deleteField($parent.$index, $index)"
+                      span.glyphicon.glyphicon-trash
