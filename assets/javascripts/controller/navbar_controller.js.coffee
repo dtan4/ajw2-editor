@@ -8,6 +8,7 @@ app.directive 'fileOnChange', ->
 
 app.controller 'NavbarCtrl', ($rootScope, $scope, $http, $window) ->
   $scope.params = {}
+  $scope.appName = ""
   $scope.disableButton = false
 
   receivedAllModels = ->
@@ -59,3 +60,6 @@ app.controller 'NavbarCtrl', ($rootScope, $scope, $http, $window) ->
 
   $rootScope.$on 'sendModelData', (_, message) ->
     $scope.params[message.model] = message.params
+
+  $rootScope.$on 'sendAppName', (_, message) ->
+    $scope.appName = message.name

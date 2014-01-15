@@ -13,6 +13,8 @@ nav.navbar.navbar-default role="navigation"
       li
         button.btn.btn-default.navbar-btn type="button" data-toggle="modal" data-target="#saveModal" ng-click="createSourceUrl()"
           span.glyphicon.glyphicon-floppy-save
+      li
+        p.navbar-text ng-bind="appName"
 
 .modal.fade#openSourceModal tabindex="-1" role="dialog" aria-labelledby="openSourceModalLabel" aria-hidden="true"
   .modal-dialog
