@@ -7,10 +7,10 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       @actions = actions
 
   class Trigger
-    constructor: (target, type) ->
+    constructor: (target, type, params) ->
       @target = target
       @type = type
-      @params = []
+      @params = params
 
   class Action
     constructor: (id, type) ->
@@ -53,7 +53,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
   $scope.$storage.actionIds = [] unless $scope.$storage.actionIds
 
   loadTrigger = (trigger) ->
-    tr = new Trigger(trigger.target, trigger.type)
+    tr = new Trigger(trigger.target, trigger.type, [])
     # TODO: load trigger.params
     return tr
 
@@ -122,7 +122,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     return null unless $scope.triggerTarget in $scope.interfaceIdList
     return null unless $scope.triggerType in $scope.triggerTypeList
 
-    trigger = new Trigger($scope.triggerTarget, $scope.triggerType)
+    trigger = new Trigger($scope.triggerTarget, $scope.triggerType, [])
     id = generateEventId()
     $scope.$storage.events.push new Event(id, $scope.realtime, trigger, [])
     $scope.triggerTarget = ''
