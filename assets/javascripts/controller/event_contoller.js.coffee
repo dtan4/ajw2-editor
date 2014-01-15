@@ -142,7 +142,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     else
       $scope.selectedEventIndex = index
 
-  $scope.eventCommunicationType = (realtime) ->
+  $scope.eventConnectionType = (realtime) ->
     return if realtime then 'Realtime (WebSocket)' else 'Ajax'
 
   $scope.tabClick = (index) ->
