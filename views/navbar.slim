@@ -33,7 +33,7 @@ nav.navbar.navbar-default role="navigation"
     .modal-content ng-controller="NavbarCtrl"
       .modal-header
         button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
-        h4.modal-title#saveModal Save application
+        h4.modal-title#saveModalLabel Save application
       .modal-body
         button.btn.btn-success.btn-header.btn-lg ng-click="downloadApp()" disabled="disabled"
           span.glyphicon.glyphicon-floppy-save
@@ -41,6 +41,6 @@ nav.navbar.navbar-default role="navigation"
         a#downloadLink href="" download="source.json"
           button.btn.btn-success.btn-header.btn-lg ng-disabled="{{disableButton}}"
             span.glyphicon.glyphicon-floppy-save
-            |  Source Only
+            |  source.json
       .modal-footer
         button.btn.btn-default type="button" data-dismiss="modal" Close
