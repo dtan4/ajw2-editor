@@ -9,12 +9,13 @@ div ng-controller="ApplicationCtrl"
     .form-group
       label.col-md-2.control-label External Stylesheets
       .col-md-10
-        button.btn.btn-primary data-toggle="modal" data-target="#localCSSModal"
-          span.glyphicon.glyphicon-plus
-          |  Local file
-        button.btn.btn-primary data-toggle="modal" data-target="#remoteCSSModal"
-          span.glyphicon.glyphicon-plus
-          |  URL
+        .btn-group
+          button.btn.btn-primary data-toggle="modal" data-target="#localCSSModal"
+            span.glyphicon.glyphicon-plus
+            |  Local file
+          button.btn.btn-primary data-toggle="modal" data-target="#remoteCSSModal"
+            span.glyphicon.glyphicon-plus
+            |  URL
 
         .row
           .col-md-8
@@ -43,12 +44,13 @@ div ng-controller="ApplicationCtrl"
             ul
               li.key-column jQuery
 
-        button.btn.btn-primary data-toggle="modal" data-target="#localJSModal"
-          span.glyphicon.glyphicon-plus
-          |  Local file
-        button.btn.btn-primary data-toggle="modal" data-target="#remoteJSModal"
-          span.glyphicon.glyphicon-plus
-          |  URL
+        .btn-group
+          button.btn.btn-primary data-toggle="modal" data-target="#localJSModal"
+            span.glyphicon.glyphicon-plus
+            |  Local file
+          button.btn.btn-primary data-toggle="modal" data-target="#remoteJSModal"
+            span.glyphicon.glyphicon-plus
+            |  URL
 
         .row
           .col-md-8

@@ -49,12 +49,13 @@ div ng-controller="EventCtrl" ng-init="init()"
           .col-md-8
             h4 Parameters
             .form-group
-              button.btn.btn-primary data-toggle="modal" data-target="#elemValueModal"
-                span.glyphicon.glyphicon-plus
-                |  Element value
-              button.btn.btn-primary data-toggle="modal" data-target="#literalValueModal"
-                span.glyphicon.glyphicon-plus
-                |  Literal value
+              .btn-group
+                button.btn.btn-primary data-toggle="modal" data-target="#elemValueModal"
+                  span.glyphicon.glyphicon-plus
+                  |  Element value
+                button.btn.btn-primary data-toggle="modal" data-target="#literalValueModal"
+                  span.glyphicon.glyphicon-plus
+                  |  Literal value
             table.table.table-striped
               thead
                 tr
