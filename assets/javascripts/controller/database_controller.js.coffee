@@ -17,7 +17,7 @@ app.controller 'DatabaseCtrl', ($scope, $sessionStorage) ->
   $scope.selectedIndex = 0
 
   $scope.fieldTypeList =
-    ['string', 'text', 'integer', 'float', 'decimal', 'datatime', 'timestamp', 'time', 'date', 'binary', 'boolean']
+    ['string', 'text', 'integer', 'float', 'decimal', 'datetime', 'timestamp', 'time', 'date', 'binary', 'boolean']
 
   loadTables = (tables) ->
     result = []
