@@ -161,7 +161,7 @@ h4 Action
 .row.action-row
   .col-md-4
     .list-group
-      a.list-group-item href="#" ng-repeat="action in event.actions" ng-click="actionClick($index)" ng-class="{active : $index == selectedActionIndex}"
+      a.list-group-item href="#" ng-repeat="action in event.action.actions" ng-click="actionClick($index)" ng-class="{active : $index == selectedActionIndex}"
         span.action-id ng-bind="action.id"
         span.label.pull-right ng-class="actionLabelClass(action.type)" ng-bind="action.type"
   .col-md-8

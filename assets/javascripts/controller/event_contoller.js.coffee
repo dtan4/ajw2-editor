@@ -1,10 +1,10 @@
 app.controller 'EventCtrl', ($scope, $sessionStorage) ->
   class Event
-    constructor: (id, realtime, trigger, actions) ->
+    constructor: (id, realtime, trigger, action) ->
       @id = id
       @realtime = realtime
       @trigger = trigger
-      @actions = actions
+      @action = action
 
   class Trigger
     constructor: (target, type, params) ->
@@ -34,18 +34,23 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       @value = value
 
   class Action
+    constructor: (type, actions) ->
+      @type = type
+      @actions = actions
+
+  class ActionBase
     constructor: (id, type) ->
       @id = id
       @type = type
 
-  class InterfaceAction extends Action
+  class InterfaceAction extends ActionBase
     constructor: (id, element, func, value) ->
       super(id, 'interface')
       @element = element
       @func = func
       @value = value
 
-  class DatabaseAction extends Action
+  class DatabaseAction extends ActionBase
     constructor: (id, database, func, where, fields) ->
       super(id, 'database')
       @database = database
@@ -53,7 +58,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       @where = where
       @fields = fields
 
-  class CallUrlAction extends Action
+  class CallUrlAction extends ActionBase
     constructor: (id, method, endpoint, params) ->
       super(id, 'callUrl')
       @callType = 'url'
@@ -61,7 +66,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       @endpoint = endpoint
       @params = params
 
-  class CallScriptAction extends Action
+  class CallScriptAction extends ActionBase
     constructor: (id, params, script) ->
       super(id, 'callScript')
       @callType = 'script'
@@ -137,13 +142,20 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
     return result
 
+  loadAction = (action) ->
+    type = action.type
+    actions = loadActions(action.actions)
+    act = new Action(type, actions)
+
+    return act
+
   loadEvents = (events) ->
     result = []
 
     for event in events
       trigger = loadTrigger(event.trigger)
-      actions = loadActions(event.action.actions)
-      result.push new Event(event.id, event.realtime, trigger, actions)
+      action = loadAction(event.action)
+      result.push new Event(event.id, event.realtime, trigger, action)
 
     return result
 
@@ -165,8 +177,9 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     return null unless $scope.triggerType in $scope.triggerTypeList
 
     trigger = new Trigger($scope.triggerTarget, $scope.triggerType, [])
+    action = new Action('always', [])
     id = generateEventId()
-    $scope.$storage.events.push new Event(id, $scope.realtime, trigger, [])
+    $scope.$storage.events.push new Event(id, $scope.realtime, trigger, actions)
     $scope.triggerTarget = ''
     $scope.triggerType = ''
     $scope.realtime = false
@@ -235,13 +248,13 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       else
         return null
 
-    $scope.$storage.events[index].actions.push action
-    $scope.selectedActionIndex = $scope.$storage.events[index].actions.length - 1
+    $scope.$storage.events[index].action.actions.push action
+    $scope.selectedActionIndex = $scope.$storage.events[index].action.actions.length - 1
 
   $scope.deleteAction = (eventIndex, actionIndex) ->
-    $scope.$storage.events[eventIndex].actions.splice(actionIndex, 1)
+    $scope.$storage.events[eventIndex].action.actions.splice(actionIndex, 1)
 
-    if actionIndex == $scope.$storage.events[eventIndex].actions.length
+    if actionIndex == $scope.$storage.events[eventIndex].action.actions.length
       $scope.selectedActionIndex = actionIndex - 1
     else
       $scope.selectedActionIndex = actionIndex
@@ -267,9 +280,9 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     $scope.swapAction(eventIndex, actionIndex, actionIndex - 1)
 
   $scope.swapAction = (eventIndex, oldIndex, newIndex) ->
-    tmp = $scope.$storage.events[eventIndex].actions[oldIndex]
-    $scope.$storage.events[eventIndex].actions[oldIndex] = $scope.$storage.events[eventIndex].actions[newIndex]
-    $scope.$storage.events[eventIndex].actions[newIndex] = tmp
+    tmp = $scope.$storage.events[eventIndex].action.actions[oldIndex]
+    $scope.$storage.events[eventIndex].action.actions[oldIndex] = $scope.$storage.events[eventIndex].action.actions[newIndex]
+    $scope.$storage.events[eventIndex].action.actions[newIndex] = tmp
     $scope.selectedActionIndex = newIndex
 
   $scope.$on 'requestModelData', (_, args) ->
