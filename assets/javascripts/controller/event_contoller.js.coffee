@@ -18,17 +18,17 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       @type = type
       @value = value
 
-  class Value
+  class ValueBase
     constructor: (type) ->
       @type = type
 
-  class ElementValue extends Value
+  class ElementValue extends ValueBase
     constructor: (element, func) ->
       super('element')
       @element = element
       @func = func
 
-  class LiteralValue extends Value
+  class LiteralValue extends ValueBase
     constructor: (value) ->
       super('literal')
       @value = value
