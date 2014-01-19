@@ -12,11 +12,7 @@ app.controller 'NavbarCtrl', ($rootScope, $scope, $http, $window) ->
   $scope.openSourceFile = (evt) ->
     sourceFile = evt.target.files[0]
 
-    # FIXME: Chrome on Linux does not recognize Content-Type
-    unless sourceFile.type == 'application/json'
-      console.error 'invalid file'
-      return null
-
+    # TODO: validate file
     reader = new FileReader()
     reader.onload = (file) ->
       source = JSON.parse file.target.result
