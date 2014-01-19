@@ -1,10 +1,6 @@
 require "json"
-require "ajw2"
-require "pathname"
 require "tempfile"
 require "securerandom"
-require "zip"
-require "bootstrap-sass"
 
 class App < Sinatra::Base
   set :sprockets, Sprockets::Environment.new
