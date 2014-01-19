@@ -4,14 +4,12 @@ html ng-app="ajw2Editor"
     meta charset="utf-8"
     == csrf_meta_tag
     title Ajw2 Editor
-    link href="/css/bootstrap.min.css" rel="stylesheet"
     link href=stylesheet_path("main") rel="stylesheet"
   body
     == yield
 
     script src="/js/jquery-2.0.3.min.js"
     script src="/js/jquery.tmpl.js"
-    script src="/js/bootstrap.min.js"
     script src="/js/angular.min.js"
     script src="/js/ngStorage.js"
     script src=javascript_path("application")

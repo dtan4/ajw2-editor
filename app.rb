@@ -4,6 +4,7 @@ require "pathname"
 require "tempfile"
 require "securerandom"
 require "zip"
+require "bootstrap-sass"
 
 class App < Sinatra::Base
   set :sprockets, Sprockets::Environment.new
@@ -20,6 +21,9 @@ class App < Sinatra::Base
 
     sprockets.append_path "assets/javascripts"
     sprockets.append_path "assets/stylesheets"
+    sprockets.append_path Bootstrap.stylesheets_path
+    sprockets.append_path Bootstrap.fonts_path
+    sprockets.append_path Bootstrap.javascripts_path
 
     set :tempdir, Dir.tmpdir
   end

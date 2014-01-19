@@ -8,6 +8,7 @@ gem "rack_csrf", require: "rack/csrf"
 gem "sprockets"
 gem "sprockets-helpers"
 gem "sprockets-sass"
+gem "bootstrap-sass"
 gem "ajw2"
 gem "rubyzip"
 
