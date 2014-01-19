@@ -34,13 +34,16 @@ app.controller 'NavbarCtrl', ($rootScope, $scope, $http, $window) ->
     setTimeout ->
       return unless receivedAllModels()
 
-      $http.post('/download', $scope.params).success (data, status, headers, config) ->
-        if data.result
-          id = data.id
-          $window.open('/download?id=' + id )
-        else
-          alert 'Failed to create application package!'
-          console.error data.message
+      onSuccess = (data, status, headers, config) ->
+        id = data.id
+        name = data.name
+        $window.open('/download?id=' + id + '&name=' + name)
+
+      onError = (data, status, headers, config) ->
+        alert 'Failed to create application package! Check console for detail.'
+        console.error data.message
+
+      $http.post('/download', $scope.params).success(onSuccess).error(onError)
     , 1000
 
   $scope.createSourceUrl = ->

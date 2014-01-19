@@ -1,7 +1,9 @@
 require "json"
 require "ajw2"
+require "pathname"
 require "tempfile"
 require "securerandom"
+require "zip"
 
 class App < Sinatra::Base
   set :sprockets, Sprockets::Environment.new
@@ -18,6 +20,8 @@ class App < Sinatra::Base
 
     sprockets.append_path "assets/javascripts"
     sprockets.append_path "assets/stylesheets"
+
+    set :tempdir, Dir.tmpdir
   end
 
   configure :development do
@@ -31,6 +35,19 @@ class App < Sinatra::Base
   helpers do
     def csrf_meta_tag
       Rack::Csrf.csrf_metatag(env)
+    end
+
+    def symbolize_keys(arg)
+      if arg.is_a? Hash
+        arg.inject({}) do |result, (k, v)|
+          result[k.to_sym] = symbolize_keys(v)
+          result
+        end
+      elsif arg.is_a? Array
+        arg.map { |v| symbolize_keys(v) }
+      else
+        arg
+      end
     end
   end
 
@@ -47,31 +64,51 @@ class App < Sinatra::Base
   end
 
   get "/download" do
-    if params[:id]
-      content_type "text/plain"
+    if params[:id] && params[:name]
+      content_type "application/zip"
 
       application_id = params[:id]
-      attachment "application.txt"
+      application_name = params[:name]
+      attachment "#{application_name}.zip"
 
-      application_id
+      open(File.join(settings.tempdir, "#{application_id}.zip")).read
     else
       halt 400, "<h1>Invalid arguments</h1>"
     end
   end
 
   post "/download" do
+    content_type :json
+
     begin
-      content_type :json
-
-      source = JSON.parse(request.env["rack.input"].read, symbolize_keys: true)
-      generator = Ajw2::Generator.new(source[:application], source[:interface], source[:database], source[:event])
-      application_id = SecureRandom.hex[0..9]
-      # out_dir = Dir.tmpdir
-      # generator.generate(out_dir)
-
-      { status: true, id: application_id }.to_json
-    rescue ArgumentError => e
-      { status: false, message: e.message }.to_json
+      source = symbolize_keys(JSON.parse(request.env["rack.input"].read))
+    rescue => e
+      halt 400, { message: e.message }.to_json
     end
+
+    begin
+      application = Ajw2::Model::Application.new(source[:application])
+      interface = Ajw2::Model::Interface.new(source[:interface])
+      database = Ajw2::Model::Database.new(source[:database])
+      event = Ajw2::Model::Event.new({ events: [] }) # TODO: implement interface for Event
+      generator = Ajw2::Generator.new(application, interface, database, event)
+
+      application_id = SecureRandom.hex[0..9]
+      application_name = source[:application][:name]
+      out_dir = File.join(settings.tempdir, application_id)
+      generator.generate(File.join(out_dir, application_name), "") # TODO: take external_file_dir
+
+      zippath = File.join(settings.tempdir, "#{application_id}.zip")
+
+      Zip::File.open(zippath, Zip::File::CREATE) do |zip|
+        Dir[File.join(out_dir, "**", "**")].each do |file|
+          zip.add(file.sub(File.join(out_dir, ""), ""), file)
+        end
+      end
+    rescue => e
+      halt 500, { message: e.message, source: source }.to_json
+    end
+
+    { id: application_id, name: application_name }.to_json
   end
 end
