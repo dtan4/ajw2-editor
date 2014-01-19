@@ -1,4 +1,7 @@
 require "json"
+require "ajw2"
+require "tempfile"
+require "securerandom"
 
 class App < Sinatra::Base
   set :sprockets, Sprockets::Environment.new
@@ -43,10 +46,32 @@ class App < Sinatra::Base
     sass :main
   end
 
-  post "/download" do
-    content_type :json
+  get "/download" do
+    if params[:id]
+      content_type "text/plain"
 
-    params = JSON.parse(request.env["rack.input"].read)
-    params.to_json
+      application_id = params[:id]
+      attachment "application.txt"
+
+      application_id
+    else
+      halt 400, "<h1>Invalid arguments</h1>"
+    end
+  end
+
+  post "/download" do
+    begin
+      content_type :json
+
+      source = JSON.parse(request.env["rack.input"].read, symbolize_keys: true)
+      generator = Ajw2::Generator.new(source[:application], source[:interface], source[:database], source[:event])
+      application_id = SecureRandom.hex[0..9]
+      # out_dir = Dir.tmpdir
+      # generator.generate(out_dir)
+
+      { status: true, id: application_id }.to_json
+    rescue ArgumentError => e
+      { status: false, message: e.message }.to_json
+    end
   end
 end
