@@ -2,6 +2,8 @@ app.controller 'NavbarCtrl', ($rootScope, $scope, $http, $window) ->
   $scope.params = {}
   $scope.appName = ""
   $scope.disableButton = false
+  $scope.openErrorMessage = ""
+  $scope.saveErrorMessage = ""
 
   receivedAllModels = ->
     (model for model in ['application', 'interface', 'database', 'event'] when $scope.params[model] is undefined).length == 0
@@ -21,6 +23,8 @@ app.controller 'NavbarCtrl', ($rootScope, $scope, $http, $window) ->
     reader.readAsText(sourceFile)
 
   $scope.refreshTabs = ->
+    $scope.openErrorMessage = ''
+    $scope.saveErrorMessage = ''
     $rootScope.$broadcase 'refreshTab', {}
 
   $scope.downloadApp = ->
@@ -34,9 +38,10 @@ app.controller 'NavbarCtrl', ($rootScope, $scope, $http, $window) ->
         id = data.id
         name = data.name
         $window.open('/download?id=' + id + '&name=' + name)
+        $scope.saveErrorMessage = ''
 
       onError = (data, status, headers, config) ->
-        alert 'Failed to create application package! Check console for detail.'
+        $scope.saveErrorMessage = 'Failed to create application package! Check console for detail.'
         console.error data.message
 
       $http.post('/download', $scope.params).success(onSuccess).error(onError)

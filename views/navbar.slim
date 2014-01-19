@@ -20,21 +20,23 @@ nav.navbar.navbar-default role="navigation"
   .modal-dialog
     .modal-content ng-controller="NavbarCtrl"
       .modal-header
-        button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+        button.close type="button" data-dismiss="modal" aria-hidden="true" ng-click="openErrorMessage = ''" &times;
         h4.modal-title#openSourceModalLabel Open source file
       .modal-body
+        .alert.alert-danger ng-bind="openErrorMessage" ng-hide="openErrorMessage.length == 0"
         input type="file" file-on-change="openSourceFile"
       .modal-footer
-        button.btn.btn-default type="button" data-dismiss="modal" Close
+        button.btn.btn-default type="button" data-dismiss="modal" ng-click="openErrorMessage = ''" Close
         button.btn.btn-primary type="button" data-dismiss="modal" ng-click="refreshTabs" Open
 
 .modal.fade#saveModal tabindex="-1" role="dialog" aria-labelledby="saveModalLabel" aria-hidden="true"
   .modal-dialog
     .modal-content ng-controller="NavbarCtrl"
       .modal-header
-        button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+        button.close type="button" data-dismiss="modal" aria-hidden="true" ng-click="saveErrorMessage = ''" &times;
         h4.modal-title#saveModalLabel Save application
       .modal-body
+        .alert.alert-danger ng-bind="saveErrorMessage" ng-hide="saveErrorMessage.length == 0"
         button.btn.btn-success.btn-header.btn-lg ng-click="downloadApp()"
           span.glyphicon.glyphicon-floppy-save
           |  {{appName}}.zip
@@ -43,4 +45,4 @@ nav.navbar.navbar-default role="navigation"
             span.glyphicon.glyphicon-floppy-save
             |  {{appName}}.json
       .modal-footer
-        button.btn.btn-default type="button" data-dismiss="modal" Close
+        button.btn.btn-default type="button" data-dismiss="modal" ng-click="saveErrorMessage = ''" Close
