@@ -37,10 +37,10 @@ nav.navbar.navbar-default role="navigation"
       .modal-body
         button.btn.btn-success.btn-header.btn-lg ng-click="downloadApp()"
           span.glyphicon.glyphicon-floppy-save
-          |  Application Package
+          |  {{appName}}.zip
         a#downloadLink href="" download="source.json"
           button.btn.btn-success.btn-header.btn-lg ng-disabled="{{disableButton}}"
             span.glyphicon.glyphicon-floppy-save
-            |  source.json
+            |  {{appName}}.json
       .modal-footer
         button.btn.btn-default type="button" data-dismiss="modal" Close

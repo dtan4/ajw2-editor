@@ -53,7 +53,7 @@ app.controller 'NavbarCtrl', ($rootScope, $scope, $http, $window) ->
       blob = new Blob [angular.toJson($scope.params, true)], type: 'application/json'
       $scope.disableButton = false
       url = $window.URL.createObjectURL(blob)
-      $('#downloadLink').attr('href', url)
+      $('#downloadLink').attr('href', url).attr('download', "#{$scope.appName}.json")
     , 500
 
   $rootScope.$on 'getAllElementIds', (_, message) ->
