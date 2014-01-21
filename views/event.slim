@@ -37,14 +37,14 @@ div ng-controller="EventCtrl" ng-init="init()"
             form.form-inline role="form"
               .form-group
                 label.control-label Element
-                span.trigger-value ng-bind="event.trigger.target"
+                span.value-label ng-bind="event.trigger.target"
               .form-group
                 label.control-label Type
-                span.trigger-value ng-bind="event.trigger.type"
+                span.value-label ng-bind="event.trigger.type"
             h4 Connection
             form.form-inline role="form"
               .form-group
-                span.trigger-value ng-bind="eventConnectionType(event.realtime)"
+                span.value-label ng-bind="eventConnectionType(event.realtime)"
 
           .col-md-8
             h4 Parameters
