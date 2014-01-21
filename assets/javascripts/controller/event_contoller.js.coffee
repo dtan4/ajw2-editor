@@ -33,6 +33,30 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       super('literal')
       @value = value
 
+  class ActionValueBase
+    constructor: (type, id) ->
+      @type = type
+      @id = id
+
+  class ActionValueParam extends ActionValueBase
+    constructor: (id) ->
+      super('param', id)
+
+  class ActionValueDatabase extends ActionValueBase
+    constructor: (id, field) ->
+      super('db', id)
+      @field = field
+
+  class ActionValueCall extends ActionValueBase
+    constructor: (id, jsonpath) ->
+      super('call', id)
+      @jsonpath = jsonpath
+
+  class ActionParam
+    constructor: (field, value) ->
+      @field = field
+      @value = value
+
   class Action
     constructor: (type, actions) ->
       @type = type
@@ -117,6 +141,29 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
 
     return tr
 
+  loadActionValue = (value) ->
+    switch value.type
+      when 'param'
+        val = new ActionValueParam(value.id)
+      when 'db'
+        val = new ActionValueDatabase(value.id, value.field)
+      when 'call'
+        val = new ActionValueCall(value.id, value.jsonpath)
+      else
+        val = null
+
+    return val
+
+  loadActionParams = (params) ->
+    result = []
+
+    for param in params
+      value = loadActionValue(param.value)
+      pm = new ActionParam(param.field, value)
+      result.push pm
+
+    return result
+
   loadActions = (actions) ->
     result = []
 
@@ -126,15 +173,12 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
           # TODO: load action.params
           act = new InterfaceAction(action.id, action.element, action.func, [])
         when 'database'
-          # TODO: load action.where, action.fields
-          act = new DatabaseAction(action.id, action.database, action.func, [], [])
+          act = new DatabaseAction(action.id, action.database, action.func, loadActionParams(action.where), loadActionParams(action.fields))
         when 'call'
           if action.callType == "url"
-            # TODO: load action.params
-            act = new CallUrlAction(action.id, action.method, action.endpoint, [])
+            act = new CallUrlAction(action.id, action.method, action.endpoint, loadActionParams(action.params))
           else
-            # TODO: load action.params
-            act = new CallScriptAction(action.id, [], action.script)
+            act = new CallScriptAction(action.id, loadActionParams(action.params), action.script)
         else
           act = null
 
