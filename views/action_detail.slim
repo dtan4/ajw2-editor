@@ -1,5 +1,5 @@
 .tab-content
-  .tab-pane ng-repeat="action in event.actions" ng-class="{active: $index == selectedActionIndex}"
+  .tab-pane ng-repeat="action in event.action.actions" ng-class="{active: $index == selectedActionIndex}"
     .form-group
       button.btn.btn-danger.btn-sm.pull-right ng-click="deleteAction($parent.$index, $index)"
         span.glyphicon.glyphicon-trash
@@ -11,12 +11,94 @@
         span.glyphicon.glyphicon-arrow-down
     .form-group
       label.control-label Action ID
-      span.trigger-value ng-bind="action.id"
+      span.value-label ng-bind="action.id"
     .tab-content
       .tab-pane ng-class="{active: action.type == 'interface'}"
+        h4 ng-bind="action.id"
 
       .tab-pane ng-class="{active: action.type == 'database'}"
+        form.form-horizontal role="form"
+          .form-group
+            label.col-md-2.control-label Function
+            .col-md-8
+              span.value-label ng-bind="action.func"
+          .form-group
+            label.col-md-2.control-label Table
+            .col-md-8
+              span.value-label ng-bind="action.database"
+          .form-group
+            label.col-md-2.control-label Where
+            .col-md-10
+              table.table.table-striped
+                thead
+                  tr
+                    th Field
+                    th
+                    th Value
+                tbody
+                  tr ng-repeat="param in action.where"
+                    td.key-column ng-bind="param.field"
+                    td
+                    td
+          .form-group
+            label.col-md-2.control-label Fields
+            .col-md-10
+              table.table.table-striped
+                thead
+                  tr
+                    th Field
+                    th
+                    th Value
+                tbody
+                  tr ng-repeat="field in action.fields"
+                    td.key-column ng-bind="field.field"
+                    td
+                    td
+
 
       .tab-pane ng-class="{active: action.type == 'callUrl'}"
+        form.form-horizontal role="form"
+          .form-group
+            label.col-md-2.control-label Method
+            .col-md-10
+              span.value-lavel ng-bind="action.method"
+          .form-group
+            label.col-md-2.control-label Endpoint
+            .col-md-10
+              span.value-label ng-bind="action.endpoint"
+          .form-group
+            label.col-md-2.control-label Params
+            .col-md-10
+              table.table.table-striped
+                thead
+                  tr
+                    th Field
+                    th
+                    th Value
+                tbody
+                  tr ng-repeat="param in action.params"
+                    td.key-column ng-bind="param.field"
+                    td
+                    td
 
       .tab-pane ng-class="{active: action.type == 'callScript'}"
+        form.form-horizontal role="form"
+          .form-group
+            label.col-md-2.control-label Params
+            .col-md-10
+              table.table.table-striped
+                thead
+                  tr
+                    th Field
+                    th
+                    th Value
+                tbody
+                  tr ng-repeat="param in action.params"
+                    td.key-column ng-bind="param.field"
+                    td
+                    td
+          .form-group
+            label.col-md-2.control-label Script
+            .col-md-10
+              pre
+                code ng-bind="action.script"
