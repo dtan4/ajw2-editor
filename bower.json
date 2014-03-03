@@ -1,0 +1,13 @@
+{
+  "name": "ajw2-editor",
+  "version": "0.0.1",
+  "authors": [
+    "dtan4 <dtanshi45@gmail.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "latest",
+    "angular": "latest",
+    "ngstorage": "latest"
+  }
+}
