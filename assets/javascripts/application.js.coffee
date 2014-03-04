@@ -1,4 +1,4 @@
 #= require bootstrap
 #= require bootstrap/modal
-#= require app
+#= require main
 #= require_tree ./controller
