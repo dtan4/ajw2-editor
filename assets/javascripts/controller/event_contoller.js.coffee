@@ -47,10 +47,15 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       super('db', id)
       @field = field
 
-  class ActionValueCall extends ActionValueBase
+  class ActionValueApi extends ActionValueBase
     constructor: (id, jsonpath) ->
-      super('call', id)
+      super('api', id)
       @jsonpath = jsonpath
+
+  class ActionValueScript extends ActionValueBase
+    constructor: (id, script) ->
+      super('script', id)
+      @jsonpath = script
 
   class ActionParam
     constructor: (field, value) ->
@@ -82,18 +87,16 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       @where = where
       @fields = fields
 
-  class CallUrlAction extends ActionBase
+  class ApiAction extends ActionBase
     constructor: (id, method, endpoint, params) ->
-      super(id, 'callUrl')
-      @callType = 'url'
+      super(id, 'api')
       @method = method
       @endpoint = endpoint
       @params = params
 
-  class CallScriptAction extends ActionBase
+  class ScriptAction extends ActionBase
     constructor: (id, params, script) ->
-      super(id, 'callScript')
-      @callType = 'script'
+      super(id, 'script')
       @params = params
       @script = script
 
@@ -107,7 +110,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
   $scope.triggerTypeList = ['onClick', 'onChange', 'onFocus', 'onFocusOut']
   $scope.triggerParamTypeList = ['integer', 'decimal', 'string', 'datetime', 'boolean']
   $scope.valueFuncList = ['getValue']
-  $scope.actionTypeList = ['interface', 'database', 'callUrl', 'callScript']
+  $scope.actionTypeList = ['interface', 'database', 'api', 'script']
   $scope.interfaceFunctionList = ['setValue', 'setText', 'show', 'hide', 'toggle', 'appendElements']
   $scope.databaseFunctionList = ['create', 'read', 'update', 'delete']
   $scope.methodList = ['GET', 'POST']
@@ -147,8 +150,10 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
         val = new ActionValueParam(value.id)
       when 'db'
         val = new ActionValueDatabase(value.id, value.field)
-      when 'call'
-        val = new ActionValueCall(value.id, value.jsonpath)
+      when 'api'
+        val = new ActionValueApi(value.id, value.jsonpath)
+      when 'script'
+        val = new ActionValueScript(value.id, value.script)
       else
         val = null
 
@@ -174,11 +179,10 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
           act = new InterfaceAction(action.id, action.element, action.func, [])
         when 'database'
           act = new DatabaseAction(action.id, action.database, action.func, loadActionParams(action.where), loadActionParams(action.fields))
-        when 'call'
-          if action.callType == "url"
-            act = new CallUrlAction(action.id, action.method, action.endpoint, loadActionParams(action.params))
-          else
-            act = new CallScriptAction(action.id, loadActionParams(action.params), action.script)
+        when 'api'
+          act = new ApiAction(action.id, action.method, action.endpoint, loadActionParams(action.params))
+        when 'script'
+          act = new ScriptAction(action.id, loadActionParams(action.params), action.script)
         else
           act = null
 
@@ -223,7 +227,7 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
     trigger = new Trigger($scope.triggerTarget, $scope.triggerType, [])
     action = new Action('always', [])
     id = generateEventId()
-    $scope.$storage.events.push new Event(id, $scope.realtime, trigger, actions)
+    $scope.$storage.events.push new Event(id, $scope.realtime, trigger, action)
     $scope.triggerTarget = ''
     $scope.triggerType = ''
     $scope.realtime = false
@@ -283,12 +287,12 @@ app.controller 'EventCtrl', ($scope, $sessionStorage) ->
       when 'database'
         id = generateActionId(index, 'db')
         action = new DatabaseAction(id)
-      when 'callUrl'
-        id = generateActionId(index, 'callUrl')
-        action = new CallUrlAction(id)
-      when 'callScript'
-        id = generateActionId(index, 'callSc')
-        action = new CallScriptAction(id)
+      when 'api'
+        id = generateActionId(index, 'api')
+        action = new ApiAction(id)
+      when 'script'
+        id = generateActionId(index, 'script')
+        action = new ScriptAction(id)
       else
         return null
 
